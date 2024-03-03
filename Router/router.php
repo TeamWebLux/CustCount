@@ -33,7 +33,10 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         //? AGENT DASHBOARD
         $prefix . $root . '/Portal'                                       => './Public/Pages/Portal/main_dashboard.php',
         $prefix . $root . '/Portal_Add_Deposit'                           => './Public/Pages/Portal/add_deposit.php',
-        $prefix . $root . '/Portal_See_Users'                              => './Public/Pages/Portal/see_users.php',
+        $prefix . $root . '/Portal_Add_Users'                             => './Public/Pages/Portal/add_users.php',
+        $prefix . $root . '/Portal_Add_Withdrawal'                          => './Public/Pages/Portal/add_withdrawal.php',
+        $prefix . $root . '/Portal_See_Users'                             => './Public/Pages/Portal/see_users.php',
+        $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_users.php',
 
     ];
 
