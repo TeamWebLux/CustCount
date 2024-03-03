@@ -111,13 +111,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Manager') {
                                                     <td>{$row['reflect_amount']}</td>
                                                     <td>{$row['bonus_amount']}</td>
                                                     <td>{$row['platform']}</td>
-                                                    <td>{$row['password']}</td> 
+                                                    <td>{$row['password']}</td> <!-- Consider if you really want to display passwords -->
                                                     <td>{$row['money']}</td>
                                                     <td>{$row['by_username']}</td>
                                                     <td>{$row['by_role']}</td>
                                                     <td>{$row['added_time']}</td>
                                                   </tr></tbody>";
                                             }
+                                            
                 
                                             // End table
                                             echo '</table>';
