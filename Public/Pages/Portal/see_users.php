@@ -100,9 +100,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col">Created At</th>
                                             <th scope="col">Last Login</th>
                                             </tr>';
-                        
+                        ?>
+                        <thead>
+                        <tbody>
+                        <?php
                                             while ($row = $result->fetch_assoc()) {
-                                                echo "<thead><tr><tbody>
+                                                echo "<tr>
                                                     
                                                     <td>{$row['UserID']}</td>
                                                     <td>{$row['Username']}</td>
@@ -112,9 +115,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
                                                     <td>{$row['LastLogin']}</td>
                                                    
-                                                  </tr></tbody>";
+                                                  </tr>";
                                             }
-                                            
+                                            ?>
+                        
+                        </tbody>
+                        <?php
                 
                                             // End table
                                             echo '</table>';

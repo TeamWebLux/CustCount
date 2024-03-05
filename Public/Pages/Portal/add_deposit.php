@@ -67,8 +67,8 @@
                             <div class="card-body">
                                 <form action="../App/Logic/deposit_db.php" method="post">
                                     <div class="form-group">
-                                        <label for="inputname" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="inputname" name="inputname" placeholder="Your Name" value="<?php echo isset($_SESSION['form_values']['inputname']) ? htmlspecialchars($_SESSION['form_values']['inputname']) : ''; ?>">
+                                        <label for="inputname" class="form-label">Deposit Amount</label>
+                                        <input type="text" class="form-control" id="depositamount" name="inputname" placeholder="Your Name" value="<?php echo isset($_SESSION['form_values']['inputname']) ? htmlspecialchars($_SESSION['form_values']['inputname']) : ''; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputid" class="form-label">ID</label>

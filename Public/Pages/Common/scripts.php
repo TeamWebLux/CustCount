@@ -34,6 +34,10 @@
         <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
         <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+        
 
 
         

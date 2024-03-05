@@ -67,20 +67,24 @@
                             <div class="card-body">
                                 <form action="../App/Logic/deposit_db.php" method="post">
                                     <div class="form-group">
-                                        <label for="inputname" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="inputname" name="inputname" placeholder="Your Name" value="<?php echo isset($_SESSION['form_values']['inputname']) ? htmlspecialchars($_SESSION['form_values']['inputname']) : ''; ?>">
+                                        <label for="Withdrawal" class="form-label">Withdrawal Amount</label>
+                                        <input type="number" class="form-control" id="Withdrawal" name="Withdrawal" placeholder="Withdrawal Amount" value="<?php echo isset($_SESSION['form_values']['Withdrawal']) ? htmlspecialchars($_SESSION['form_values']['Withdrawal']) : ''; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputid" class="form-label">ID</label>
-                                        <input type="text" class="form-control" id="inputid" name="inputid" placeholder="fbid instaid" value="<?php echo isset($_SESSION['form_values']['inputid']) ? htmlspecialchars($_SESSION['form_values']['inputid']) : ''; ?>">
+                                        <label for="ExtraAmount" class="form-label">Extra Amount</label>
+                                        <input type="number" class="form-control" id="ExtraAmount" name="Extra Amount" placeholder="Extra Amount" value="<?php echo isset($_SESSION['form_values']['ExtraAmount']) ? htmlspecialchars($_SESSION['form_values']['ExtraAmount']) : ''; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputreflect" class="form-label">Reflect</label>
-                                        <input type="number" class="form-control" id="inputreflect" name="inputreflect" placeholder="Reflect amount" value="<?php echo isset($_SESSION['form_values']['inputreflect']) ? htmlspecialchars($_SESSION['form_values']['inputreflect']) : ''; ?>">
+                                        <label for="TipAmount" class="form-label">Tip Amount</label>
+                                        <input type="number" class="form-control" id="TipAmount" name="Tip Amount" placeholder="Tip amount" value="<?php echo isset($_SESSION['form_values']['TipAmount']) ? htmlspecialchars($_SESSION['form_values']['TipAmount']) : ''; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputBonus" class="form-label">Bonus</label>
-                                        <input type="number" class="form-control" id="inputBonus" name="inputBonus" placeholder="Bonus Amount" value="<?php echo isset($_SESSION['form_values']['inputBonus']) ? htmlspecialchars($_SESSION['form_values']['inputBonus']) : ''; ?>">
+                                        <label for="Cashup Amount" class="form-label">Cashup Amount</label>
+                                        <input type="number" class="form-control" id="CashupAmount" name="Cashup Amount" placeholder="Cashup Amount" value="<?php echo isset($_SESSION['form_values']['Cashup Amount']) ? htmlspecialchars($_SESSION['form_values']['Cashup Amount']) : ''; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Cashup Amount" class="form-label">Platform Amount</label>
+                                        <input type="number" class="form-control" id="CashupAmount" name="Cashup Amount" placeholder="Cashup Amount" value="<?php echo isset($_SESSION['form_values']['Cashup Amount']) ? htmlspecialchars($_SESSION['form_values']['Cashup Amount']) : ''; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputPlatform" class="form-label">Platform</label>
