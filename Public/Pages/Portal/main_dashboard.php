@@ -36,7 +36,7 @@
 <body class="  ">
     <!-- loader Start -->
     <?php
-    include("./Public/Pages/Common/loader.php");
+    //  include("./Public/Pages/Common/loader.php");
 
     ?>
     <!-- loader END -->
@@ -54,7 +54,7 @@
 
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
-            <?php include "./Public/Pages/Portal/Components/forms.php" ?>
+            <!-- <?php include "./Public/Pages/Portal/Components/forms.php" ?> -->
 
             <div class="row">
                 <div class="col-lg-8">

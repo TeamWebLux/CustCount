@@ -29,8 +29,12 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         $prefix . $root . '/Portal_Add_Withdrawal'                          => './Public/Pages/Portal/add_withdrawal.php',
         $prefix . $root . '/Portal_See_Users'                             => './Public/Pages/Portal/see_users.php',
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_users.php',
-        
+
         $prefix . $root . '/Portal_User_Management'                          => './Public/Pages/Portal/manage_user.php',
+        //forms 
+        $prefix . $root . '/add_user'                         => './Public/Pages/Portal/temp.php',
+
+
 
     ];
 
@@ -51,6 +55,3 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
     }
     routeToController($uri, $routes);
 }
-
-
-?>
