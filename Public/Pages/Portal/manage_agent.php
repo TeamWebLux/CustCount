@@ -70,9 +70,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         <?php
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
-
-        $sql = "SELECT * FROM users WHERE Role = 'User'";
-
+        $sql = "SELECT * FROM users WHERE Role = 'Agent'";
+        
 
         $result = $conn->query($sql);
 
@@ -83,7 +82,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         ?>
 
 
-
+            
             <div class="content-inner container-fluid pb-0" id="page_layout">
 
 
@@ -92,8 +91,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search User</h4>
-                                    <p>User by name</p>
+                                    <h4 class="card-title">Search Agent</h4>
+                                    <p>Agent by name</p>
                                 </div>
                             </div>
 
@@ -103,7 +102,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <div class="card-body">
                                 <form action="./update_user" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select User</option>
+                                        <option value="#">Select Agent</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
@@ -128,7 +127,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">User List</h4>
+                                <h4 class="mb-0">Agent List</h4>
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -167,12 +166,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                             echo "<tr>
                                                     
                                                     <td>{$row['UserID']}</td>
-                                                    <td>
-                    <form action=\"./update_user\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
-                        <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
-                    </form>
-                </td>
+                                                    <td> <button type=\"button\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button> </td>
                                                     <td>{$row['Username']}</td>
                                                     <td>{$row['fullname']}</td>
                                                     <td>{$row['rawpass']}</td>

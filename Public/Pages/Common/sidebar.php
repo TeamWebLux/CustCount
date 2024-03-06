@@ -78,20 +78,72 @@
 
                 <?php if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) : ?>
 
-                  
-                    <li class="nav-item" >
-                            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_User_Management') echo 'active';  ?>  " aria-current="page" href="../index.php/Portal_User_Management">
+
+                    <li class="nav-item">
+                        <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_User_Management') echo 'active';  ?>  " aria-current="page" href="../index.php/Portal_User_Management">
+                            <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
+                                <svg class="icon-20" width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.4" d="M10.1167 0.333496H3.88856C1.61893 0.333496 0.333008 1.61942 0.333008 3.88905V10.1113C0.333008 12.3809 1.61893 13.6668 3.88856 13.6668H10.1167C12.3863 13.6668 13.6663 12.3809 13.6663 10.1113V3.88905C13.6663 1.61942 12.3863 0.333496 10.1167 0.333496Z" fill="currentColor" />
+                                    <path d="M3.91244 5.24609C3.61022 5.24609 3.36133 5.49498 3.36133 5.80313V10.3839C3.36133 10.6861 3.61022 10.935 3.91244 10.935C4.22059 10.935 4.46948 10.6861 4.46948 10.3839V5.80313C4.46948 5.49498 4.22059 5.24609 3.91244 5.24609Z" fill="currentColor" />
+                                    <path d="M7.02279 3.05957C6.72057 3.05957 6.47168 3.30846 6.47168 3.61661V10.384C6.47168 10.6862 6.72057 10.9351 7.02279 10.9351C7.33094 10.9351 7.57983 10.6862 7.57983 10.384V3.61661C7.57983 3.30846 7.33094 3.05957 7.02279 3.05957Z" fill="currentColor" />
+                                    <path d="M10.0932 7.66406C9.78502 7.66406 9.53613 7.91295 9.53613 8.2211V10.3841C9.53613 10.6863 9.78502 10.9352 10.0872 10.9352C10.3954 10.9352 10.6443 10.6863 10.6443 10.3841V8.2211C10.6443 7.91295 10.3954 7.66406 10.0932 7.66406Z" fill="currentColor" />
+                                </svg>
+                            </i>
+                            <span class="item-name">User Management</span>
+                        </a>
+                    </li>
+                    <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_Agent_Management') echo 'active';  ?>  " aria-current="page" href="../index.php/Portal_Agent_Management">
                                 <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
-                                    <svg class="icon-20" width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.4" d="M10.1167 0.333496H3.88856C1.61893 0.333496 0.333008 1.61942 0.333008 3.88905V10.1113C0.333008 12.3809 1.61893 13.6668 3.88856 13.6668H10.1167C12.3863 13.6668 13.6663 12.3809 13.6663 10.1113V3.88905C13.6663 1.61942 12.3863 0.333496 10.1167 0.333496Z" fill="currentColor"/>
-                                        <path d="M3.91244 5.24609C3.61022 5.24609 3.36133 5.49498 3.36133 5.80313V10.3839C3.36133 10.6861 3.61022 10.935 3.91244 10.935C4.22059 10.935 4.46948 10.6861 4.46948 10.3839V5.80313C4.46948 5.49498 4.22059 5.24609 3.91244 5.24609Z" fill="currentColor"/>
-                                        <path d="M7.02279 3.05957C6.72057 3.05957 6.47168 3.30846 6.47168 3.61661V10.384C6.47168 10.6862 6.72057 10.9351 7.02279 10.9351C7.33094 10.9351 7.57983 10.6862 7.57983 10.384V3.61661C7.57983 3.30846 7.33094 3.05957 7.02279 3.05957Z" fill="currentColor"/>
-                                        <path d="M10.0932 7.66406C9.78502 7.66406 9.53613 7.91295 9.53613 8.2211V10.3841C9.53613 10.6863 9.78502 10.9352 10.0872 10.9352C10.3954 10.9352 10.6443 10.6863 10.6443 10.3841V8.2211C10.6443 7.91295 10.3954 7.66406 10.0932 7.66406Z" fill="currentColor"/>
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M17.8877 10.8967C19.2827 10.7007 20.3567 9.50473 20.3597 8.05573C20.3597 6.62773 19.3187 5.44373 17.9537 5.21973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M19.7285 14.2505C21.0795 14.4525 22.0225 14.9255 22.0225 15.9005C22.0225 16.5715 21.5785 17.0075 20.8605 17.2815" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8867 14.6638C8.67273 14.6638 5.92773 15.1508 5.92773 17.0958C5.92773 19.0398 8.65573 19.5408 11.8867 19.5408C15.1007 19.5408 17.8447 19.0588 17.8447 17.1128C17.8447 15.1668 15.1177 14.6638 11.8867 14.6638Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8869 11.888C13.9959 11.888 15.7059 10.179 15.7059 8.069C15.7059 5.96 13.9959 4.25 11.8869 4.25C9.7779 4.25 8.0679 5.96 8.0679 8.069C8.0599 10.171 9.7569 11.881 11.8589 11.888H11.8869Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5.88509 10.8967C4.48909 10.7007 3.41609 9.50473 3.41309 8.05573C3.41309 6.62773 4.45409 5.44373 5.81909 5.21973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M4.044 14.2505C2.693 14.4525 1.75 14.9255 1.75 15.9005C1.75 16.5715 2.194 17.0075 2.912 17.2815" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </i>
-                                <span class="item-name">User Management</span>
+                                <span class="item-name">Agent Management</span>
                             </a>
-                        </li> 
+                        </li>
+                    <?php endif; ?>
+                    <?php if (in_array($role, ['Manager', 'Admin'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_Supervisor_Management') echo 'active';  ?>  " aria-current="page" href="../index.php/Portal_Supervisor_Management">
+                                <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
+                                    <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.34933 14.8577C5.38553 14.8577 2 15.47 2 17.9173C2 20.3665 5.364 20.9999 9.34933 20.9999C13.3131 20.9999 16.6987 20.3876 16.6987 17.9403C16.6987 15.4911 13.3347 14.8577 9.34933 14.8577Z" fill="currentColor"></path>
+                                        <path opacity="0.4" d="M9.34935 12.5248C12.049 12.5248 14.2124 10.4062 14.2124 7.76241C14.2124 5.11865 12.049 3 9.34935 3C6.65072 3 4.48633 5.11865 4.48633 7.76241C4.48633 10.4062 6.65072 12.5248 9.34935 12.5248Z" fill="currentColor"></path>
+                                        <path opacity="0.4" d="M16.1733 7.84873C16.1733 9.19505 15.7604 10.4513 15.0363 11.4948C14.961 11.6021 15.0275 11.7468 15.1586 11.7698C15.3406 11.7995 15.5275 11.8177 15.7183 11.8216C17.6165 11.8704 19.3201 10.6736 19.7907 8.87116C20.4884 6.19674 18.4414 3.79541 15.8338 3.79541C15.551 3.79541 15.2799 3.82416 15.0157 3.87686C14.9795 3.88453 14.9404 3.90177 14.9208 3.93244C14.8954 3.97172 14.914 4.02251 14.9394 4.05605C15.7232 5.13214 16.1733 6.44205 16.1733 7.84873Z" fill="currentColor"></path>
+                                        <path d="M21.779 15.1693C21.4316 14.4439 20.593 13.9465 19.3171 13.7022C18.7153 13.5585 17.0852 13.3544 15.5695 13.3831C15.547 13.386 15.5343 13.4013 15.5324 13.4109C15.5294 13.4262 15.5363 13.4492 15.5656 13.4655C16.2662 13.8047 18.9737 15.2804 18.6332 18.3927C18.6185 18.5288 18.729 18.6438 18.867 18.6246C19.5333 18.5317 21.2476 18.1704 21.779 17.0474C22.0735 16.4533 22.0735 15.7634 21.779 15.1693Z" fill="currentColor"></path>
+                                    </svg>
+                                </i>
+                                <span class="item-name">Supervisor Management</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (in_array($role, ['Admin'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_Manager_Management') echo 'active';  ?>  " aria-current="page" href="../index.php/Portal_Manager_Management">
+                                <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22.4541 11.3918C22.7819 11.7385 22.7819 12.2615 22.4541 12.6082C21.0124 14.1335 16.8768 18 12 18C7.12317 18 2.98759 14.1335 1.54586 12.6082C1.21811 12.2615 1.21811 11.7385 1.54586 11.3918C2.98759 9.86647 7.12317 6 12 6C16.8768 6 21.0124 9.86647 22.4541 11.3918Z" fill="currentColor" fill-opacity="0.4" stroke="currentColor"></path>
+                                        <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor"></path>
+                                        <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="currentColor"></path>
+                                        <mask id="mask0_18_1031" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="9" y="9" width="6" height="6">
+                                            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="currentColor"></path>
+                                        </mask>
+                                        <g mask="url(#mask0_18_1031)">
+                                            <path opacity="0.53" d="M13.5 12C14.3284 12 15 11.3284 15 10.5C15 9.67157 14.3284 9 13.5 9C12.6716 9 12 9.67157 12 10.5C12 11.3284 12.6716 12 13.5 12Z" fill="white"></path>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <span class="item-name">Manager Management</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item static-item">
                         <a class="nav-link static-item disabled" href="#" tabindex="-1">
                             <span class="default-icon">Add Data</span>
@@ -141,28 +193,28 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                        <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_Add_Users') echo 'active';  ?>" href="../index.php/Portal_Add_Users">
-                            <i class="icon">
-                                <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                </svg>
-                            </i>
-                            <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
-                            <span class="item-name">Add Users</span>
-                        </a>
-                    </li>
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_Add_Users') echo 'active';  ?>" href="../index.php/Portal_Add_Users">
+                                    <i class="icon">
+                                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
+                                    <span class="item-name">Add Users</span>
+                                </a>
+                            </li>
 
 
 
-                    
 
-                <?php endif; ?>
-                <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin'])) : ?>
-                   
-                    
-                    </ul>
+
+                        <?php endif; ?>
+                        <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin', 'Agent'])) : ?>
+
+
+                        </ul>
                     </li>
 
                     <li>

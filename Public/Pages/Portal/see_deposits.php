@@ -72,7 +72,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mb-0">User List</h4>
+                            <h4 class="mb-0">Deposits List</h4>
                         </div>
                         <?php
                         include './App/db/db_connect.php';
