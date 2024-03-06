@@ -1,13 +1,5 @@
 <?php
 
-// session_start();
-if (isset($_SESSION["role"])) {
-
-    $portalname  = $_SESSION['role'];
-}
-
-$key = isset($portalname) && !empty($portalname) ? "Hey__{$portalname}___:)" : "Hey__default_:)";
-
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
@@ -37,6 +29,8 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         $prefix . $root . '/Portal_Add_Withdrawal'                          => './Public/Pages/Portal/add_withdrawal.php',
         $prefix . $root . '/Portal_See_Users'                             => './Public/Pages/Portal/see_users.php',
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_users.php',
+        
+        $prefix . $root . '/Portal_User_Management'                          => './Public/Pages/Portal/manage_user.php',
 
     ];
 
@@ -57,3 +51,6 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
     }
     routeToController($uri, $routes);
 }
+
+
+?>
