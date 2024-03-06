@@ -76,11 +76,23 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         </div>
                         <?php
                         include './App/db/db_connect.php';
-                        $sql = "SELECT * FROM users";
+                        if ($role === 'Admin') {
+                            $sql = "SELECT * FROM users";
+                            // No parameters needed for Admin
+                        } elseif ($role === 'Manager') {
+                            $sql = "SELECT * FROM users WHERE Role IN ('Agent', 'User', 'Supervisor')";
+                            $params = [];
+                        } elseif ($role === 'Supervisor') {
+                            $sql = "SELECT * FROM users WHERE Role IN ('Agent', 'User')";
+                            $params = [];
+                        } elseif ($role === 'Agent') {
+                            $sql = "SELECT * FROM users WHERE Role = 'User'";
+                            $params = [];
+                        }
+                        
 
                         $result = $conn->query($sql);
 
-                        // Check if there are results
 
                         if ($result->num_rows > 0) {
                             ?>

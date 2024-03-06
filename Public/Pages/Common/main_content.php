@@ -19,7 +19,7 @@
                                  </svg>
                              </div>
                          </div>
-                         <!--logo End-->         <h4 class="logo-title d-block d-xl-none" data-setting="app_name">Qompac UI</h4>
+                         <!--logo End-->         <h4 class="logo-title d-block d-xl-none" >CustCount </h4>
                       </a>
                       <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
                          <i class="icon d-flex">
@@ -42,26 +42,7 @@
                                         </svg>
                                         <span class="nav-text ms-2">Home</span>
                                      </a>
-                                     <ul class="iq-header-sub-menu list-unstyled collapse" id="homeData">
-                                        <li class="nav-item"><a class="nav-link " href="index.html">Dashboard</a></li>
-                                        <li class="nav-item"><a class="nav-link " href="analytics-dashboard.html">Analytics</a></li>
-                                        <li class="nav-item"><a class="nav-link " href="crypto-dashboard.html">Crypto</a></li>
-                                        <li class="nav-item">
-                                           <a class="nav-link menu-arrow" data-bs-toggle="collapse" href="#menuStyles" role="button" aria-expanded="false" aria-controls="menuStyles">
-                                              Menu Style
-                                              <i class="right-icon">
-                                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                 </svg>
-                                              </i>
-                                           </a>
-                                           <ul aria-expanded="false" class="iq-header-sub-menu left list-unstyled collapse" id="menuStyles">
-                                              <li class="nav-item"><a class="nav-link " href="index-horizontal.html">Horizontal Dashboard</a></li>
-                                              <li class="nav-item"><a class="nav-link " href="index-dual-compact.html">Dual Compact</a></li>
-                                              <li class="nav-item"><a class="nav-link " href="index-boxed.html">Boxed Horizontal</a></li>
-                                           </ul>
-                                        </li>
-                                     </ul>
+                                     
                                   </li>
                                
                                
