@@ -28,6 +28,15 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         $prefix . $root . '/Portal_Add_Users'                             => './Public/Pages/Portal/add_users.php',
         $prefix . $root . '/Portal_Add_Withdrawal'                         => './Public/Pages/Portal/add_withdrawal.php',
         $prefix . $root . '/Portal_See_Users'                             => './Public/Pages/Portal/see_users.php',
+<<<<<<< HEAD
+        $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_users.php',
+
+        $prefix . $root . '/Portal_User_Management'                          => './Public/Pages/Portal/manage_user.php',
+        //forms 
+        $prefix . $root . '/add_user'                         => './Public/Pages/Portal/temp.php',
+
+
+=======
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
         
         $prefix . $root . '/Portal_User_Management'               => './Public/Pages/Portal/manage_user.php',
@@ -39,6 +48,7 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         $prefix . $root . '/Portal_Agent_Management'              => './Public/Pages/Portal/manage_agent.php',
         $prefix . $root . '/Portal_Supervisor_Management'         => './Public/Pages/Portal/manage_supervisor.php',
         $prefix . $root . '/Portal_Manager_Management'            => './Public/Pages/Portal/manage_manager.php',
+>>>>>>> c50a9f8be1e9635a2d33f18d2f09ad6e7b5a3583
 
     ];
 
