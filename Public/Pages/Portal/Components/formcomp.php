@@ -1,61 +1,61 @@
 <?php 
 $name='<div class="form-group">
 <label class="form-label" for="Inputname">Name</label>
-<input type="text" class="form-control" id="exampleInputText1" value="" placeholder="Enter Name">
+<input type="text" name="name" class="form-control" id="exampleInputText1" value="" placeholder="Enter Name">
 </div>';
 $First_name='<div class="form-group mt-2">
 <label class="form-label" for="InputFirstname">Last name</label>
-<input type="text" class="form-control" id="InputFirstname" aria-describedby="FirstHelp" placeholder="Enter First Name">
+<input type="text" name="fname" class="form-control" id="InputFirstname" aria-describedby="FirstHelp" placeholder="Enter First Name">
 </div>';
 $last_name='<div class="form-group mt-2">
     <label class="form-label" for="Inputlastname">Last name</label>
-    <input type="text" class="form-control" id="Inputlastname" aria-describedby="lastlHelp" placeholder="Enter Last Name">
+    <input type="text" name="lname" class="form-control" id="Inputlastname" aria-describedby="lastlHelp" placeholder="Enter Last Name">
     </div>';
 
 $email_id='<div class="form-group mt-2">
 <label class="form-label" for="Inputemail">Email address</label>
-<input type="email" class="form-control" id="Inputemail1" aria-describedby="emailHelp" placeholder="Enter Email">
+<input type="email" name="email" class="form-control" id="Inputemail1" aria-describedby="emailHelp" placeholder="Enter Email">
 </div>';
 $Password='<div class="form-group mt-2">
 <label class="from-label" for="Password">Password</label>
-<input type="password" class="form-control" id="Inputpassword" aria-describedby="passwordhelp" placeholder="Enter Password">
+<input type="password" name="password" class="form-control" id="Inputpassword" aria-describedby="passwordhelp" placeholder="Enter Password">
 </div>';
 
 $url_input='<div class="form-group">
 <label class="form-label" for="exampleInputurl">Url Input</label>
-<input type="url" class="form-control" id="exampleInputurl" value="https://getbootstrap.com" placeholder="Enter Url">
+<input type="url" name="input" class="form-control" id="exampleInputurl" value="" placeholder="Enter Url">
 </div>';
 $Teliphone_Input='<div class="form-group">
 <label class="form-label" for="exampleInputphone">Teliphone Input</label>
-<input type="tel" class="form-control" id="exampleInputphone" value="1-(555)-555-5555">
+<input type="tel" name="telephone number" class="form-control" id="exampleInputphone" value="">
 </div>';
 $Number_Input=' <div class="form-group">
 <label class="form-label" for="exampleInputNumber1">Number Input</label>
-<input type="number" class="form-control" id="exampleInputNumber1" value="2356">
+<input type="number" name="number" class="form-control" id="exampleInputNumber1" value="">
 </div>';
 $Date_Input='<div class="form-group">
 <label class="form-label" for="exampleInputdate">Date Input</label>
-<input type="date" class="form-control" id="exampleInputdate" value="2019-12-18">
+<input type="date" name="date" class="form-control" id="exampleInputdate" value="">
 </div>';
 $Month_Input='<div class="form-group">
 <label class="form-label" for="exampleInputmonth">Month Input</label>
-<input type="month" class="form-control" id="exampleInputmonth" value="2019-12">
+<input type="month" name="month" class="form-control" id="exampleInputmonth" value="">
 </div>';
 $Week_Input='<div class="form-group">
 <label class="form-label" for="exampleInputweek">Week Input</label>
-<input type="week" class="form-control" id="exampleInputweek" value="2019-W46">
+<input type="week" name="week" class="form-control" id="exampleInputweek" value="">
 </div>';
 $Time_Input='<div class="form-group">
 <label class="form-label" for="exampleInputtime">Time Input</label>
-<input type="time" class="form-control" id="exampleInputtime" value="13:45">
+<input type="time" name="time" class="form-control" id="exampleInputtime" value="">
 </div>';
 $Date_and_Time_Input=' <div class="form-group">
 <label class="form-label" for="exampleInputdatetime">Date and Time Input</label>
-<input type="datetime-local" class="form-control" id="exampleInputdatetime" value="2019-12-19T13:45:00">
+<input type="datetime-local" name="date and time" class="form-control" id="exampleInputdatetime" value="">
 </div>';
 $Example_textarea=' <div class="form-group">
 <label class="form-label" for="exampleFormControlTextarea1">Example textarea</label>
-<textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+<textarea name="textarea" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
 </div>';
 $Submit='<button type="submit" class="btn btn-primary">Submit</button>';
 $Cancel='<button type="submit" class="btn btn-danger">Cancel</button>';
