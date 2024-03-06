@@ -2,7 +2,7 @@
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-
+echo $uri;
 
 
 if ($uri == "test.custcount.com" || $uri == "/test.custcount.com/index.php") {
