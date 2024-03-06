@@ -68,16 +68,10 @@
                                 <form action="../App/Logic/deposit_db.php" method="post">
                                     <div class="form-group">
                                         <label for="inputname" class="form-label">Deposit Amount</label>
-                                        <input type="text" class="form-control" id="depositamount" name="inputname" placeholder="Your Name" value="<?php echo isset($_SESSION['form_values']['inputname']) ? htmlspecialchars($_SESSION['form_values']['inputname']) : ''; ?>">
+                                        <input type="number" class="form-control" id="depositamount" name="inputname" placeholder="Deposit Amount" value="<?php echo isset($_SESSION['form_values']['inputname']) ? htmlspecialchars($_SESSION['form_values']['inputname']) : ''; ?>">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputid" class="form-label">ID</label>
-                                        <input type="text" class="form-control" id="inputid" name="inputid" placeholder="fbid instaid" value="<?php echo isset($_SESSION['form_values']['inputid']) ? htmlspecialchars($_SESSION['form_values']['inputid']) : ''; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputreflect" class="form-label">Reflect</label>
-                                        <input type="number" class="form-control" id="inputreflect" name="inputreflect" placeholder="Reflect amount" value="<?php echo isset($_SESSION['form_values']['inputreflect']) ? htmlspecialchars($_SESSION['form_values']['inputreflect']) : ''; ?>">
-                                    </div>
+                                 
+                                   
                                     <div class="form-group">
                                         <label for="inputBonus" class="form-label">Bonus</label>
                                         <input type="number" class="form-control" id="inputBonus" name="inputBonus" placeholder="Bonus Amount" value="<?php echo isset($_SESSION['form_values']['inputBonus']) ? htmlspecialchars($_SESSION['form_values']['inputBonus']) : ''; ?>">
@@ -92,14 +86,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPassword4" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="inputPassword4" name="inputPassword4" placeholder="Password">
+                                        <label for="inputPassword4" class="form-label">remark</label>
+                                        <input type="text" class="form-control" id="inputPassword4" name="inputPassword4" placeholder="remark">
                                         <!-- Password fields generally shouldn't retain values for security purposes -->
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Money</label>
-                                        <input type="number" class="form-control" name="money" placeholder="Enter money" value="<?php echo isset($_SESSION['form_values']['money']) ? htmlspecialchars($_SESSION['form_values']['money']) : ''; ?>">
-                                        <span class="fs-13 text-muted">e.g "Your money in Rupees - ₹"</span>
+                                        <label class="form-label">Cashapp</label>
+                                        <input type="number" class="form-control" name="money" placeholder="Enter Cashapp" value="<?php echo isset($_SESSION['form_values']['money']) ? htmlspecialchars($_SESSION['form_values']['money']) : ''; ?>">
+                                        <span class="fs-13 text-muted"></span>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>

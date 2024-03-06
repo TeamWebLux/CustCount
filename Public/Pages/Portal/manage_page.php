@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM users WHERE Role = 'User'";
+        $sql = "SELECT * FROM pages ";
 
 
         $result = $conn->query($sql);
@@ -92,24 +92,27 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search User</h4>
-                                    <p>User by name</p>
+                                    <h4 class="card-title">Search Page</h4>
+                                    <p>Page by name</p>
                                 </div>
+                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Page</button>                       
+
                             </div>
 
                             <!-- Select Dropdown -->
 
 
                             <div class="card-body">
-                                <form action="./update_user" method="POST">
+
+                                <form action="./update_page" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select User</option>
+                                        <option value="#">Select Page</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
                                         ?>
 
-                                            <option name="userdata" value="<?php echo $row['Username'] ?>"> <?php echo $row['Username'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['page_name'] ?>"> <?php echo $row['page_name'] ?></option>
                                     <?php
                                         }
                                     }
@@ -128,7 +131,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">User List</h4>
+                                <h4 class="mb-0">Page List</h4>
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -152,12 +155,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             
                                             <th scope="col">ID</th>
                                             <th scope="col">Update</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Full Name</th>
-                                            
-                                            <th scope="col">Role</th>
+                                            <th scope="col">Page Name</th>
+                                            <th scope="col">Added By</th>
+                                            <th scope="col">Page Unique Id</th>
                                             <th scope="col">Created At</th>
-                                            <th scope="col">Last Login</th>
                                             </tr>';
                                                     ?>
                                                     <thead>
@@ -166,19 +167,17 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
                                                     
-                                                    <td>{$row['UserID']}</td>
+                                                    <td>{$row['page_id']}</td>
                                                     <td>
-                    <form action=\"./update_user\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                    <form action=\"./update_page\" method=\"post\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['page_name']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
-                                                    
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
+                                                    <td>{$row['page_name']}</td>
+                                                    <td>{$row['added_by']}</td>
+                                                    <td>{$row['createdAt']}</td> <!-- Consider if you really want to display passwords -->
+                                                    <td>{$row['page_unique_id']}</td>
                                                    
                                                   </tr>";
                                                         }

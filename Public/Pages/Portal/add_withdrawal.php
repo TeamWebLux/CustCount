@@ -79,13 +79,10 @@
                                         <input type="number" class="form-control" id="TipAmount" name="Tip Amount" placeholder="Tip amount" value="<?php echo isset($_SESSION['form_values']['TipAmount']) ? htmlspecialchars($_SESSION['form_values']['TipAmount']) : ''; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="Cashup Amount" class="form-label">Cashup Amount</label>
+                                        <label for="Cashup Amount" class="form-label">Cashapp Amount</label>
                                         <input type="number" class="form-control" id="CashupAmount" name="Cashup Amount" placeholder="Cashup Amount" value="<?php echo isset($_SESSION['form_values']['Cashup Amount']) ? htmlspecialchars($_SESSION['form_values']['Cashup Amount']) : ''; ?>">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="Cashup Amount" class="form-label">Platform Amount</label>
-                                        <input type="number" class="form-control" id="CashupAmount" name="Cashup Amount" placeholder="Cashup Amount" value="<?php echo isset($_SESSION['form_values']['Cashup Amount']) ? htmlspecialchars($_SESSION['form_values']['Cashup Amount']) : ''; ?>">
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="inputPlatform" class="form-label">Platform</label>
                                         <select id="inputPlatform" class="form-select" name="inputPlatform">
@@ -95,15 +92,11 @@
                                             <option value="Option 3" <?php echo (isset($_SESSION['form_values']['inputPlatform']) && $_SESSION['form_values']['inputPlatform'] == 'Option 3') ? 'selected' : ''; ?>>Option 3</option>
                                         </select>
                                     </div>
+                                   
                                     <div class="form-group">
-                                        <label for="inputPassword4" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="inputPassword4" name="inputPassword4" placeholder="Password">
-                                        <!-- Password fields generally shouldn't retain values for security purposes -->
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Money</label>
-                                        <input type="number" class="form-control" name="money" placeholder="Enter money" value="<?php echo isset($_SESSION['form_values']['money']) ? htmlspecialchars($_SESSION['form_values']['money']) : ''; ?>">
-                                        <span class="fs-13 text-muted">e.g "Your money in Rupees - ₹"</span>
+                                        <label class="form-label">Remark</label>
+                                        <input type="number" class="form-control" name="money" placeholder="Enter Remark" value="<?php echo isset($_SESSION['form_values']['money']) ? htmlspecialchars($_SESSION['form_values']['money']) : ''; ?>">
+                                        
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>

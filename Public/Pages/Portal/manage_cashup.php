@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM users WHERE Role = 'User'";
+        $sql = "SELECT * FROM cashups ";
 
 
         $result = $conn->query($sql);
@@ -92,24 +92,27 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search User</h4>
-                                    <p>User by name</p>
+                                    <h4 class="card-title">Search Cashup</h4>
+                                    <p>Cashup by name</p>
                                 </div>
+                                <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Cashup</button>
+
                             </div>
 
                             <!-- Select Dropdown -->
 
 
                             <div class="card-body">
-                                <form action="./update_user" method="POST">
+
+                                <form action="./update_cashup" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select User</option>
+                                        <option value="#">Select Cashup</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
                                         ?>
 
-                                            <option name="userdata" value="<?php echo $row['Username'] ?>"> <?php echo $row['Username'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['cashup_name'] ?>"> <?php echo $row['cashup_name'] ?></option>
                                     <?php
                                         }
                                     }
@@ -128,7 +131,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">User List</h4>
+                                <h4 class="mb-0">Cashup List</h4>
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -148,43 +151,48 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <thead>
                                                 <tr class="bg-white">
                                                     <?php
+
                                                     echo '<tr>
-                                            
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Update</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Full Name</th>
-                                            
-                                            <th scope="col">Role</th>
-                                            <th scope="col">Created At</th>
-                                            <th scope="col">Last Login</th>
-                                            </tr>';
+        <th scope="col">Cashup Unique ID</th>
+        <th scope="col">Update</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Opening Balance</th>
+        <th scope="col">Page Allocation ID</th>
+        <th scope="col">Cashup Name</th>
+        <th scope="col">Cash Tag</th>
+        <th scope="col">Email Address</th>
+        <th scope="col">Status</th>
+        <th scope="col">Remarks</th>
+      </tr>';
                                                     ?>
                                                     <thead>
                                                     <tbody>
                                                         <?php
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
-                                                    
-                                                    <td>{$row['UserID']}</td>
-                                                    <td>
-                    <form action=\"./update_user\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                <td>{$row['cashup_unique_id']}</td>
+                <td>
+                    <form action=\"./update_cashup\" method=\"post\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['cashup_name']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
-                                                    
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
-                                                   
-                                                  </tr>";
+                <td>{$row['start_date']}</td>
+                <td>{$row['end_date']}</td>
+                <td>{$row['opening_balance']}</td>
+                <td>{$row['page_allocation_id']}</td>
+                <td>{$row['cashup_name']}</td>
+                <td>{$row['cash_tag']}</td>
+                <td>{$row['email_address']}</td>
+                <td>{$row['status']}</td>
+                <td>{$row['remarks']}</td>
+              </tr>";
                                                         }
                                                         ?>
-
                                                     </tbody>
+
+                                                    
                                                 <?php
 
                                                 // End table
