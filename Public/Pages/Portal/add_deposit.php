@@ -19,7 +19,7 @@
         echoToastScript($toast['type'], $toast['message']);
         unset($_SESSION['toast']); // Clear the toast message from session
     }
-
+    
     if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
     // Display error message if available
@@ -32,7 +32,7 @@
 
 </head>
 
-<body class="  ">
+<body class="">
     <!-- loader Start -->
     <?php
     include("./Public/Pages/Common/loader.php");

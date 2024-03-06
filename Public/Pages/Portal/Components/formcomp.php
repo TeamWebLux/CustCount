@@ -1,4 +1,5 @@
 <?php 
+
 $name='<div class="form-group">
 <label class="form-label" for="Inputname">Name</label>
 <input type="text" class="form-control" id="exampleInputText1" value="" placeholder="Enter Name">
@@ -120,7 +121,7 @@ $Example_multiple_select='    <div class="form-group">
 <option>select-8</option>
 </select>
 </div>';
-$title ="hello";
+// $title ="hello";
 
 function fhead($title = "", $heading = "",$faction="") {
     $formstart = '<div class="row">
@@ -134,8 +135,14 @@ function fhead($title = "", $heading = "",$faction="") {
                     <form action='.$faction.' method="POST">';
     return $formstart;
 }
+function field($label, $type, $id, $placeholder, $value = "") {
+    $html = '<div class="form-group">
+                <label class="form-label" for="' . $id . '">' . $label . '</label>
+                <input type="' . $type . '" name="'.$id.'" class="form-control" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $placeholder . '">
+            </div>';
 
-
+    return $html;
+}
 
 $formend=' </form>
 
