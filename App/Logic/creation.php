@@ -1,0 +1,121 @@
+<?php
+include "../db/db_connect.php";
+session_start();
+class Creation
+{
+    private $conn; 
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function addUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Sanitize input data
+            $name = $this->sanitizeInput($_POST['name']);
+            $username = $this->sanitizeInput($_POST['username']);
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $rawpass = $this->sanitizeInput($_POST['password']);
+            $role = $this->sanitizeInput($_POST['role']);
+            $email = isset($_POST['email']) ? $this->sanitizeInput($_POST['email']) : null;
+            $managerid = isset($_POST['managerid']) ? $this->sanitizeInput($_POST['managerid']) : null;
+            $agentid = isset($_POST['agentid']) ? $this->sanitizeInput($_POST['agentid']) : null;
+            $branchId = isset($_POST['branch_id']) ? $this->sanitizeInput($_POST['branch_id']) : null;
+            $pageId = isset($_POST['page_id']) ? $this->sanitizeInput($_POST['page_id']) : null;
+
+            // Check if the username is unique
+            if ($this->isUsernameUnique($username)) {
+                $query = "INSERT INTO users (fullname, username, password, role, rawpass, branchid, pageid) VALUES (  ?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($this->conn, $query);
+                mysqli_stmt_bind_param($stmt, "sssssss", $name, $username, $password, $role, $rawpass, $branchId, $pageId);
+                $result = mysqli_stmt_execute($stmt);
+
+                if ($result) {
+                    echo "User added successfully.";
+                    $newUserId = mysqli_insert_id($this->conn);
+                    $this->addToTree($newUserId, $role,$managerid,$agentid);
+
+
+                } else {
+                    echo "Error adding user: " . mysqli_error($this->conn);
+                }
+                mysqli_stmt_close($stmt);
+            } else {
+                echo "Username is not unique. Please choose another username.";
+            }
+        }
+    }
+    private function addToTree($newUserId, $role,$managerid,$agentid)
+    {
+        $id=$_SESSION['userid'];
+        if($newUserId!=null&&$role!=null&&$managerid!=null&&$agentid!=null&&$id!=null){
+            $query = "INSERT INTO tree (agentid, adminid, managerid,userid	) VALUES (?, ?, ?,?)";
+            $stmt = mysqli_prepare($this->conn, $query);
+            mysqli_stmt_bind_param($stmt, "iiii", $agentid, $id,$managerid, $newUserId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+    
+
+        }
+        $parentId = 0; // Default to 0 or a suitable default parent ID
+        $currentUserRole = $_SESSION['role'] ?? 'Admin'; // Defaulting to Admin if session role is not set
+        $currentUserId = $_SESSION['user_id'] ?? 1; // Defaulting to 1 or a suitable admin ID if session user_id is not set
+        
+        // Determine the parent ID based on the current user's role and the new user's role
+        if ($role == 'User') {
+            if ($currentUserRole == 'Admin') {
+                $parentId = $currentUserId; // The admin themselves are the parent
+            } elseif ($currentUserRole == 'Manager' || $currentUserRole == 'Agent') {
+                $parentId = $this->findParentId($currentUserId, $currentUserRole);
+            }
+            // For users, the parent could be an Admin, Manager, or Agent
+        } elseif ($role == 'Manager' || $role == 'Agent') {
+            // For managers and agents, the parent is assumed to be an Admin or higher level manager
+            $parentId = $this->findParentId($currentUserId, $currentUserRole);
+        }
+        
+        // Insert into the tree table
+        // $query = "INSERT INTO tree (user_id, parent_id, role) VALUES (?, ?, ?)";
+        // $stmt = mysqli_prepare($this->conn, $query);
+        // mysqli_stmt_bind_param($stmt, "iis", $newUserId, $parentId, $role);
+        // mysqli_stmt_execute($stmt);
+        // mysqli_stmt_close($stmt);
+    }
+    
+    private function findParentId($userId, $userRole)
+    {
+        // Logic to find the parent ID based on current user role and ID
+        // This could involve querying the tree table to find the appropriate parent
+        // For simplicity, return a default or queried parent ID
+        return $userId; // Placeholder return
+    }
+    
+    private function isUsernameUnique($username)
+    {
+        $query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        $stmt = mysqli_prepare($this->conn, $query);
+        mysqli_stmt_bind_param($stmt, "s", $username);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $count);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        return $count == 0; // If count is 0, the username is unique
+    }
+
+    private function sanitizeInput($input)
+    {
+        return htmlspecialchars(strip_tags(trim($input)));
+    }
+}
+
+$creation = new Creation($conn);
+if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
+    $creation->addUser();
+}
+
+// Close the database connection
+mysqli_close($conn);
+?>
