@@ -144,6 +144,27 @@ function field($label, $type, $id, $placeholder, $value = "") {
     return $html;
 }
 
+
+function select($label, $id, $name, $options, $selectedOption = null) {
+    $html = '<div class="form-group">
+                <label class="form-label" for="' . $id . '">' . $label . '</label>
+                <select class="form-select" id="' . $id . '" name="' . $name . '">';
+
+    foreach ($options as $option) {
+        $selected = ($option == $selectedOption) ? 'selected' : '';
+        $html .= '<option ' . $selected . '>' . $option . '</option>';
+    }
+
+    $html .= '</select>
+            </div>';
+
+    return $html;
+}
+
+// Example usage:
+
+
+
 $formend=' </form>
 
 </div> <!-- end card-body -->
