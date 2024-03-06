@@ -80,7 +80,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="mb-0"><?php echo $user; ?> Details</h4>
-                            <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Create User</button>                        </div>
+                        </div>
 
                         <div class="card-body">
                         <div class="custom-table-effect table-responsive  border rounded">
@@ -116,12 +116,11 @@
 <br>
 <br>
 
-                            <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
-                            <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
-                            <button type="button" class="btn btn-light rounded-pill mt-2">Transaction Record</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Activate</button>
-                            <button type="button" class="btn btn-secondary rounded-pill mt-2">Chat History</button>
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button>
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Password Reset</button>
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
                         </div>
                     </div>
                 </div>

@@ -100,7 +100,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
 
                             <div class="card-body">
-                                <form action="./update_user" method="POST">
+                                <form action="./update_manager" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
                                         <option value="#">Select Manager</option>
                                         <?php
@@ -166,7 +166,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                             echo "<tr>
                                                     
                                                     <td>{$row['UserID']}</td>
-                                                    <td> <button type=\"button\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button> </td>
+
+                                                    <td>
+                    <form action=\"./update_manager\" method=\"post\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                        <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
+                    </form>
+                </td>
                                                     <td>{$row['Username']}</td>
                                                     <td>{$row['fullname']}</td>
                                                     <td>{$row['rawpass']}</td>
