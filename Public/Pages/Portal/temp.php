@@ -54,9 +54,7 @@
 
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
-
-           
-        
+            
         </div>
 
 
