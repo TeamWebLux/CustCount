@@ -42,10 +42,14 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         $prefix . $root . '/update_agent'                         => './Public/Pages/Portal/update_agent.php',
         $prefix . $root . '/update_manager'                       => './Public/Pages/Portal/update_manager.php',
         $prefix . $root . '/update_supervisor'                    => './Public/Pages/Portal/update_supervisor.php',
-        $prefix . $root . '/update_user'                          => './Public/Pages/Portal/update_user.php',
+        $prefix . $root . '/update_page'                          => './Public/Pages/Portal/update_page.php',
+        $prefix . $root . '/update_cashup'                        => './Public/Pages/Portal/update_cashup.php',
         $prefix . $root . '/Portal_Agent_Management'              => './Public/Pages/Portal/manage_agent.php',
         $prefix . $root . '/Portal_Supervisor_Management'         => './Public/Pages/Portal/manage_supervisor.php',
         $prefix . $root . '/Portal_Manager_Management'            => './Public/Pages/Portal/manage_manager.php',
+        $prefix . $root . '/Portal_Page_Management'               => './Public/Pages/Portal/manage_page.php',
+        $prefix . $root . '/Portal_Cashup_Management'             => './Public/Pages/Portal/manage_cashup.php',
+        $prefix . $root . '/Portal_Notes'                         => './Public/Pages/Portal/notes_page.php',
 
     ];
 
