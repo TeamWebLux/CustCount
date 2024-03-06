@@ -29,14 +29,17 @@
     }
 
     print($uri);
+    include './App/db/db_connect.php';
     ?>
-
+<style>
+    
+</style>
 </head>
 
 <body class="  ">
     <!-- loader Start -->
     <?php
-    include("./Public/Pages/Common/loader.php");
+    // include("./Public/Pages/Common/loader.php");
 
     ?>
     <!-- loader END -->
@@ -54,6 +57,7 @@
 
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
+       
             <div class="row">
 
            
@@ -69,18 +73,52 @@
                 <br>
                 <br>
             </div>
+            
             <div class="col-lg-4">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
-                        <h4 class="card-title text-white">Add Title</h4>
-                        <blockquote class="blockquote mb-0">
-                            <p class="font-size-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            <footer class="blockquote-footer text-white font-size-12">Someone famous in <cite title="Source Title" class="text-white">Source Title</cite></footer>
-                        </blockquote>
+                    <form action="../App/Logic/add_notes.php" method="post">
+                    <input type="text" required class="bg-primary form-control" style="font-weight: bold; font-size: 16px; color: white; background-color: #007bff; " id="titleInput" name="title" placeholder="Add Title">
+                        <br>
+                        <textarea required style="font-weight: bold; font-size: 16px; color: white; background-color: #007bff;  " class="form-control bg-primary" id="contentInput" name="content" rows="3" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."></textarea>
+                            <!-- <footer class="blockquote-footer text-white font-size-12">Someone famous in <cite title="Source Title" class="text-white">Source Title</cite></footer> -->
+                           
+                            
+                            <br>
+                            <button type="submit" class="btn btn-light">Add Note</button>
                     </div>
+                    
+                    </form>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <?php
+            $role = $_SESSION['role'];
+            $sql = "SELECT * FROM notes WHERE by_role ='$role' ORDER BY created_at DESC ";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo '<div class="col-lg-4">';
+        echo '    <div class="card text-white bg-primary mb-3" style="position: relative;">'; // Added relative positioning for absolute delete icon positioning
+        echo '        <div class="card-body">';
+        echo '            <a href="../App/Logic/delete_note.php?id=' . htmlspecialchars($row["id"]) . '" style="font-size: 34px; position: absolute; top: 0px; right: 10px; color: white; text-decoration: none;" onclick="return confirm(\'Are you sure you want to delete this note?\');">&times;</a>'; // Delete icon/button
+        echo '            <h4 class="card-title text-white">' . htmlspecialchars($row["title"]) . '</h4>';
+        echo '            <blockquote class="blockquote mb-0">';
+        echo '                <p class="font-size-14">' . htmlspecialchars($row["content"]) . '</p>';
+        echo '                <footer class="blockquote-footer text-white font-size-12">' . htmlspecialchars($row["created_at"]) . '</cite></footer>';
+        echo '            </blockquote>';
+        echo '        </div>';
+        echo '    </div>';
+        echo '</div>';
+        
+    }
+} else {
+    echo '<p>No NOTES YET </p>';
+}
+$conn->close();
+?>
+            <!-- <div class="col-lg-4">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
                         <h4 class="card-title text-white">Title</h4>
@@ -88,11 +126,13 @@
                             <p class="font-size-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                             <footer class="blockquote-footer text-white font-size-12">Someone famous in <cite title="Source Title" class="text-white">Source Title</cite></footer>
                         </blockquote>
+
+                        
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            </div>
+             </div>
 
         </div>
 
