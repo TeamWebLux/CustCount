@@ -50,6 +50,7 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
         $prefix . $root . '/Portal_Page_Management'               => './Public/Pages/Portal/manage_page.php',
         $prefix . $root . '/Portal_Cashup_Management'             => './Public/Pages/Portal/manage_cashup.php',
         $prefix . $root . '/Portal_Notes'                         => './Public/Pages/Portal/notes_page.php',
+        $prefix . $root . '/Portal_Settings'                      => './Public/Pages/Portal/portal_settings.php',
 
     ];
 
