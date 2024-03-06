@@ -20,6 +20,17 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
+    }else if ($action == 'EDIT_USER') {
+        global $title;
+        $title = "Edit User";
+        $heading="Fill the User details ";
+        echo fhead($title,$heading,'./edit_user');
+        echo '<br>';
+        echo $name;
+        echo $email_id;
+        echo $Submit;
+        echo $Cancel;
+        echo $formend;
     }
 }
 ?>
