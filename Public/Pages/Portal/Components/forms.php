@@ -20,7 +20,6 @@ if (isset($action)) {
         echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
         echo $username = field("User Name", "text", "username", "Enter Your Username", isset($_POST['username']) ? $_POST['username'] : '');
         echo $password = field("Password", "password", "password", "Enter Your Password", isset($_POST['password']) ? $_POST['password'] : '');
-
         echo $Submit;
         echo $Cancel;
         echo $formend;
@@ -36,32 +35,6 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
-
-    }else if ($action == 'EDIT_MANAGER') {
-        global $title;
-        $title = "Edit Manager";
-        $heading="Fill the Manager details ";
-        echo fhead($title,$heading,'./edit_manager');
-        echo '<br>';
-        echo $name;
-        echo $email_id;
-        echo $Password;
-        echo $Submit;
-        echo $Cancel;
-        echo $formend;
-        
-    }else if ($action == 'EDIT_') {
-        global $title;
-        $title = "Edit User";
-        $heading="Fill the User details ";
-        echo fhead($title,$heading,'./edit_user');
-        echo '<br>';
-        echo $name;
-        echo $email_id;
-        echo $Submit;
-        echo $Cancel;
-        echo $formend;
-        
     }
 }
 ?>
