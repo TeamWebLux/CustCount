@@ -19,7 +19,6 @@ class Creation
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $rawpass = $this->sanitizeInput($_POST['password']);
             $role = $this->sanitizeInput($_POST['role']);
-            $email = isset($_POST['email']) ? $this->sanitizeInput($_POST['email']) : null;
             $managerid = isset($_POST['managerid']) ? $this->sanitizeInput($_POST['managerid']) : null;
             $agentid = isset($_POST['agentid']) ? $this->sanitizeInput($_POST['agentid']) : null;
             $branchId = isset($_POST['branch_id']) ? $this->sanitizeInput($_POST['branch_id']) : null;

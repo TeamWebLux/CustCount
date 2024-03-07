@@ -146,7 +146,7 @@ if (isset($action)) {
         $actionUrl = "../App/Logic/creation.php?action=Deposit";
         if (isset($_GET['ID'])) {
             // Fetch the corresponding value from the database based on the ID
-            $depositID = $_GET['ID'];
+            $depositID = $_GET['u'];
             // Replace with your database fetching logic
         }    
         echo fhead($title, $heading, $actionUrl);
