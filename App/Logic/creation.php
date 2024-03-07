@@ -142,6 +142,25 @@ class Creation
         }
 
     }
+    public function AnotherAction(){
+        if(isset($_POST)){
+            $name=$_POST['name'];
+            $platformname=$_POST['platformname'];
+            $cashupname=$_POST['cashupname']?1:0;
+            $cashtag=$_POST['cashtag'];
+            $amount=$_POST['amount'];
+            $remark=$_POST['remark'];
+            $sql="Insert into AnotherAction (name,platformname,cashupname,cashtag,amount,remark) VALUES (?,?,?,?,?,?)";
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ssssis", $name,$platformname,$cashupname,$cashtag,$amount,$remark);
+            $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                echo "AnotherAction added successfully.";
+            }
+
+        }
+
+    }
 
     private function addToTree($newUserId, $role,$managerid,$agentid)
     {
@@ -224,6 +243,9 @@ else if (isset($_GET['action']) && $_GET['action'] == "Deposit"){
 }
 else if (isset($_GET['action']) && $_GET['action'] == "CashupAction"){
     $creation->CashupAction();
+}
+else if (isset($_GET['action']) && $_GET['action'] == "AnotherAction"){
+    $creation->AnotherAction();
 }
 
 
