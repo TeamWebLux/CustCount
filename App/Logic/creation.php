@@ -47,6 +47,13 @@ class Creation
             }
         }
     }
+    public function addPlatform(){
+        if(isset($_POST)){
+            $name=$_POST['platformname'];
+            echo $name;
+        }
+
+    }
     private function addToTree($newUserId, $role,$managerid,$agentid)
     {
         $id=$_SESSION['userid'];
@@ -114,6 +121,9 @@ class Creation
 $creation = new Creation($conn);
 if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->addUser();
+}else if (isset($_GET['action']) && $_GET['action'] == "platform"){
+    $creation->addPlatform();
+
 }
 
 // Close the database connection
