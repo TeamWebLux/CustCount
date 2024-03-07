@@ -181,7 +181,7 @@ if (isset($action)) {
        echo '<input type="text" id="cashupname-other" name="cashupname_other" style="display:none;" placeholder="Enter cashup Name">';
 
         echo field("Bonus Amount", "number", "bonusamount", "Enter the Bonus Amount");
-        echo field("Redeem", "text", "redeem", "Enter the Redeem Code or Details");
+        echo field("Remark", "text", "remark", "Enter the Remark ");
     
         echo $Submit;
         echo $Cancel;
