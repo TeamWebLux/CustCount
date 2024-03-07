@@ -2,10 +2,10 @@
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-echo $uri;
+// echo $uri;
 
 
-if ($uri == "test.custcount.com" || $uri == "/test.custcount.com/index.php") {
+if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
     echo '<script type="text/JavaScript"> 
     window.location.replace("./index.php/Login_to_CustCount");
     </script>';
