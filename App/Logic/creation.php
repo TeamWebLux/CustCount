@@ -50,7 +50,14 @@ class Creation
     public function addPlatform(){
         if(isset($_POST)){
             $name=$_POST['platformname'];
-            echo $name;
+            $sql="Insert into platform (name) VALUES (?)";
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $name);
+            $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                echo "User added successfully.";
+            }
+
         }
 
     }
