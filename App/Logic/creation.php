@@ -91,7 +91,7 @@ class Creation
             $tip=$_POST['tip'];
             $sql="Insert into cashOut (cashoutamount,fbid,accessamount,cashupname,platformname,tip) VALUES (?,?,?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "iiisss", $cashoutamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
+            mysqli_stmt_bind_param($stmt, "iiiisss", $cashoutamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 echo "Cash Out added successfully.";
