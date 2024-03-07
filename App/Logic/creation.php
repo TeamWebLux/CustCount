@@ -61,6 +61,25 @@ class Creation
         }
 
     }
+    public function CashUpAdd(){
+        if(isset($_POST)){
+            $name=$_POST['name'];
+            $cashtag=$_POST['cashtag'];
+            $number=$_POST['number'];
+            $pageid=$_POST['pageid'];
+            $branchid=$_POST['branchid'];
+            $withdrawl=$_POST['withdrawl'];
+            $sql="Insert into cashupadd (name,cashtag,number,pageid,branchid,withdrawl) VALUES (?,?,?,?,?,?)";
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "sssiis", $name,$cashtag,$number,$pageid,$branchid,$withdrawl);
+            $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                echo "User added successfully.";
+            }
+
+        }
+
+    }
     private function addToTree($newUserId, $role,$managerid,$agentid)
     {
         $id=$_SESSION['userid'];
@@ -130,6 +149,9 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->addUser();
 }else if (isset($_GET['action']) && $_GET['action'] == "platform"){
     $creation->addPlatform();
+
+}else if (isset($_GET['action']) && $_GET['action'] == "CashUpAdd"){
+    $creation->CashUpAdd();
 
 }
 
