@@ -167,7 +167,19 @@ if (isset($action)) {
         echo '<select class="form-select" id="platformname" name="platformname" onchange="showOtherField(this, \'platformname-other\')">' . $platformOptions . '</select>';
         echo '<input type="text" id="platformname-other" name="platformname_other" style="display:none;" placeholder="Enter Platform Name">';
 
-        echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
+       // echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
+       $cashupOptions = "<option value=''>Select CashUp</option>";
+       $result = $conn->query("SELECT * FROM cashup");
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               $cashupOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+           }
+       }
+       $cashupOptions .= "<option value='other'>Other</option>";
+       echo '<label for="cashupname">Cashup Name</label>';
+       echo '<select class="form-select" id="cashupname" name="cashupname" onchange="showOtherField(this, \'cashupname-other\')">' . $cashupOptions . '</select>';
+       echo '<input type="text" id="cashupname-other" name="cashupname_other" style="display:none;" placeholder="Enter cashup Name">';
+
         echo field("Bonus Amount", "number", "bonusamount", "Enter the Bonus Amount");
         echo field("Redeem", "text", "redeem", "Enter the Redeem Code or Details");
     
