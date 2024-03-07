@@ -101,7 +101,7 @@ class Creation
 
     }
 
-    //pending
+    //code and mysql pending 
     public function Deposit(){
         if(isset($_POST)){
             $depositamount=$_POST['depositamount'];
