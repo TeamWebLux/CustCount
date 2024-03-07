@@ -101,7 +101,7 @@ class Creation
 
     }
 
-    //code and mysql pending 
+    //pending
     public function Deposit(){
         if(isset($_POST)){
             $depositamount=$_POST['depositamount'];
@@ -121,7 +121,49 @@ class Creation
         }
 
     }
-
+public function Redeem(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Retrieve form data
+        $name = $_POST['name'] ?? '';
+        $platformName = $_POST['platformname'] === 'other' ? $_POST['platformname_other'] : $_POST['platformname'];
+        $cashupName = $_POST['cashupname'] === 'other' ? $_POST['cashupname_other'] : $_POST['cashupname'];
+        $cashtag = $_POST['cashtag'] ?? '';
+        $amount = $_POST['amount'] ?? 0;
+        $remark = $_POST['remark'] ?? '';
+        
+        // Prepare an SQL statement to insert the form data into the database
+        $sql = "INSERT INTO your_table_name (name, platform_name, cashup_name, cashtag, amount, remark) VALUES (?, ?, ?, ?, ?, ?)";
+        
+        try {
+            // Prepare the SQL statement
+            $stmt = mysqli_prepare($this->conn, $sql);
+    
+            // Bind parameters to the prepared statement
+            // 's' specifies the variable type => 'string'
+            $stmt->bind_param("ssssis", $name, $platformName, $cashupName, $cashtag, $amount, $remark);
+    
+            // Execute the statement
+            $stmt->execute();
+    
+            // Close statement
+            $stmt->close();
+    
+            // Redirect or inform the user of success
+            echo "Record added successfully.";
+            // Optionally, redirect to another page
+            // header('Location: success_page.php');
+        } catch(Exception $e) {
+            // Close statement if it's set
+            if (isset($stmt)) {
+                $stmt->close();
+            }
+            die("Error: " . $e->getMessage());
+        }
+    } else {
+        // Handle incorrect access or display a specific error message
+        echo "Invalid request.";
+    }
+}
 
    
 
@@ -137,25 +179,6 @@ class Creation
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 echo "CashupAction added successfully.";
-            }
-
-        }
-
-    }
-    public function AnotherAction(){
-        if(isset($_POST)){
-            $name=$_POST['name'];
-            $platformname=$_POST['platformname'];
-            $cashupname=$_POST['cashupname'] ;
-            $cashtag=$_POST['cashtag'];
-            $amount=$_POST['amount'];
-            $remark=$_POST['remark'];
-            $sql="Insert into AnotherAction (name,platformname,cashupname,cashtag,amount,remark) VALUES (?,?,?,?,?,?)";
-            $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "ssssis", $name,$platformname,$cashupname,$cashtag,$amount,$remark);
-            $result = mysqli_stmt_execute($stmt);
-            if ($result) {
-                echo "AnotherAction added successfully.";
             }
 
         }
@@ -243,9 +266,6 @@ else if (isset($_GET['action']) && $_GET['action'] == "Deposit"){
 }
 else if (isset($_GET['action']) && $_GET['action'] == "CashupAction"){
     $creation->CashupAction();
-}
-else if (isset($_GET['action']) && $_GET['action'] == "AnotherAction"){
-    $creation->AnotherAction();
 }
 
 

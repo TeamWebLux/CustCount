@@ -74,59 +74,62 @@
 
             ?>
 
-<div class="content-inner container-fluid pb-0" id="page_layout">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="mb-0"><?php echo $user; ?> Details</h4>
-                            <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Create User</button>                        </div>
+            <div class="content-inner container-fluid pb-0" id="page_layout">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0"><?php echo $user; ?> Details</h4>
+                                <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Create User</button>
+                            </div>
 
-                        <div class="card-body">
-                        <div class="custom-table-effect table-responsive  border rounded">
-                            <?php
+                            <div class="card-body">
+                                <div class="custom-table-effect table-responsive  border rounded">
+                                    <?php
 
-                            if ($result) {
-                                // Fetch the results
-                                echo '<table class="table mb-0">';
-                                echo "<tr>";
-                                echo '<tr>
+                                    if ($result) {
+                                        // Fetch the results
+                                        echo '<table class="table mb-0">';
+                                        echo "<tr>";
+                                        echo '<tr>
                                 <th>User ID</th>
                                 <th>Username</th>
                                 <th>Full Name</th>
                                 <th>Role</th>
                                 <th>Created At</th>
                                 </tr>';
-                                while ($row = $result->fetch_assoc()) {
-                                    // Output column names as table headers
-                                    echo "<tr>";
-                                    echo "<td>".$row['UserID']."</td>";
-                                    echo "<td>".$row['Username']."</td>";
-                                    echo "<td>".$row['fullname']."</td>";
-                                    echo "<td>".$row['Role']."</td>";
-                                    echo "<td>".$row['CreatedAt']."</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</table>";
-                            } else {
-                                echo "Error: " . $conn->error;
-                            }
-                            ?>
-                        </div>
-<br>
-<br>
+                                        while ($row = $result->fetch_assoc()) {
+                                            // Output column names as table headers
+                                            echo "<tr>";
+                                            echo "<td>" . $row['UserID'] . "</td>";
+                                            echo "<td>" . $row['Username'] . "</td>";
+                                            echo "<td>" . $row['fullname'] . "</td>";
+                                            echo "<td>" . $row['Role'] . "</td>";
+                                            echo "<td>" . $row['CreatedAt'] . "</td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "Error: " . $conn->error;
+                                    }
+                                    ?>
+                                </div>
+                                <br>
+                                <br>
 
-                            <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
-                            <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
-                            <button type="button" class="btn btn-light rounded-pill mt-2">Transaction Record</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Activate</button>
-                            <button type="button" class="btn btn-secondary rounded-pill mt-2">Chat History</button>
+                                <a href="./deposit" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
+                                </a>
+                                <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
+                                <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
+                                <button type="button" class="btn btn-light rounded-pill mt-2">Transaction Record</button>
+                                <button type="button" class="btn btn-success rounded-pill mt-2">Activate</button>
+                                <button type="button" class="btn btn-secondary rounded-pill mt-2">Chat History</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             </div>
         </div>
 
