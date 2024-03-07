@@ -117,7 +117,7 @@
                                 <br>
                                 <br>
 
-                                <a href="./deposit" style="text-decoration: none;">
+                                <a href="./deposit?u=$username" style="text-decoration: none;">
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
                                 </a>
                                 <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
