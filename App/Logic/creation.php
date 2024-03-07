@@ -100,6 +100,47 @@ class Creation
         }
 
     }
+
+    //pending
+    public function Deposit(){
+        if(isset($_POST)){
+            $depositamount=$_POST['depositamount'];
+            $fbid=$_POST['fbid'];
+            $accessamount=$_POST['accessamount'];
+            $cashupname=$_POST['cashupname'];
+            $platformname=$_POST['platformname'];
+            $tip=$_POST['tip'];
+            $sql="Insert into deposit (depositamount,fbid,accessamount,cashupname,platformname,tip) VALUES (?,?,?,?,?,?)";
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "iiisss", $depositamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
+            $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                echo "Deposit added successfully.";
+            }
+
+        }
+
+    }
+
+
+   
+
+    public function CashupAction(){
+        if(isset($_POST)){
+            $cashupname=$_POST['cashupname'];
+            $cashuptag=$_POST['cashuptag'];
+            $sql="Insert into CashupAction (cashupname,cashuptag) VALUES (?,?)";
+            $stmt = mysqli_prepare($this->conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ss", $cashupname,$cashuptag);
+            $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                echo "CashupAction added successfully.";
+            }
+
+        }
+
+    }
+
     private function addToTree($newUserId, $role,$managerid,$agentid)
     {
         $id=$_SESSION['userid'];
@@ -176,6 +217,13 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
 }else if (isset($_GET['action']) && $_GET['action'] == "CashOut"){
     $creation->CashOut();
 }
+else if (isset($_GET['action']) && $_GET['action'] == "Deposit"){
+    $creation->Deposit();
+}
+else if (isset($_GET['action']) && $_GET['action'] == "CashupAction"){
+    $creation->CashupAction();
+}
+
 
 // Close the database connection
 mysqli_close($conn);
