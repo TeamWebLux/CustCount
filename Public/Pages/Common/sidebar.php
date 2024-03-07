@@ -210,7 +210,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_Add_Withdrawal') echo 'active';  ?>" href="../index.php/Portal_Add_Withdrawal">
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/withdrawl') echo 'active';  ?>" href="../index.php/withdrawl">
                                     <i class="icon">
                                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <g>
@@ -222,6 +222,59 @@
                                     <span class="item-name">Add Withdrawal</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/cash_up_add') echo 'active';  ?>" href="../index.php/cash_up_add">
+                                    <i class="icon">
+                                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
+                                    <span class="item-name">Add Cash UP</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/cash_out') echo 'active';  ?>" href="../index.php/cash_out">
+                                    <i class="icon">
+                                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
+                                    <span class="item-name">Add Cash Out</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/deposit') echo 'active';  ?>" href="../index.php/deposit">
+                                    <i class="icon">
+                                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
+                                    <span class="item-name">Add deposit</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/cashup_detail') echo 'active';  ?>" href="../index.php/cashup_detail">
+                                    <i class="icon">
+                                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
+                                    <span class="item-name">Add CashUp Details</span>
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/add_user') echo 'active';  ?>" href="../index.php/add_user">
                                     <i class="icon">

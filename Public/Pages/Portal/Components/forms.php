@@ -148,7 +148,18 @@ if (isset($action)) {
         echo fhead($title, $heading, $actionUrl);
         echo field("Deposit Amount", "number", "depositamount", "Enter the Deposit Amount");
         echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
-        echo field("Platform Name", "text", "platformname", "Enter the Platform Name");
+        $platformOptions = "<option value=''>Select Platform</option>";
+        $result = $conn->query("SELECT name FROM platform");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $platformOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        $platformOptions .= "<option value='other'>Other</option>";
+        echo '<label for="platformname">Platform Name</label>';
+        echo '<select class="form-select" id="platformname" name="platformname" onchange="showOtherField(this, \'platformname-other\')">' . $platformOptions . '</select>';
+        echo '<input type="text" id="platformname-other" name="platformname_other" style="display:none;" placeholder="Enter Platform Name">';
+
         echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
         echo field("Bonus Amount", "number", "bonusamount", "Enter the Bonus Amount");
         echo field("Redeem", "text", "redeem", "Enter the Redeem Code or Details");

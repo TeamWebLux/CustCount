@@ -38,6 +38,7 @@ if ($uri == "/CustCount/" || $uri == "/CustCount/index.php") {
          $prefix . $root . '/cashup_detail'                         => './Public/Pages/Portal/temp.php',
 
          $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
