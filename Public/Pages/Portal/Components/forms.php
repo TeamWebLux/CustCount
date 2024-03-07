@@ -148,7 +148,7 @@ if (isset($action)) {
         if (isset($_GET['u'])) {
             // Fetch the corresponding value from the database based on the ID
             $depositID = $_GET['u'];
-            echo field("Enter the User Name","text","username","Enter the Username",$depositID,"readable");
+            echo field("Enter the User Name","text","username","Enter the Username",$depositID,"readonly");
 
             // Replace with your database fetching logic
         } else{  
