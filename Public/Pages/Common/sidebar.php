@@ -274,6 +274,20 @@
                                     <span class="item-name">Add CashUp Details</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/platform') echo 'active';  ?>" href="../index.php/platform">
+                                    <i class="icon">
+                                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
+                                    <span class="item-name">Add platform Details</span>
+                                </a>
+                            </li>
+
 
                             <li class="nav-item">
                                 <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/add_user') echo 'active';  ?>" href="../index.php/add_user">
