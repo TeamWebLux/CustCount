@@ -65,11 +65,11 @@ class Creation
         if(isset($_POST)){
             $name=$_POST['name'];
             $cashtag=$_POST['cashtag'];
-            $number=$_POST['number'];
+            $number=$_POST['openingbalance'];
             $pageid=$_POST['pageid'];
             $branchid=$_POST['branchid'];
             $withdrawl=$_POST['withdrawl'];
-            $sql="Insert into cashupadd (name,cashtag,number,pageid,branchid,withdrawl) VALUES (?,?,?,?,?,?)";
+            $sql="Insert into cashupadd (name,cashtag,openingbalance,pageid,branchid,withdrawl) VALUES (?,?,?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
             mysqli_stmt_bind_param($stmt, "sssiis", $name,$cashtag,$number,$pageid,$branchid,$withdrawl);
             $result = mysqli_stmt_execute($stmt);
