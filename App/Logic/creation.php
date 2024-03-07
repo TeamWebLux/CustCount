@@ -146,7 +146,7 @@ class Creation
         if(isset($_POST)){
             $name=$_POST['name'];
             $platformname=$_POST['platformname'];
-            $cashupname=$_POST['cashupname']?1:0;
+            $cashupname=$_POST['cashupname'] ;
             $cashtag=$_POST['cashtag'];
             $amount=$_POST['amount'];
             $remark=$_POST['remark'];
