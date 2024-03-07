@@ -131,7 +131,7 @@ class Creation
             $cashuptag=$_POST['cashuptag'];
             $active=$_POST['active'];
             $currentbalance=$_POST['currentbalance'];
-            $sql="Insert into CashupAction (cashupname,cashuptag,active,currentbalance) VALUES (?,?)";
+            $sql="Insert into CashupAction (cashupname,cashuptag,active,currentbalance) VALUES (?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
             mysqli_stmt_bind_param($stmt, "sssi", $cashupname,$cashuptag,$active,$currentbalance);
             $result = mysqli_stmt_execute($stmt);
