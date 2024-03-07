@@ -129,7 +129,7 @@ class Creation
         if(isset($_POST)){
             $cashupname=$_POST['cashupname'];
             $cashuptag=$_POST['cashuptag'];
-            $active=$_POST['active'];
+            $active=$_POST['active']?null:0;
             $currentbalance=$_POST['currentbalance'];
             $sql="Insert into CashupAction (cashupname,cashuptag,active,currentbalance) VALUES (?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
