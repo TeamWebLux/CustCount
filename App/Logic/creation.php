@@ -129,9 +129,11 @@ class Creation
         if(isset($_POST)){
             $cashupname=$_POST['cashupname'];
             $cashuptag=$_POST['cashuptag'];
-            $sql="Insert into CashupAction (cashupname,cashuptag) VALUES (?,?)";
+            $active=$_POST['active'];
+            $currentbalance=$_POST['currentbalance'];
+            $sql="Insert into CashupAction (cashupname,cashuptag,active,currentbalance) VALUES (?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "ss", $cashupname,$cashuptag);
+            mysqli_stmt_bind_param($stmt, "ssii", $cashupname,$cashuptag,$active,$currentbalance);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 echo "CashupAction added successfully.";
