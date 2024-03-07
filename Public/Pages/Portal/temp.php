@@ -56,9 +56,6 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
 
             <?php
-           
-
-
             include "./Public/Pages/Portal/Components/forms.php"; ?>
 
         </div>
