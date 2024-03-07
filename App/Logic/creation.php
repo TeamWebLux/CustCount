@@ -81,7 +81,7 @@ class Creation
 
     }
 
-    public function CASH_OUT(){
+    public function CashOut(){
         if(isset($_POST)){
             $cashoutamount=$_POST['cashoutamount'];
             $fbid=$_POST['fbid'];
@@ -91,7 +91,7 @@ class Creation
             $tip=$_POST['tip'];
             $sql="Insert into cashOut (cashoutamount,fbid,accessamount,cashupname,platformname,tip) VALUES (?,?,?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "iiiisss", $cashoutamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
+            mysqli_stmt_bind_param($stmt, "iiisss", $cashoutamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 echo "Cash Out added successfully.";
@@ -173,8 +173,8 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
 }else if (isset($_GET['action']) && $_GET['action'] == "CashUpAdd"){
     $creation->CashUpAdd();
 
-}else if (isset($_GET['action']) && $_GET['action'] == "CASH_OUT"){
-    $creation->CASH_OUT();
+}else if (isset($_GET['action']) && $_GET['action'] == "CashOut"){
+    $creation->CashOut();
 }
 
 // Close the database connection
