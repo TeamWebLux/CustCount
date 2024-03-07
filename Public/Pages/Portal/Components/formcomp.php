@@ -135,10 +135,10 @@ function fhead($title = "", $heading = "",$faction="") {
                     <form action='.$faction.' method="POST">';
     return $formstart;
 }
-function field($label, $type, $id, $placeholder, $value = "") {
+function field($label, $type, $id, $placeholder, $value = "",$required="",$ftype="") {
     $html = '<div class="form-group">
                 <label class="form-label" for="' . $id . '">' . $label . '</label>
-                <input type="' . $type . '" name="'.$id.'" class="form-control" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $placeholder . '">
+                <input type="' . $type . '" name="'.$id.'" class="form-control" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $placeholder . '" '.$required.' '.$ftype.'>
             </div>';
 
     return $html;

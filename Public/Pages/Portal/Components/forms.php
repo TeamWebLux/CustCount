@@ -144,13 +144,15 @@ if (isset($action)) {
         $title = "Deposit Details";
         $heading = "Fill in the Deposit Details";
         $actionUrl = "../App/Logic/creation.php?action=Deposit";
+        echo fhead($title, $heading, $actionUrl);
         if (isset($_GET['u'])) {
             // Fetch the corresponding value from the database based on the ID
             $depositID = $_GET['u'];
+            echo field("Enter the User Name","text","username","Enter the Username",$depositID,"readable");
+
             // Replace with your database fetching logic
-        }    
-        echo fhead($title, $heading, $actionUrl);
-        echo field("Enter the User Name","text","username","Enter the Username",$depositID);
+        } else{  
+        echo field("Enter the User Name","text","username","Enter the Username");}
         echo field("Deposit Amount", "number", "depositamount", "Enter the Deposit Amount");
         echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
         $platformOptions = "<option value=''>Select Platform</option>";
