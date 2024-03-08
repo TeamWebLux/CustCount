@@ -102,44 +102,31 @@ class Creation
 
     //pending
     public function Deposit(){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action']) && $_GET['action'] === 'Deposit') {
-            // Sanitize and validate input
-            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-            $depositAmount = filter_input(INPUT_POST, 'depositamount', FILTER_VALIDATE_FLOAT);
-            $fbId = filter_input(INPUT_POST, 'fbid', FILTER_SANITIZE_STRING);
-            $platformName = ($_POST['platformname'] !== 'other') ? filter_input(INPUT_POST, 'platformname', FILTER_SANITIZE_STRING) : filter_input(INPUT_POST, 'platformname_other', FILTER_SANITIZE_STRING);
-            $cashupName = ($_POST['cashupname'] !== 'other') ? filter_input(INPUT_POST, 'cashupname', FILTER_SANITIZE_STRING) : filter_input(INPUT_POST, 'cashupname_other', FILTER_SANITIZE_STRING);
-            $bonusAmount = filter_input(INPUT_POST, 'bonusamount', FILTER_VALIDATE_FLOAT);
-            $remark = filter_input(INPUT_POST, 'remark', FILTER_SANITIZE_STRING);
-        
-            // Prepare SQL statement to insert the form data into the database
+        if(isset($_POST)){
+            $username = $_POST['username'];
+            $depositAmount = $_POST['depositamount'];
+            $fbId = $_POST['fbid'];
+            $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
+            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
+            $bonusAmount = $_POST['bonusamount'];
+            $remark = $_POST['remark'];
+    
             $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-            if ($stmt = $conn->prepare($sql)) {
-                $stmt->bind_param("sdsddss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark);
-        
-                if ($stmt->execute()) {
-                    // Upon successful insertion
-                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Deposit added successfully.'];
-                } else {
-                    // If insertion fails
-                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error adding deposit: ' . $stmt->error];
-                }
-                $stmt->close();
+            $stmt = mysqli_prepare($this->conn, $sql);
+            
+            mysqli_stmt_bind_param($stmt, "sdsddss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark);
+            $result = mysqli_stmt_execute($stmt);
+    
+            if ($result) {
+                echo "Deposit added successfully.";
             } else {
-                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing SQL: ' . $conn->error];
+                echo "Error adding deposit: " . mysqli_stmt_error($stmt);
             }
-            // Redirect to a specific page to avoid form resubmission issues
-            header('Location: your_redirect_page.php'); // Adjust the redirection URL as necessary
-        } else {
-            // Handle incorrect form submission
-            echo "Invalid request.";
+    
+            mysqli_stmt_close($stmt);
         }
-        
-        $conn->close();
-         
     }
-public function Redeem(){
+    public function Redeem(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Retrieve form data
         $name = $_POST['name'] ?? '';
