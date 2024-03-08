@@ -90,12 +90,12 @@ if ($result) {
    
     // Output column headers
     echo '<tr>
-            <th scope="col">Cashup Unique ID</th>
+            <th scope="col">CashApp Unique ID</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
             <th scope="col">Opening Balance</th>
             <th scope="col">Page Allocation ID</th>
-            <th scope="col">Cashup Name</th>
+            <th scope="col">CashApp Name</th>
             <th scope="col">Cash Tag</th>
             <th scope="col">Email Address</th>
             <th scope="col">Status</th>
