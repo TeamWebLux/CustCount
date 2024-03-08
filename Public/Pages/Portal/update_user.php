@@ -123,7 +123,7 @@
                                 <a href="./cash_out?u=<?php echo $username; ?>" style="text-decoration: none;">
                                 <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
                                 </a>
-                                <a href="./cash_out?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                <a href="#?u=<?php echo $username; ?>" style="text-decoration: none;">
                                 <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
                                 </a>
                                 <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
