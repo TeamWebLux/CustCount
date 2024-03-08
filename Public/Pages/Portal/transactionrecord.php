@@ -56,16 +56,22 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
 
             <?php
+            include "./App/db/db_connect.php";
+
             $username = $_GET['u']; // The username you're querying for
-            $sql = "SELECT 'CashIn' AS transaction_type, amount, date, username FROM CashIn WHERE username = $username
-                    UNION ALL
-                    SELECT 'CashOut', amount, date, username FROM CashOut WHERE username = $username";
-            
+            $sql = "SELECT 'CashIn' AS transaction_type, amount, date, username FROM CashIn WHERE username = ?
+        UNION ALL
+        SELECT 'CashOut', amount, date, username FROM CashOut WHERE username = ?";
+
             $stmt = $conn->prepare($sql);
-            // $stmt->execute(['username' => $username]);
-            $results = $stmt->fetchAll();
+            $stmt->bind_param('ss', $username, $username); // Assuming 'username' is a string, adjust the type if needed
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $results = $result->fetch_all(MYSQLI_ASSOC);
             print_r($results);
-            
+            $stmt->close();
+            $conn->close();
+            ?>
 
 
 
@@ -73,7 +79,7 @@
 
 
 
-             ?>
+            ?>
 
         </div>
 
