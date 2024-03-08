@@ -61,9 +61,10 @@
                     UNION ALL
                     SELECT 'CashOut', amount, date, username FROM CashOut WHERE username = $username";
             
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['username' => $username]);
+            $stmt = $conn->prepare($sql);
+            // $stmt->execute(['username' => $username]);
             $results = $stmt->fetchAll();
+            print_r($results);
             
 
 
