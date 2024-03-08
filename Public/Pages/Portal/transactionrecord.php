@@ -2,9 +2,11 @@
 <html lang="en" dir="ltr">
 
 <head>
+
     <?php
     include("./Public/Pages/Common/header.php");
     include "./Public/Pages/Common/auth_user.php";
+//cass
 
     // Function to echo the script for toastr
     function echoToastScript($type, $message)
@@ -28,8 +30,30 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
 
-    print($uri);
+    // print($uri);
     ?>
+    <!-- css -->
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .cashin {
+            color: green;
+        }
+
+        .cashout {
+            color: red;
+        }
+    </style>
+
 
 </head>
 
@@ -73,26 +97,28 @@
             $conn->close();
             ?>
 
-            <table border="1" cellpadding="5">
-                <thead>
-                    <tr>
-                        <th>Transaction Type</th>
-                        <th>Amount</th>
-                        <th>Timestamp</th>
-                        <th>Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($results as $row) : ?>
-                        <tr style="background-color: <?= ($row['transaction_type'] === 'CashIn') ? 'green' : 'red' ?>;">
-                            <td><?= $row['transaction_type'] ?></td>
-                            <td><?= $row['deposit_amount'] ?></td>
-                            <td><?= $row['added_time'] ?></td>
-                            <td><?= $row['username'] ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+<table>
+        <thead>
+            <tr>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Timestamp</th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($results as $row): ?>
+                <tr>
+                    <td class="<?= ($row['transaction_type'] === 'CashIn') ? 'cashin' : 'cashout' ?>">
+                        <?= $row['transaction_type'] ?>
+                    </td>
+                    <td><?= $row['deposit_amount'] ?></td>
+                    <td><?= $row['added_time'] ?></td>
+                    <td><?= $row['username'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
 
         </div>
