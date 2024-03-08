@@ -95,6 +95,10 @@
             print_r($results);
             $stmt->close();
             $conn->close();
+            usort($results, function ($a, $b) {
+                return strtotime($b['added_time']) - strtotime($a['added_time']);
+            });
+            
             ?>
 
 <table>
