@@ -3,11 +3,15 @@ include "../db/db_connect.php";
 session_start();
 class Creation
 {
+    private $susername,$srole;
     private $conn; 
 
     public function __construct($conn)
     {
         $this->conn = $conn;
+        $this->susername = $_SESSION['username'];
+        $this->srole = $_SESSION['role'];
+
     }
 
     public function addUser()
@@ -110,11 +114,13 @@ class Creation
             $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
             $bonusAmount = $_POST['bonusamount'];
             $remark = $_POST['remark'];
+            $by_role=$this->srole;
+            $by_username=$this->susername;
     
-            $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark,by_username,by_role) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
             
-            mysqli_stmt_bind_param($stmt, "sdsssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark);
+            mysqli_stmt_bind_param($stmt, "sdsssssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark,$by_username,$by_role);
             $result = mysqli_stmt_execute($stmt);
     
             if ($result) {
