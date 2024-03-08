@@ -129,7 +129,10 @@
                     <td><?= $row['added_time'] ?></td>
                     <td><?= $row['username'] ?></td>
                 </tr>
-            <?php endforeach; ?>
+                
+            <?php endforeach;
+            
+            echo "End Of the result";?>
         </tbody>
     </table>
 
