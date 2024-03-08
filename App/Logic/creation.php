@@ -135,15 +135,18 @@ class Creation
     public function Redeem(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Retrieve form data
-        $name = $_POST['name'] ?? '';
+        $name = $_POST['username'] ?? '';
         $platformName = $_POST['platformname'] === 'other' ? $_POST['platformname_other'] : $_POST['platformname'];
         $cashupName = $_POST['cashupname'] === 'other' ? $_POST['cashupname_other'] : $_POST['cashupname'];
         $cashtag = $_POST['cashtag'] ?? '';
         $amount = $_POST['amount'] ?? 0;
         $remark = $_POST['remark'] ?? '';
+        $by_role=$this->srole;
+        $by_username=$this->susername;
+
         
         // Prepare an SQL statement to insert the form data into the database
-        $sql = "INSERT INTO your_table_name (name, platform_name, cashup_name, cashtag, amount, remark) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO withdrawl (username, platform_name, cashup_name, cashtag, amount, remark,by_username) VALUES (?, ?, ?, ?, ?, ?,?)";
         
         try {
             // Prepare the SQL statement
@@ -151,7 +154,7 @@ class Creation
     
             // Bind parameters to the prepared statement
             // 's' specifies the variable type => 'string'
-            $stmt->bind_param("ssssis", $name, $platformName, $cashupName, $cashtag, $amount, $remark);
+            $stmt->bind_param("ssssiss", $name, $platformName, $cashupName, $cashtag, $amount, $remark,$by_username);
     
             // Execute the statement
             $stmt->execute();
@@ -277,7 +280,10 @@ else if (isset($_GET['action']) && $_GET['action'] == "Deposit"){
 }
 else if (isset($_GET['action']) && $_GET['action'] == "CashupAction"){
     $creation->CashupAction();
+}else if (isset($_GET['action']) && $_GET['action'] == "Withdrawl"){
+    $creation->Redeem();
 }
+
 
 
 // Close the database connection

@@ -220,14 +220,14 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     }else if ($action == "WITHDRAWL" && ($role == "Admin")) {
-        $title = "Another Action Details";
+              // Fetch platform names from the database
+  $title = "Withdrawl Action Details";
         $heading = "Fill in the Details";
-        $actionUrl = "../App/Logic/creation.php?action=AnotherAction"; // Adjust the action URL as needed
+        $actionUrl = "../App/Logic/creation.php?action=Withdrawl"; // Adjust the action URL as needed
     
         echo fhead($title, $heading, $actionUrl);
     
         // Assume $conn is your database connection
-        // Fetch platform names from the database
         $platformOptions = "<option value=''>Select Platform</option>";
         $result = $conn->query("SELECT name FROM platform");
         if ($result->num_rows > 0) {
@@ -246,9 +246,11 @@ if (isset($action)) {
             }
         }
         $cashupOptions .= "<option value='other'>Other</option>";
-    
-        // Fields for Another Action Details
-        echo field("Name", "text", "name", "Enter the Name");
+            if (isset($_GET['u'])) {
+            $depositID = $_GET['u'];
+            echo field("Enter the User Name","text","username","Enter the Username",$depositID,"readonly");
+        } else{  
+        echo field("Enter the User Name","text","username","Enter the Username");}
         
         // Platform Name dropdown with "Other" option
         echo '<label for="platformname">Platform Name</label>';
