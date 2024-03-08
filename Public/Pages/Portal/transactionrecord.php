@@ -59,9 +59,9 @@
             include "./App/db/db_connect.php";
 
             $username = $_GET['u']; // The username you're querying for
-            $sql = "SELECT 'CashIn' AS transaction_type, amount, date, username FROM deposits WHERE username = ?
+            $sql = "SELECT 'CashIn' AS transaction_type, deposite_amount, added_time, username FROM deposits WHERE username = ?
         UNION ALL
-        SELECT * FROM cashOut WHERE username = ?";
+        SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE username = ?";
 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('ss', $username, $username); // Assuming 'username' is a string, adjust the type if needed
