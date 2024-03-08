@@ -81,9 +81,9 @@
         <?php
 include "./App/db/db_connect.php";
 if ($_GET['u']) {
-    $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE username = ?
+    $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username,by_username FROM deposits WHERE username = ?
         UNION ALL
-        SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE username = ?";
+        SELECT 'CashOut', cashoutamount, timestamp, username,by_username FROM cashOut WHERE username = ?";
     $username = $_GET['u'];
 } elseif ($_GET['a']) {
     $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE by_username = ?
@@ -115,6 +115,8 @@ if (empty($results)) {
                 <th>Amount</th>
                 <th>Timestamp</th>
                 <th>Username</th>
+                <th>By </th>
+
             </tr>
         </thead>
         <tbody>
@@ -126,6 +128,8 @@ if (empty($results)) {
                     <td><?= $row['deposit_amount'] ?></td>
                     <td><?= $row['added_time'] ?></td>
                     <td><?= $row['username'] ?></td>
+                    <td><?= $row['by_username'] ?></td>
+
                 </tr>
             <?php endforeach;
             echo "End Of the result"; ?>
