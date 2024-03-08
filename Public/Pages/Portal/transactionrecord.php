@@ -81,7 +81,7 @@
         <?php
 include "./App/db/db_connect.php";
 if ($_GET['u']) {
-    $sql = "SELECT 'CashIn' AS transaction_type, r deposit_amount, added_time, username,by_username FROM deposits WHERE username = ?
+    $sql = "SELECT 'CashIn' AS transaction_type,  deposit_amount, added_time, username,by_username FROM deposits WHERE username = ?
         UNION ALL
         SELECT 'CashOut', cashoutamount, timestamp, username,by_username FROM cashOut WHERE username = ?";
     $username = $_GET['u'];
