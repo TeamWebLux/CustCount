@@ -81,13 +81,23 @@
             <?php
             include "./App/db/db_connect.php";
 
-            $username = $_GET['u']; // The username you're querying for
+            if($_GET['u']){
+
             $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE username = ?
         UNION ALL
         SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE username = ?";
+                    $username = $_GET['u'];
+
+            } elseif($_GET['a']){
+                $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE by_username = ?
+                UNION ALL
+                SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE by_username = ?";
+                            $username = $_GET['a'];
+        
+            }
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ss', $username, $username); // Assuming 'username' is a string, adjust the type if needed
+            $stmt->bind_param('ss', $username, $username); 
             $stmt->execute();
             $result = $stmt->get_result();
             $results = $result->fetch_all(MYSQLI_ASSOC);
