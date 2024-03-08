@@ -59,7 +59,7 @@
             include "./App/db/db_connect.php";
 
             $username = $_GET['u']; // The username you're querying for
-            $sql = "SELECT 'CashIn' AS transaction_type, amount, date, username FROM CashIn WHERE username = ?
+            $sql = "SELECT 'CashIn' AS transaction_type, amount, date, username FROM deposits WHERE username = ?
         UNION ALL
         SELECT 'CashOut', amount, date, username FROM CashOut WHERE username = ?";
 
