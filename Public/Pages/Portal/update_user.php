@@ -120,7 +120,7 @@
                                 <a href="./deposit?u=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
                                 </a>
-                                <a href="./withdrawl?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                <a href="./cash_out?u=<?php echo $username; ?>" style="text-decoration: none;">
                                 <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
                                 </a>
 
