@@ -73,13 +73,27 @@
             $conn->close();
             ?>
 
+            <table border="1" cellpadding="5">
+                <thead>
+                    <tr>
+                        <th>Transaction Type</th>
+                        <th>Amount</th>
+                        <th>Timestamp</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($results as $row) : ?>
+                        <tr style="background-color: <?= ($row['transaction_type'] === 'CashIn') ? 'green' : 'red' ?>;">
+                            <td><?= $row['transaction_type'] ?></td>
+                            <td><?= $row['deposit_amount'] ?></td>
+                            <td><?= $row['added_time'] ?></td>
+                            <td><?= $row['username'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-
-
-
-
-
-            ?>
 
         </div>
 
