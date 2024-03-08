@@ -156,7 +156,7 @@ if (isset($action)) {
        $result = $conn->query("SELECT * FROM cashups");
        if ($result->num_rows > 0) {
            while ($row = $result->fetch_assoc()) {
-               $cashupOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+               $cashupOptions .= "<option value='" . htmlspecialchars($row['cashup_name']) . "'>" . htmlspecialchars($row['cashup_name']) . "</option>";
            }
        }
        $cashupOptions .= "<option value='other'>Other</option>";
@@ -200,7 +200,7 @@ if (isset($action)) {
        $result = $conn->query("SELECT * FROM cashups");
        if ($result->num_rows > 0) {
            while ($row = $result->fetch_assoc()) {
-               $cashupOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+               $cashupOptions .= "<option value='" . htmlspecialchars($row['cashup_name']) . "'>" . htmlspecialchars($row['cashup_name']) . "</option>";
            }
        }
        $cashupOptions .= "<option value='other'>Other</option>";
