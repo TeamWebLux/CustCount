@@ -192,7 +192,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         ?>
                                                     </tbody>
 
-                                                    
+
                                                 <?php
 
                                                 // End table
