@@ -39,6 +39,7 @@ if ($uri == "/" || $uri == "/index.php") {
 
          $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
