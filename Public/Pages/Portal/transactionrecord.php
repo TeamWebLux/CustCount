@@ -78,39 +78,38 @@
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
 
-            <?php
-            include "./App/db/db_connect.php";
+        <?php
+include "./App/db/db_connect.php";
 
-            if($_GET['u']){
-
-            $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE username = ?
+if ($_GET['u']) {
+    $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE username = ?
         UNION ALL
         SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE username = ?";
-                    $username = $_GET['u'];
+    $username = $_GET['u'];
+} elseif ($_GET['a']) {
+    $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE by_username = ?
+        UNION ALL
+        SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE by_username = ?";
+    $username = $_GET['a'];
+}
 
-            } elseif($_GET['a']){
-                $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE by_username = ?
-                UNION ALL
-                SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE by_username = ?";
-                            $username = $_GET['a'];
-        
-            }
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('ss', $username, $username);
+$stmt->execute();
+$result = $stmt->get_result();
+$results = $result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+$conn->close();
 
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ss', $username, $username); 
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $results = $result->fetch_all(MYSQLI_ASSOC);
-            // print_r($results);
-            $stmt->close();
-            $conn->close();
-            usort($results, function ($a, $b) {
-                return strtotime($b['added_time']) - strtotime($a['added_time']);
-            });
-            
-            ?>
+if (empty($results)) {
+    echo "No records found";
+} else {
+    usort($results, function ($a, $b) {
+        return strtotime($b['added_time']) - strtotime($a['added_time']);
+    });
+?>
 
-<table>
+    <table>
         <thead>
             <tr>
                 <th>Transaction Type</th>
@@ -129,12 +128,12 @@
                     <td><?= $row['added_time'] ?></td>
                     <td><?= $row['username'] ?></td>
                 </tr>
-                
             <?php endforeach;
-            
-            echo "End Of the result";?>
+            echo "End Of the result"; ?>
         </tbody>
     </table>
+
+<?php } ?>
 
 
         </div>
