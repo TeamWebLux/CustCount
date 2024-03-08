@@ -61,7 +61,7 @@
             $username = $_GET['u']; // The username you're querying for
             $sql = "SELECT 'CashIn' AS transaction_type, amount, date, username FROM deposits WHERE username = ?
         UNION ALL
-        SELECT 'CashOut', amount, date, username FROM cashOut WHERE username = ?";
+        SELECT * FROM cashOut WHERE username = ?";
 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('ss', $username, $username); // Assuming 'username' is a string, adjust the type if needed
