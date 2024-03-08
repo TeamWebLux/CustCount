@@ -126,12 +126,12 @@ if ($result) {
 <br>
 <br>
 
-                            <button type="button" class="btn btn-danger rounded-pill mt-2">Delete Page</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Allocate Page</button>
-                            <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>
-                            <button type="button" class="btn btn-light rounded-pill mt-2">Page Record</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Page is Active</button>
-                            <button type="button" class="btn btn-secondary rounded-pill mt-2">Page History</button>
+                            <button type="button" class="btn btn-danger rounded-pill mt-2">Delete CashApp</button>
+                            <button type="button" class="btn btn-success rounded-pill mt-2">Allocate CashApp</button>
+                            <button type="button" class="btn btn-warning rounded-pill mt-2">Edit CashApp</button>
+                            <button type="button" class="btn btn-light rounded-pill mt-2">CashApp Record</button>
+                            <button type="button" class="btn btn-success rounded-pill mt-2">CashApp is Active</button>
+                            <button type="button" class="btn btn-secondary rounded-pill mt-2">CashApp History</button>
                         </div>
                     </div>
                 </div>
