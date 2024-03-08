@@ -6,7 +6,6 @@
     <?php
     include("./Public/Pages/Common/header.php");
     include "./Public/Pages/Common/auth_user.php";
-//cass
 
     // Function to echo the script for toastr
     function echoToastScript($type, $message)
@@ -92,7 +91,7 @@
             $stmt->execute();
             $result = $stmt->get_result();
             $results = $result->fetch_all(MYSQLI_ASSOC);
-            print_r($results);
+            // print_r($results);
             $stmt->close();
             $conn->close();
             usort($results, function ($a, $b) {
