@@ -120,7 +120,7 @@
                                         <path d="M4.044 14.2505C2.693 14.4525 1.75 14.9255 1.75 15.9005C1.75 16.5715 2.194 17.0075 2.912 17.2815" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </i>
-                                <span class="item-name">Cashup Management</span>
+                                <span class="item-name">CashApp Management</span>
                             </a>
                         </li>
                         <li class="nav-item">
