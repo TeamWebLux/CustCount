@@ -146,7 +146,7 @@ class Creation
 
         
         // Prepare an SQL statement to insert the form data into the database
-        $sql = "INSERT INTO withdrawl (username, platform_name, cashup_name, cashtag, amount, remark,by_username) VALUES (?, ?, ?, ?, ?, ?,?)";
+        $sql = "INSERT INTO withdrawl (username, platformname, cashupname, cashtag, amount, remark,by_username) VALUES (?, ?, ?, ?, ?, ?,?)";
         
         try {
             // Prepare the SQL statement
