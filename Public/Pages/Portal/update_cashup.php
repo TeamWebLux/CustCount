@@ -90,12 +90,12 @@ if ($result) {
    
     // Output column headers
     echo '<tr>
-            <th scope="col">Cashup Unique ID</th>
+            <th scope="col">CashApp Unique ID</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
             <th scope="col">Opening Balance</th>
             <th scope="col">Page Allocation ID</th>
-            <th scope="col">Cashup Name</th>
+            <th scope="col">CashApp Name</th>
             <th scope="col">Cash Tag</th>
             <th scope="col">Email Address</th>
             <th scope="col">Status</th>
@@ -126,12 +126,12 @@ if ($result) {
 <br>
 <br>
 
-                            <button type="button" class="btn btn-danger rounded-pill mt-2">Delete Page</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Allocate Page</button>
-                            <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>
-                            <button type="button" class="btn btn-light rounded-pill mt-2">Page Record</button>
-                            <button type="button" class="btn btn-success rounded-pill mt-2">Page is Active</button>
-                            <button type="button" class="btn btn-secondary rounded-pill mt-2">Page History</button>
+                            <button type="button" class="btn btn-danger rounded-pill mt-2">Delete CashApp</button>
+                            <button type="button" class="btn btn-success rounded-pill mt-2">Allocate CashApp</button>
+                            <button type="button" class="btn btn-warning rounded-pill mt-2">Edit CashApp</button>
+                            <button type="button" class="btn btn-light rounded-pill mt-2">CashApp Record</button>
+                            <button type="button" class="btn btn-success rounded-pill mt-2">CashApp is Active</button>
+                            <button type="button" class="btn btn-secondary rounded-pill mt-2">CashApp History</button>
                         </div>
                     </div>
                 </div>

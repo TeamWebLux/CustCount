@@ -76,7 +76,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         </div>
                         <?php
                         include './App/db/db_connect.php';
-                        $sql = "SELECT id, name, user_id, reflect_amount, bonus_amount, platform, password, money, by_username, by_role, added_time FROM deposits";
+                        $sql = "SELECT * FROM deposits";
 
                         $result = $conn->query($sql);
 
@@ -93,13 +93,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             echo '<tr>
                                             
                                             <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">User ID</th>
-                                            <th scope="col">Reflect Amount</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col"> Amount</th>
                                             <th scope="col">Bonus Amount</th>
                                             <th scope="col">Platform</th>
-                                            <th scope="col">Password</th>
-                                            <th scope="col">Money</th>
+                                            <th scope="col">Cash Up Name</th>
                                             <th scope="col">By Username</th>
                                             <th scope="col">By Role</th>
                                             <th scope="col">Added Time</th>
@@ -109,13 +107,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                 echo "<thead><tr><tbody>
                                                     
                                                     <td>{$row['id']}</td>
-                                                    <td>{$row['name']}</td>
-                                                    <td>{$row['user_id']}</td>
-                                                    <td>{$row['reflect_amount']}</td>
+                                                    <td>{$row['username']}</td>
+                                                    <td>{$row['deposit_amount']}</td>
                                                     <td>{$row['bonus_amount']}</td>
-                                                    <td>{$row['platform']}</td>
-                                                    <td>{$row['password']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['money']}</td>
+                                                    <td>{$row['platform_name']}</td>
+                                                    <td>{$row['cashup_name']}</td>
                                                     <td>{$row['by_username']}</td>
                                                     <td>{$row['by_role']}</td>
                                                     <td>{$row['added_time']}</td>

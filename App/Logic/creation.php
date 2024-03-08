@@ -3,11 +3,15 @@ include "../db/db_connect.php";
 session_start();
 class Creation
 {
+    private $susername,$srole;
     private $conn; 
 
     public function __construct($conn)
     {
         $this->conn = $conn;
+        $this->susername = $_SESSION['username'];
+        $this->srole = $_SESSION['role'];
+
     }
 
     public function addUser()
@@ -82,15 +86,19 @@ class Creation
 
     public function CashOut(){
         if(isset($_POST)){
+            $username=$_POST['username'];
             $cashoutamount=$_POST['cashoutamount'];
             $fbid=$_POST['fbid'];
             $accessamount=$_POST['accessamount'];
-            $cashupname=$_POST['cashupname'];
-            $platformname=$_POST['platformname'];
+            $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
+            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
             $tip=$_POST['tip'];
-            $sql="Insert into cashOut (cashoutamount,fbid,accessamount,cashupname,platformname,tip) VALUES (?,?,?,?,?,?)";
+            $by_role=$this->srole;
+            $by_username=$this->susername;
+
+            $sql="Insert into cashOut (username,cashoutamount,fbid,accessamount,cashupname,platformname,tip,by_role,by_username) VALUES (?,?,?,?,?,?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "iiisss", $cashoutamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
+            mysqli_stmt_bind_param($stmt, "siiisssss",$username, $cashoutamount,$fbid,$accessamount,$cashupName,$platformName,$tip,$by_role,$by_username);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 echo "Cash Out added successfully.";
@@ -103,43 +111,51 @@ class Creation
     //pending
     public function Deposit(){
         if(isset($_POST)){
-            $depositamount=$_POST['depositamount'];
-            $fbid=$_POST['fbid'];
-            $accessamount=$_POST['accessamount'];
-            $cashupname=$_POST['cashupname'];
-            $platformname=$_POST['platformname'];
-            $tip=$_POST['tip'];
-            $sql="Insert into deposit (depositamount,fbid,accessamount,cashupname,platformname,tip) VALUES (?,?,?,?,?,?)";
+            $username = $_POST['username'];
+            $depositAmount = $_POST['depositamount'];
+            $fbId = $_POST['fbid'];
+            $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
+            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
+            $bonusAmount = $_POST['bonusamount'];
+            $remark = $_POST['remark'];
+            $by_role=$this->srole;
+            $by_username=$this->susername;
+    
+            $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark,by_username,by_role) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "iiisss", $depositamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
+            
+            mysqli_stmt_bind_param($stmt, "sdsssssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark,$by_username,$by_role);
             $result = mysqli_stmt_execute($stmt);
+    
             if ($result) {
                 echo "Deposit added successfully.";
+            } else {
+                echo "Error adding deposit: " . mysqli_stmt_error($stmt);
             }
-
+    
+            mysqli_stmt_close($stmt);
         }
-
     }
-public function Redeem(){
+    public function Redeem(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Retrieve form data
-        $name = $_POST['name'] ?? '';
+        $name = $_POST['username'] ?? '';
         $platformName = $_POST['platformname'] === 'other' ? $_POST['platformname_other'] : $_POST['platformname'];
         $cashupName = $_POST['cashupname'] === 'other' ? $_POST['cashupname_other'] : $_POST['cashupname'];
         $cashtag = $_POST['cashtag'] ?? '';
         $amount = $_POST['amount'] ?? 0;
         $remark = $_POST['remark'] ?? '';
+        $by_role=$this->srole;
+        $by_username=$this->susername;
+
         
         // Prepare an SQL statement to insert the form data into the database
-        $sql = "INSERT INTO your_table_name (name, platform_name, cashup_name, cashtag, amount, remark) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO withdrawl (username, platformname, cashupname, cashtag, amount, remark,by_username) VALUES (?, ?, ?, ?, ?, ?,?)";
         
         try {
             // Prepare the SQL statement
             $stmt = mysqli_prepare($this->conn, $sql);
-    
-            // Bind parameters to the prepared statement
-            // 's' specifies the variable type => 'string'
-            $stmt->bind_param("ssssis", $name, $platformName, $cashupName, $cashtag, $amount, $remark);
+            $stmt->bind_param("ssssiss", $name, $platformName, $cashupName, $cashtag, $amount, $remark,$by_username);
     
             // Execute the statement
             $stmt->execute();
@@ -265,7 +281,10 @@ else if (isset($_GET['action']) && $_GET['action'] == "Deposit"){
 }
 else if (isset($_GET['action']) && $_GET['action'] == "CashupAction"){
     $creation->CashupAction();
+}else if (isset($_GET['action']) && $_GET['action'] == "Withdrawl"){
+    $creation->Redeem();
 }
+
 
 
 // Close the database connection

@@ -13,7 +13,7 @@
     }
 
     // Check if there's a toast message set in session, display it, then unset
-    print_r($_SESSION);
+    //print_r($_SESSION);
     if (isset($_SESSION['toast'])) {
         $toast = $_SESSION['toast'];
         echoToastScript($toast['type'], $toast['message']);
@@ -28,7 +28,7 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
 
-    print($uri);
+    //print($uri);
     ?>
 
 </head>

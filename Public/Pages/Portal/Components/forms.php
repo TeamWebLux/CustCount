@@ -130,11 +130,39 @@ if (isset($action)) {
         $action = "../App/Logic/creation.php?action=CashOut";
     
         echo fhead($title, $heading, $action);
+        if (isset($_GET['u'])) {
+            $depositID = $_GET['u'];
+            echo field("Enter the User Name","text","username","Enter the Username",$depositID,"readonly");
+        } else{  
+        echo field("Enter the User Name","text","username","Enter the Username");}
+
         echo field("Cash Out Amount", "number", "cashoutamount", "Enter the Cash Out Amount");
         echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
         echo field("Access Amount", "number", "accessamount", "Enter the Access Amount");
-        echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
-        echo field("Platform Name", "text", "platformname", "Enter the Platform Name");
+        $platformOptions = "<option value=''>Select Platform</option>";
+        $result = $conn->query("SELECT name FROM platform");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $platformOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        $platformOptions .= "<option value='other'>Other</option>";
+        echo '<label for="platformname">Platform Name</label>';
+        echo '<select class="form-select" id="platformname" name="platformname" onchange="showOtherField(this, \'platformname-other\')">' . $platformOptions . '</select>';
+        echo '<input type="text" id="platformname-other" name="platformname_other" style="display:none;" placeholder="Enter Platform Name">';
+
+       // echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
+       $cashupOptions = "<option value=''>Select CashUp</option>";
+       $result = $conn->query("SELECT * FROM cashups");
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               $cashupOptions .= "<option value='" . htmlspecialchars($row['cashup_name']) . "'>" . htmlspecialchars($row['cashup_name']) . "</option>";
+           }
+       }
+       $cashupOptions .= "<option value='other'>Other</option>";
+       echo '<label for="cashupname">Cashup Name</label>';
+       echo '<select class="form-select" id="cashupname" name="cashupname" onchange="showOtherField(this, \'cashupname-other\')">' . $cashupOptions . '</select>';
+       echo '<input type="text" id="cashupname-other" name="cashupname_other" style="display:none;" placeholder="Enter cashup Name">';
         echo field("Tip", "number", "tip", "Enter the Tip Amount");
     
         echo $Submit;
@@ -167,9 +195,21 @@ if (isset($action)) {
         echo '<select class="form-select" id="platformname" name="platformname" onchange="showOtherField(this, \'platformname-other\')">' . $platformOptions . '</select>';
         echo '<input type="text" id="platformname-other" name="platformname_other" style="display:none;" placeholder="Enter Platform Name">';
 
-        echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
+       // echo field("Cashup Name", "text", "cashupname", "Enter the Cashup Name");
+       $cashupOptions = "<option value=''>Select CashUp</option>";
+       $result = $conn->query("SELECT * FROM cashups");
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               $cashupOptions .= "<option value='" . htmlspecialchars($row['cashup_name']) . "'>" . htmlspecialchars($row['cashup_name']) . "</option>";
+           }
+       }
+       $cashupOptions .= "<option value='other'>Other</option>";
+       echo '<label for="cashupname">Cashup Name</label>';
+       echo '<select class="form-select" id="cashupname" name="cashupname" onchange="showOtherField(this, \'cashupname-other\')">' . $cashupOptions . '</select>';
+       echo '<input type="text" id="cashupname-other" name="cashupname_other" style="display:none;" placeholder="Enter cashup Name">';
+
         echo field("Bonus Amount", "number", "bonusamount", "Enter the Bonus Amount");
-        echo field("Redeem", "text", "redeem", "Enter the Redeem Code or Details");
+        echo field("Remark", "text", "remark", "Enter the Remark ");
     
         echo $Submit;
         echo $Cancel;
@@ -208,14 +248,14 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     }else if ($action == "WITHDRAWL" && ($role == "Admin")) {
-        $title = "Another Action Details";
+              // Fetch platform names from the database
+  $title = "Withdrawl Action Details";
         $heading = "Fill in the Details";
-        $actionUrl = "../App/Logic/creation.php?action=AnotherAction"; // Adjust the action URL as needed
+        $actionUrl = "../App/Logic/creation.php?action=Withdrawl"; // Adjust the action URL as needed
     
         echo fhead($title, $heading, $actionUrl);
     
         // Assume $conn is your database connection
-        // Fetch platform names from the database
         $platformOptions = "<option value=''>Select Platform</option>";
         $result = $conn->query("SELECT name FROM platform");
         if ($result->num_rows > 0) {
@@ -234,9 +274,11 @@ if (isset($action)) {
             }
         }
         $cashupOptions .= "<option value='other'>Other</option>";
-    
-        // Fields for Another Action Details
-        echo field("Name", "text", "name", "Enter the Name");
+            if (isset($_GET['u'])) {
+            $depositID = $_GET['u'];
+            echo field("Enter the User Name","text","username","Enter the Username",$depositID,"readonly");
+        } else{  
+        echo field("Enter the User Name","text","username","Enter the Username");}
         
         // Platform Name dropdown with "Other" option
         echo '<label for="platformname">Platform Name</label>';

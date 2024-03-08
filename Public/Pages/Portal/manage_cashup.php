@@ -92,8 +92,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search Cashup</h4>
-                                    <p>Cashup by name</p>
+                                    <h4 class="card-title">Search CashApp</h4>
+                                    <p>CashApp by name</p>
                                 </div>
                                 <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Cashup</button>
 
@@ -106,7 +106,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                                 <form action="./update_cashup" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Cashup</option>
+                                        <option value="#">Select CashApp</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
@@ -131,7 +131,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">Cashup List</h4>
+                                <h4 class="mb-0">CashApp List</h4>
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -153,13 +153,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     <?php
 
                                                     echo '<tr>
-        <th scope="col">Cashup Unique ID</th>
+        <th scope="col">CashApp Unique ID</th>
         <th scope="col">Update</th>
         <th scope="col">Start Date</th>
         <th scope="col">End Date</th>
         <th scope="col">Opening Balance</th>
         <th scope="col">Page Allocation ID</th>
-        <th scope="col">Cashup Name</th>
+        <th scope="col">CashApp Name</th>
         <th scope="col">Cash Tag</th>
         <th scope="col">Email Address</th>
         <th scope="col">Status</th>
@@ -192,7 +192,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         ?>
                                                     </tbody>
 
-                                                    
+
                                                 <?php
 
                                                 // End table
