@@ -1,5 +1,5 @@
 <?php 
-echo "404 ERROR"
+echo "404 Index ERROR"
 
 
 ?>
