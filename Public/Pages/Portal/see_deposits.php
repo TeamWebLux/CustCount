@@ -94,7 +94,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             
                                             <th scope="col">ID</th>
                                             <th scope="col">Username</th>
-                                            <th scope="col">User ID</th>
                                             <th scope="col"> Amount</th>
                                             <th scope="col">Bonus Amount</th>
                                             <th scope="col">Platform</th>
@@ -109,7 +108,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     
                                                     <td>{$row['id']}</td>
                                                     <td>{$row['username']}</td>
-                                                    <td>{$row['user_id']}</td>
                                                     <td>{$row['deposit_amount']}</td>
                                                     <td>{$row['bonus_amount']}</td>
                                                     <td>{$row['platform_name']}</td>
