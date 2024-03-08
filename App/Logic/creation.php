@@ -86,15 +86,19 @@ class Creation
 
     public function CashOut(){
         if(isset($_POST)){
+            $username=$_POST['username'];
             $cashoutamount=$_POST['cashoutamount'];
             $fbid=$_POST['fbid'];
             $accessamount=$_POST['accessamount'];
-            $cashupname=$_POST['cashupname'];
-            $platformname=$_POST['platformname'];
+            $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
+            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
             $tip=$_POST['tip'];
-            $sql="Insert into cashOut (cashoutamount,fbid,accessamount,cashupname,platformname,tip) VALUES (?,?,?,?,?,?)";
+            $by_role=$this->srole;
+            $by_username=$this->susername;
+
+            $sql="Insert into cashOut (username,cashoutamount,fbid,accessamount,cashupname,platformname,tip,by_role,by_username) VALUES (?,?,?,?,?,?,?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "iiisss", $cashoutamount,$fbid,$accessamount,$cashupname,$platformname,$tip);
+            mysqli_stmt_bind_param($stmt, "siiisssss",$username, $cashoutamount,$fbid,$accessamount,$cashupName,$platformName,$tip,$by_role,$by_username);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 echo "Cash Out added successfully.";
@@ -151,9 +155,6 @@ class Creation
         try {
             // Prepare the SQL statement
             $stmt = mysqli_prepare($this->conn, $sql);
-    
-            // Bind parameters to the prepared statement
-            // 's' specifies the variable type => 'string'
             $stmt->bind_param("ssssiss", $name, $platformName, $cashupName, $cashtag, $amount, $remark,$by_username);
     
             // Execute the statement
