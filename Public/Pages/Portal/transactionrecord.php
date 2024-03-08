@@ -80,7 +80,7 @@
 
         <?php
 include "./App/db/db_connect.php";
-
+$u="";
 if ($_GET['u']) {
     $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE username = ?
         UNION ALL
