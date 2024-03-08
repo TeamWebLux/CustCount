@@ -114,7 +114,7 @@ class Creation
             $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($this->conn, $sql);
             
-            mysqli_stmt_bind_param($stmt, "sdsddss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark);
+            mysqli_stmt_bind_param($stmt, "sdsssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark);
             $result = mysqli_stmt_execute($stmt);
     
             if ($result) {
