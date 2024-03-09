@@ -8,8 +8,8 @@
 <?php
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-include './Router/initialize.php';
 
+include './Router/initialize.php';
 
 if ($uri == $firstparam || $uri == $secondparam) {
     echo '<script type="text/JavaScript"> 
