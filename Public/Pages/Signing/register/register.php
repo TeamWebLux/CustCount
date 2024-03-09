@@ -3,7 +3,6 @@
 
 <head>
     <?php
-
     include "./Public/Pages/Common/header.php";
     ?>
     <?php
@@ -88,7 +87,18 @@
                                                     <option value="Admin" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
                                                 </select>
                                             </div>
-
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="fb_link" class="form-label">Facebook Link</label>
+                                                    <input class="form-control" type="text" id="fb_link" name="fb_link" placeholder="Enter your Facebook link" required="" value="<?php echo isset($_SESSION['form_values']['fb_link']) ? htmlspecialchars($_SESSION['form_values']['fb_link']) : ''; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="page_id" class="form-label">Page ID</label>
+                                                    <input class="form-control" type="text" id="page_id" name="page_id" placeholder="Enter your Page ID" required="" value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
+                                                </div>
+                                            </div>
                                             <div class="col-lg-12 d-flex justify-content-center">
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkbox-signup" name="terms" <?php echo (isset($_SESSION['form_values']['terms']) && $_SESSION['form_values']['terms'] == 'on') ? 'checked' : ''; ?>>
