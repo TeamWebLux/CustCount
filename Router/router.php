@@ -9,7 +9,7 @@
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-// echo $uri;
+ echo $uri;
 
 
 if ($uri == "/" || $uri == "/index.php") {
