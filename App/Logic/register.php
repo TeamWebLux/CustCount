@@ -16,6 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize form data
     $fullname = trim($_POST['fullname']);
     $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
     $role = trim($_POST['role']);
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
 
@@ -26,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ipAddress = $_SERVER['REMOTE_ADDR'];
 
     // If the IP address is not a valid IPv4 address, set a default value (e.g., 127.0.0.1)
-    if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-        $ipAddress = '127.0.0.1';
-    }
+    // if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+    //     $ipAddress = '127.0.0.1';
+    // }
 
     // Validate inputs are not empty
     if (empty($fullname) || empty($username) || empty($role) || !$termsAccepted) {
@@ -61,11 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Proceed with database insertion since validation passed
-    $sql = "INSERT INTO user (name, username, `Fb-link`, page_id, ip_address, status, `by`, last_login, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
+    $sql = "INSERT INTO user (name, username, `Fb-link`, page_id, ip_address,password, status, role,`by`, last_login, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?,?,?, ?, NOW(), NOW(), NOW())";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssssss", $fullname, $username, $fbLink, $pageId, $ipAddress, $status, $by);
+        $stmt->bind_param("sssssssss", $fullname, $username, $fbLink, $pageId, $ipAddress,$password, $status,$role, $by);
 
         // You need to define the values for the additional fields, assuming you have them
         $status = ''; // Replace with actual value

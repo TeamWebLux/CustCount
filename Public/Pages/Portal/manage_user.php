@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM users WHERE Role = 'User'";
+        $sql = "SELECT * FROM user WHERE Role = 'User'";
 
 
         $result = $conn->query($sql);
