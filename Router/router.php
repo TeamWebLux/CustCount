@@ -6,7 +6,7 @@
 
 
 <?php
-
+// sjd
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 include './Router/initialize.php';
 
