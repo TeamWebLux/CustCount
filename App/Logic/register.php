@@ -15,21 +15,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize form data
     $fullname = trim($_POST['fullname']);
     $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
     $role = trim($_POST['role']);
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
 
+    // Additional fields
+    $fbLink = trim($_POST['fb_link']);
+    $pageId = trim($_POST['page_id']);
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+
     // Validate inputs are not empty
-    if (empty($fullname) || empty($username) || empty($password) || empty($role) || !$termsAccepted) {
+    if (empty($fullname) || empty($username) || empty($role) || !$termsAccepted) {
         // Set error message and retain form values
-        setToast('error', 'Please fill in all fields and accept the terms.');
+        setToast('error', 'Please fill in all required fields and accept the terms.');
         $_SESSION['form_values'] = $_POST;
         header('Location: ' . $redirectTo);
         exit();
     }
 
     // Check if username already exists
-    $checkUsernameSql = "SELECT Username FROM users WHERE Username = ?";
+    $checkUsernameSql = "SELECT username FROM user WHERE username = ?";
     if ($stmt = $conn->prepare($checkUsernameSql)) {
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -50,12 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Proceed with database insertion since validation passed
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO users (Username, Fullname, Password, RawPass, Role, CreatedAt, LastLogin) 
-            VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+    $sql = "INSERT INTO user (name, username, `Fb-link`, page_id, ip_address, status, `by`, last_login, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssss", $username, $fullname, $hashed_password, $password, $role);
+        $stmt->bind_param("sssssss", $fullname, $username, $fbLink, $pageId, $ipAddress, $status, $by);
+
+        // You need to define the values for the additional fields, assuming you have them
+        $status = ''; // Replace with actual value
+        $by = ''; // Replace with actual value
+        $lastLogin = ''; // Replace with actual value
+        //$createdAt = NOW(); // You can use NOW() for the current timestamp
+        //$updatedAt = NOW(); // You can use NOW() for the current timestamp
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
