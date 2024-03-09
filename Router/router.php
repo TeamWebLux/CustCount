@@ -6,11 +6,15 @@
 
 
 <?php
-
+// sjd
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
+<<<<<<< Updated upstream
 include './Router/initialize.php';
 
+=======
+// echo
+>>>>>>> Stashed changes
 if ($uri == $firstparam || $uri == $secondparam) {
     echo '<script type="text/JavaScript"> 
     window.location.replace("./index.php/Login_to_CustCount");
