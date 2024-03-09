@@ -1,7 +1,8 @@
 <?php
 session_start(); // Start the session
 
-function setToast($type, $message) {
+function setToast($type, $message)
+{
     $_SESSION['toast'] = ['type' => $type, 'message' => $message];
 }
 
@@ -21,7 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Additional fields
     $fbLink = trim($_POST['fb_link']);
     $pageId = trim($_POST['page_id']);
-    $ipAddress = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+    // Get the user's IP address
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+
+    // If the IP address is not a valid IPv4 address, set a default value (e.g., 127.0.0.1)
+    if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        $ipAddress = '127.0.0.1';
+    }
 
     // Validate inputs are not empty
     if (empty($fullname) || empty($username) || empty($role) || !$termsAccepted) {
@@ -85,4 +92,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
-?>
