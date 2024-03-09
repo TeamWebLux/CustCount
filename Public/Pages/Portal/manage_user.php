@@ -166,19 +166,19 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
                                                     
-                                                    <td>{$row['UserID']}</td>
+                                                    <td>{$row['id']}</td>
                                                     <td>
                     <form action=\"./update_user\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
+                                                    <td>{$row['username']}</td>
+                                                    <td>{$row['name']}</td>
                                                     
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
+                                                    <td>{$row['role']}</td>
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                                    <td>{$row['last_login']}</td>
                                                    
                                                   </tr>";
                                                         }
