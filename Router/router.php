@@ -7,20 +7,19 @@
 
 <?php
 
-
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-// echo $uri;
+include './Router/initialize.php';
 
 
-if ($uri == "/" || $uri == "/index.php") {
+if ($uri == $firstparam || $uri == $secondparam) {
     echo '<script type="text/JavaScript"> 
     window.location.replace("./index.php/Login_to_CustCount");
     </script>';
     die();
 } else {
 
-    $prefix = "";
-    $root = "/index.php";
+    $prefix = $thirdparam;
+    $root = $fourthparam;
     $routes = [
 
         //? This is Routes which will automatically routed when index page is loaded..
@@ -63,6 +62,7 @@ if ($uri == "/" || $uri == "/index.php") {
         $prefix . $root . '/Portal_Manager_Management'            => './Public/Pages/Portal/manage_manager.php',
         $prefix . $root . '/Portal_Page_Management'               => './Public/Pages/Portal/manage_page.php',
         $prefix . $root . '/Portal_Cashup_Management'             => './Public/Pages/Portal/manage_cashup.php',
+        $prefix . $root . '/Portal_Platform_Management'             => './Public/Pages/Portal/manage_platform.php',
         $prefix . $root . '/Portal_Notes'                         => './Public/Pages/Portal/notes_page.php',
         $prefix . $root . '/Portal_Settings'                      => './Public/Pages/Portal/portal_settings.php',
 
