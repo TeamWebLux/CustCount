@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Additional fields
     $fbLink = trim($_POST['fb_link']);
     $pageId = trim($_POST['page_id']);
-    $ipAddress = $_SERVER['REMOTE_ADDR'];
+    $ipAddress = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
     // Validate inputs are not empty
     if (empty($fullname) || empty($username) || empty($role) || !$termsAccepted) {
