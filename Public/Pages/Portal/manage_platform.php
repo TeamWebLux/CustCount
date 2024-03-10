@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM cashapp ";
+        $sql = "SELECT * FROM platform ";
 
 
         $result = $conn->query($sql);
@@ -92,12 +92,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search CashApp</h4>
-                                    <p>CashApp by name</p>
+                                    <h4 class="card-title">Search Platform</h4>
+                                    <p>Platform by name</p>
                                 </div>
-                                <a href="./Add_CashApp" style="text-decoration: none;">
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add CashApp</button>
-                            </a>
+                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Platform</button>                       
 
                             </div>
 
@@ -106,9 +104,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
 
-                                <form action="./update_cashApp" method="POST">
+                                <form action="./update_platform" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select CashApp</option>
+                                        <option value="#">Select Platform</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
@@ -121,8 +119,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     ?>
 
                                     </select>
-                                    <br>
-                                    <br>
+                    
                                     <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
                                 </form>
                             </div>
@@ -133,9 +130,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">CashApp List</h4>
-                                <a href="./Add_CashApp" style="text-decoration: none;">
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add CashApp</button>
+                                <h4 class="mb-0">Platform List</h4>
+                                <a href="./platform" style="text-decoration: none;">
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
                             </a>
 
                             </div>
@@ -157,46 +154,41 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <thead>
                                                 <tr class="bg-white">
                                                     <?php
-
                                                     echo '<tr>
-        <th scope="col">ID</th>
-        <th scope="col">Update</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">End Date</th>
-        <th scope="col">Opening Balance</th>
-        <th scope="col">CashApp Name</th>
-        <th scope="col">Cash Tag</th>
-        <th scope="col">Email Address</th>
-        <th scope="col">Status</th>
-        <th scope="col">Remarks</th>
-      </tr>';
+                                            
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Update</th>
+                                            <th scope="col">Platform Name</th>
+                                            <th scope="col">Platform Balance</th>
+
+                                            <th scope="col">Added By</th>
+                                            <th scope="col">Created At</th>
+                                            </tr>';
                                                     ?>
                                                     <thead>
                                                     <tbody>
                                                         <?php
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
-                <td>{$row['cid']}</td>
-                <td>
-                    <form action=\"./update_cashApp\" method=\"post\">
+                                                    
+                                                    <td>{$row['pid']}</td>
+                                                    <td>
+                    <form action=\"./update_platform\" method=\"post\">
                         <input type=\"hidden\" name=\"state\" value=\"{$row['name']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                <td>{$row['start']}</td>
-                <td>{$row['end']}</td>
-                <td>{$row['current_balance']}</td>
-                <td>{$row['name']}</td>
-                <td>{$row['cashtag']}</td>
-                <td>{$row['email']}</td>
-                <td>" . ($row['status'] == 1 ? 'Activated' : 'Not Active') . "</td>
-                <td>{$row['remark']}</td>
-              </tr>";
+                                                    <td>{$row['name']}</td>
+                                                    <td>{$row['current_balance']}</td>
+
+                                                    <td>{$row['by_u']}</td>
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                                   
+                                                  </tr>";
                                                         }
                                                         ?>
+
                                                     </tbody>
-
-
                                                 <?php
 
                                                 // End table

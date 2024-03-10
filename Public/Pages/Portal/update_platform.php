@@ -65,7 +65,7 @@
             $username = $conn->real_escape_string($_POST['state']);
 
             // Prepare the SQL statement
-            $sql = "SELECT * FROM user WHERE Username = '$username'";
+            $sql = "SELECT * FROM platform WHERE name = '$username'";
 
             // Execute the query
             $result = $conn->query($sql);
@@ -80,9 +80,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0"><?php echo $user; ?> Details</h4>
-                                <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Create User</button>
                             </div>
-
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
                                     <?php
@@ -90,22 +88,31 @@
                                     if ($result) {
                                         // Fetch the results
                                         echo '<table class="table mb-0">';
-                                        echo "<tr>";
+
                                         echo '<tr>
-                                <th>User ID</th>
-                                <th>Username</th>
-                                <th>Full Name</th>
-                                <th>Role</th>
-                                <th>Created At</th>
+                                <th scope="col">ID</th>
+                                            <th scope="col">Page Name</th>
+                                            <th scope="col">Added By</th>
+                                            <th scope="col">Status</th>
+
+                                            <th scope="col">Created At</th>
                                 </tr>';
+                                $id = 0;  // Initialize $id with a default value
+
                                         while ($row = $result->fetch_assoc()) {
                                             // Output column names as table headers
+
+
                                             echo "<tr>";
-                                            echo "<td>" . $row['id'] . "</td>";
-                                            echo "<td>" . $row['username'] . "</td>";
+                                            echo "<td>" . $row['pid'] . "</td>";
                                             echo "<td>" . $row['name'] . "</td>";
-                                            echo "<td>" . $row['role'] . "</td>";
+                                            echo "<td>" . $row['by_u'] . "</td>";
+                                            echo "<td>" . ($row['status'] == 1 ? 'Activated' : 'Not Active') . "</td>";
+
+
                                             echo "<td>" . $row['created_at'] . "</td>";
+                                            $id = $row['pid'];
+                                            $status = $row['status'];
                                             echo "</tr>";
                                         }
                                         echo "</table>";
@@ -117,21 +124,11 @@
                                 <br>
                                 <br>
 
-                                <a href="./deposit?u=<?php echo $username; ?>" style="text-decoration: none;">
-                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
+                                <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>
+                                <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'platform', 'status','pid')">
+                                    <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActive' : 'Activate'  ?></i>
                                 </a>
-                                <a href="./cash_out?u=<?php echo $username; ?>" style="text-decoration: none;">
-                                <button type="button" class="btn btn-success rounded-pill mt-2">Redeem</button>
-                                </a>
-                                <a href="#?u=<?php echo $username; ?>" style="text-decoration: none;">
-                                <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
-                                </a>
-                                <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
-                                <button type="button" class="btn btn-light rounded-pill mt-2">Transaction Record</button>
-                                </a>
-
-                                <button type="button" class="btn btn-success rounded-pill mt-2">Activate</button>
-                                <button type="button" class="btn btn-secondary rounded-pill mt-2">Chat History</button>
+                                <!-- <button type="button" class="btn btn-success rounded-pill mt-2">Page is Active</button> -->
                             </div>
                         </div>
                     </div>
@@ -141,6 +138,66 @@
         </div>
 
 
+        <script>
+            function status(product_id, table, field,id) {
+                if (confirm("Are you sure you want to Activate or Deactivate?")) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "../App/Logic/commonf.php?action=status", true);
+
+                    // Set the Content-Type header
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                    // Include additional parameters in the data sent to the server
+                    const data = "id=" + product_id + "&table=" + table + "&field=" + field+"&cid="+id;
+
+                    // Log the data being sent
+                    console.log("Data sent to server:", data);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            console.log("XHR status:", xhr.status);
+
+                            if (xhr.status === 200) {
+                                console.log("Response received:", xhr.responseText);
+
+                                try {
+                                    const response = JSON.parse(xhr.responseText);
+
+                                    if (response) {
+                                        console.log("Parsed JSON response:", response);
+
+                                        if (response.success) {
+                                            alert("Done successfully!");
+                                            location.reload();
+                                        } else {
+                                            alert("Error : " + response.message);
+                                        }
+                                    } else {
+                                        console.error("Invalid JSON response:", xhr.responseText);
+                                        alert("Invalid JSON response from the server.");
+                                    }
+                                } catch (error) {
+                                    console.error("Error parsing JSON:", error);
+                                    alert("Error parsing JSON response from the server.");
+                                }
+                            } else {
+                                console.error("HTTP request failed:", xhr.statusText);
+                                alert("Error: " + xhr.statusText);
+                            }
+                        }
+                    };
+
+                    // Log any network errors
+                    xhr.onerror = function() {
+                        console.error("Network error occurred.");
+                        alert("Network error occurred. Please try again.");
+                    };
+
+                    // Send the request
+                    xhr.send(data);
+                }
+            }
+        </script>
 
 
 

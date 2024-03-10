@@ -11,7 +11,6 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 include './Router/initialize.php';
 
-// echo
 if ($uri == $firstparam || $uri == $secondparam) {
     echo '<script type="text/JavaScript"> 
     window.location.replace("./index.php/Login_to_CustCount");
@@ -47,17 +46,27 @@ if ($uri == $firstparam || $uri == $secondparam) {
          $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
+         $prefix . $root . '/Add_Branch'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
+
+         $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
         
         $prefix . $root . '/Portal_User_Management'               => './Public/Pages/Portal/manage_user.php',
+        $prefix . $root . '/Portal_Branch_Management'               => './Public/Pages/Portal/manage_branch.php',
+        $prefix . $root . '/Portal_Platform_Management'               => './Public/Pages/Portal/manage_platform.php',
+
         $prefix . $root . '/update_user'                          => './Public/Pages/Portal/update_user.php',
         $prefix . $root . '/update_agent'                         => './Public/Pages/Portal/update_agent.php',
         $prefix . $root . '/update_manager'                       => './Public/Pages/Portal/update_manager.php',
+        $prefix . $root . '/update_branch'                       => './Public/Pages/Portal/update_branch.php',
+        $prefix . $root . '/update_platform'                       => './Public/Pages/Portal/update_platform.php',
+
         $prefix . $root . '/update_supervisor'                    => './Public/Pages/Portal/update_supervisor.php',
         $prefix . $root . '/update_page'                          => './Public/Pages/Portal/update_page.php',
-        $prefix . $root . '/update_cashup'                        => './Public/Pages/Portal/update_cashup.php',
+        $prefix . $root . '/update_cashApp'                        => './Public/Pages/Portal/update_cashapp.php',
         $prefix . $root . '/Portal_Agent_Management'              => './Public/Pages/Portal/manage_agent.php',
         $prefix . $root . '/Portal_Supervisor_Management'         => './Public/Pages/Portal/manage_supervisor.php',
         $prefix . $root . '/Portal_Manager_Management'            => './Public/Pages/Portal/manage_manager.php',
