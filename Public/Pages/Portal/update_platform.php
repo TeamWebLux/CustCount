@@ -126,7 +126,7 @@
 
                                 <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>
                                 <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'platform', 'status','pid')">
-                                    <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActive' : 'Activate'  ?></i>
+                                    <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActivate' : 'Activate'  ?></i>
                                 </a>
                                 <!-- <button type="button" class="btn btn-success rounded-pill mt-2">Page is Active</button> -->
                             </div>
