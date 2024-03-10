@@ -109,7 +109,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                                         ?>
 
-                                            <option name="userdata" value="<?php echo $row['Username'] ?>"> <?php echo $row['Username'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['username'] ?>"> <?php echo $row['username'] ?></option>
                                     <?php
                                         }
                                     }

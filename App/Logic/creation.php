@@ -84,12 +84,12 @@ class Creation
 
 
             $status = isset($_POST['active']) ? 1 : 0;
-    
+
             $sql = "INSERT INTO cashapp (name, cashtag,start,email, current_balance,remark, status, created_at, updated_at) VALUES (?, ?,NOW(), ?,?,?, ?, NOW(), NOW())";
-            
+
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sssdsi", $name, $cashtag,$email, $currentBalance,$remark, $status);
-    
+                $stmt->bind_param("sssdsi", $name, $cashtag, $email, $currentBalance, $remark, $status);
+
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp details added successfully.'];
                     header("location: ../../index.php/Portal_Cashup_Management");
@@ -103,7 +103,7 @@ class Creation
             }
         }
     }
-    
+
     public function CashOut()
     {
         if (isset($_POST)) {
@@ -388,7 +388,7 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->Redeem();
 } else if (isset($_GET['action']) && $_GET['action'] == "AddBranch") {
     $creation->AddBranch();
-}else if (isset($_GET['action']) && $_GET['action'] == "AddPage") {
+} else if (isset($_GET['action']) && $_GET['action'] == "AddPage") {
     $creation->AddPage();
 }
 

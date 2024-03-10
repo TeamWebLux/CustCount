@@ -65,7 +65,7 @@
             $username = $conn->real_escape_string($_POST['state']);
 
             // Prepare the SQL statement
-            $sql = "SELECT * FROM user WHERE Username = '$username'";
+            $sql = "SELECT * FROM user WHERE username = '$username'";
 
             // Execute the query
             $result = $conn->query($sql);
@@ -92,21 +92,26 @@
                                         echo '<table class="table mb-0">';
                                         echo "<tr>";
                                         echo '<tr>
-                                <th>User ID</th>
-                                <th>Username</th>
-                                <th>Full Name</th>
-                                <th>Role</th>
-                                <th>Created At</th>
-                                </tr>';
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Last Login</th>
+                            </tr>';
                                         while ($row = $result->fetch_assoc()) {
                                             // Output column names as table headers
-                                            echo "<tr>";
-                                            echo "<td>" . $row['id'] . "</td>";
-                                            echo "<td>" . $row['username'] . "</td>";
-                                            echo "<td>" . $row['name'] . "</td>";
-                                            echo "<td>" . $row['role'] . "</td>";
-                                            echo "<td>" . $row['created_at'] . "</td>";
-                                            echo "</tr>";
+                                            echo "<tr>
+                                            <td>{$row['id']}</td>
+
+                                        <td>{$row['username']}</td>
+                                            <td>{$row['name']}</td>
+                                            <td>{$row['password']}</td>
+                                            <td>{$row['role']}</td>
+                                            <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                            <td>{$row['last_login']}</td>
+                                    echo </tr>";
                                         }
                                         echo "</table>";
                                     } else {
