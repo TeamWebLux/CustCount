@@ -133,15 +133,17 @@ class Creation
         if (isset($_POST)) {
             $username = $_POST['username'];
             $depositAmount = $_POST['depositamount'];
-            $fbId = $_POST['fbid'];
+            $fbId = $_POST['pagename'];
             $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
             $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
             $bonusAmount = $_POST['bonusamount'];
             $remark = $_POST['remark'];
             $by_role = $this->srole;
             $by_username = $this->susername;
+            $type = "Debit";
 
-            $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark,by_username,by_role) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
+
+            $sql = "INSERT INTO transction (username, recharge, page_id, platform, cashupname, bonus, remark,by_username,by_role,type) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
             $stmt = mysqli_prepare($this->conn, $sql);
 
             mysqli_stmt_bind_param($stmt, "sdsssssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark, $by_username, $by_role);
