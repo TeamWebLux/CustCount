@@ -129,6 +129,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0">User List</h4>
+                                <a href="./Add_User" style="text-decoration: none;">
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
+                            </a>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';

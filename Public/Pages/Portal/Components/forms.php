@@ -79,7 +79,7 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     } else if ($action == "CASH_OUT" && ($role == "Agent" || $role == "Supervisor" || $role == "Admin")) {
-        $title = "Cash Out Details";
+        $title = "Reedem  Details";
         $heading = "Enter the Details Correctly";
         $action = "../App/Logic/creation.php?action=CashOut";
 
@@ -91,11 +91,20 @@ if (isset($action)) {
             echo field("Enter the User Name", "text", "username", "Enter the Username");
         }
 
-        echo field("Cash Out Amount", "number", "cashoutamount", "Enter the Cash Out Amount");
-        echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
+        echo field("Reedem Amount", "number", "reedemamount", "Enter the Reedem Amount");
+        $pageop = "<option value=''>Select Page</option>";
+        $result = $conn->query("SELECT * FROM page where status =1");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pageop .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        echo '<label for="pagename">Page Name</label>';
+        echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'platformname-other\')">' . $pageop . '</select>';
+
         echo field("Excess Amount", "number", "excessamount", "Enter the Excess Amount");
         $platformOptions = "<option value=''>Select Platform</option>";
-        $result = $conn->query("SELECT name FROM platform");
+        $result = $conn->query("SELECT name FROM platform where status =1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $platformOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
@@ -108,7 +117,7 @@ if (isset($action)) {
 
         // echo field("cashApp Name", "text", "cashAppname", "Enter the cashApp Name");
         $cashAppOptions = "<option value=''>Select cashApp</option>";
-        $result = $conn->query("SELECT * FROM cashapp");
+        $result = $conn->query("SELECT * FROM cashapp where status =1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
@@ -119,11 +128,14 @@ if (isset($action)) {
         echo '<select class="form-select" id="cashAppname" name="cashAppname" onchange="showOtherField(this, \'cashAppname-other\')">' . $cashAppOptions . '</select>';
         echo '<input type="text" id="cashAppname-other" name="cashAppname_other" style="display:none;" placeholder="Enter cashApp Name">';
         echo field("Tip", "number", "tip", "Enter the Tip Amount");
+        echo field("Remark", "text", "remark", "Enter the Remark ");
 
         echo $Submit;
         echo $Cancel;
         echo $formend;
     } else if ($action == "DEPOSIT" && ($role != "User")) {
+        echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
+
         $title = "Reedem Details";
         $heading = "Fill in the Redeem Details";
         $actionUrl = "../App/Logic/creation.php?action=Deposit";
