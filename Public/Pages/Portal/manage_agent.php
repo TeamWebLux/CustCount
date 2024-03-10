@@ -1,4 +1,4 @@
-?>
+
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -213,7 +213,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
 
 
-            <?
+            <?php
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);
             ?>
