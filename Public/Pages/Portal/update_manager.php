@@ -65,7 +65,7 @@
             $username = $conn->real_escape_string($_POST['state']);
 
             // Prepare the SQL statement
-            $sql = "SELECT * FROM users WHERE Username = '$username'";
+            $sql = "SELECT * FROM user WHERE Username = '$username'";
 
             // Execute the query
             $result = $conn->query($sql);
@@ -74,58 +74,73 @@
 
             ?>
 
-<div class="content-inner container-fluid pb-0" id="page_layout">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="mb-0"><?php echo $user; ?> Details</h4>
-                        </div>
+            <div class="content-inner container-fluid pb-0" id="page_layout">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0"><?php echo $user; ?> Details</h4>
+                            </div>
 
-                        <div class="card-body">
-                        <div class="custom-table-effect table-responsive  border rounded">
-                            <?php
+                            <div class="card-body">
+                                <div class="custom-table-effect table-responsive  border rounded">
+                                    <?php
 
-                            if ($result) {
-                                // Fetch the results
-                                echo '<table class="table mb-0">';
-                                echo "<tr>";
-                                echo '<tr>
-                                <th>User ID</th>
-                                <th>Username</th>
-                                <th>Full Name</th>
-                                <th>Role</th>
-                                <th>Created At</th>
-                                </tr>';
-                                while ($row = $result->fetch_assoc()) {
-                                    // Output column names as table headers
-                                    echo "<tr>";
-                                    echo "<td>".$row['UserID']."</td>";
-                                    echo "<td>".$row['Username']."</td>";
-                                    echo "<td>".$row['fullname']."</td>";
-                                    echo "<td>".$row['Role']."</td>";
-                                    echo "<td>".$row['CreatedAt']."</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</table>";
-                            } else {
-                                echo "Error: " . $conn->error;
-                            }
-                            ?>
-                        </div>
-<br>
-<br>
+                                    if ($result) {
+                                        // Fetch the results
+                                        echo '<table class="table mb-0">';
+                                        echo "<tr>";
+                                        echo '<tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Page ID</th>
 
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Password Reset</button>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Last Login</th>
+                    </tr>';
+                                        while ($row = $result->fetch_assoc()) {
+                                            // Output column names as table headers
+                                            echo "<tr>
+                                    <td>{$row['id']}</td>
+
+                                    <td>{$row['username']}</td>
+                                    <td>{$row['name']}</td>
+                                    <td>{$row['password']}</td>
+                                    <td>{$row['role']}</td>
+                                    <td>{$row['pageid']}</td>
+
+                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                    <td>{$row['last_login']}</td>
+                                   
+                    echo </tr>";
+                                            $id = $row['id'];
+                                            $status = $row['status'];
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "Error: " . $conn->error;
+                                    }
+                                    ?>
+                                </div>
+                                <br>
+                                <br>
+
+
+
+                                <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'user', 'status','id')">
+                                    <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActivate' : 'Activate'  ?></i>
+                                </a>
+
+                                <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             </div>
         </div>
 
@@ -161,6 +176,69 @@
     include("./Public/Pages/Common/scripts.php");
 
     ?>
+    <script>
+                    function status(product_id, table, field, id) {
+                if (confirm("Are you sure you want to Activate or Deactivate?")) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "../App/Logic/commonf.php?action=status", true);
+
+                    // Set the Content-Type header
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                    // Include additional parameters in the data sent to the server
+                    const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id;
+
+                    // Log the data being sent
+                    console.log("Data sent to server:", data);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            console.log("XHR status:", xhr.status);
+
+                            if (xhr.status === 200) {
+                                console.log("Response received:", xhr.responseText);
+
+                                try {
+                                    const response = JSON.parse(xhr.responseText);
+
+                                    if (response) {
+                                        console.log("Parsed JSON response:", response);
+
+                                        if (response.success) {
+                                            alert("Done successfully!");
+                                            location.reload();
+                                        } else {
+                                            alert("Error : " + response.message);
+                                        }
+                                    } else {
+                                        console.error("Invalid JSON response:", xhr.responseText);
+                                        alert("Invalid JSON response from the server.");
+                                    }
+                                } catch (error) {
+                                    console.error("Error parsing JSON:", error);
+                                    alert("Error parsing JSON response from the server.");
+                                }
+                            } else {
+                                console.error("HTTP request failed:", xhr.statusText);
+                                alert("Error: " + xhr.statusText);
+                            }
+                        }
+                    };
+
+                    // Log any network errors
+                    xhr.onerror = function() {
+                        console.error("Network error occurred.");
+                        alert("Network error occurred. Please try again.");
+                    };
+
+                    // Send the request
+                    xhr.send(data);
+                }
+            }
+
+    </script>
+
+
 
 </body>
 

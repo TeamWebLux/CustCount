@@ -111,7 +111,7 @@ if (isset($action)) {
         $result = $conn->query("SELECT * FROM cashapp");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
