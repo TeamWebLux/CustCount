@@ -95,7 +95,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <h4 class="card-title">Search Page</h4>
                                     <p>Page by name</p>
                                 </div>
-                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Page</button>                       
+                                <a href="./Add_Page" style="text-decoration: none;">
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Page</button>
+                            </a>
 
                             </div>
 

@@ -12,7 +12,9 @@ class Commonf
             $table = $_POST['table'];
             $field = $_POST['field'];
 
-            $sql = "SELECT $field FROM $table WHERE $cid=$id"; // Change 'id' to your actual primary key column name
+            $sql = "SELECT $field FROM $table WHERE $cid=$id"; 
+            //Select status from platform where bud=1
+            // Change 'id' to your actual primary key column name
             $result = $conn->query($sql);
 
             if ($result) {
@@ -49,6 +51,49 @@ class Commonf
         header('Content-Type: application/json');
         echo json_encode($response);
     }
+    public function modifydate(){
+        include "./db_connect.php";
+        $response = array('success' => false, 'message' => '');
+    
+        if (isset($_POST['id'], $_POST['table'])) {
+            $id = $_POST['id'];
+            $table = $_POST['table'];
+            $field = $_POST['field'];
+            $cid=$_POST['cid'];
+    
+            // Ensure proper escaping of variables to prevent SQL injection
+            $id = mysqli_real_escape_string($conn, $id);
+            $table = mysqli_real_escape_string($conn, $table);
+            $field = mysqli_real_escape_string($conn, $field);
+    
+            // Use prepared statement to prevent SQL injection
+            $sql = "UPDATE $table SET $field = CURDATE() WHERE $cid = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+    
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = "Date modified successfully!";
+            } else {
+                $response['message'] = "Error modifying date: " . $stmt->error;
+            }
+    
+            $stmt->close();
+        } else {
+            $response['message'] = "Missing required parameters (id, table)";
+        }
+    
+        // Clear any unwanted output before sending JSON response
+        ob_clean();
+    
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+    
+    
+
+
+    
     public function delete()
     {
         include "./db_connect.php";
@@ -85,6 +130,8 @@ if (isset($_GET['action']) && $_GET['action'] == "status") {
     $com->status();
 }else if (isset($_GET['action']) && $_GET['action'] == "delete") {
     $com->delete();
+}else if (isset($_GET['action']) && $_GET['action'] == "modify") {
+    $com->modifydate();
 }
 
 ?>

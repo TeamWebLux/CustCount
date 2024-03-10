@@ -195,7 +195,7 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     }
-    else if ($action == "CASHAPP" && $role == "Admin") {
+    else if ($action == "ADD_CASHAPP" && $role == "Admin") {
         $title = "CashApp Details";
         $heading = "Enter CashApp Information";
         $actionUrl = "../App/Logic/creation.php?action=CashApp"; // Adjust the action as needed
@@ -204,7 +204,8 @@ if (isset($action)) {
         // Fields for CashApp Details
         echo field("CashApp Name", "text", "cashAppname", "Enter the CashApp Name");
         echo field("CashApp Tag", "text", "cashApptag", "Enter the CashApp Tag");
-    
+        echo field("CashApp Email", "email", "email", "Enter the CashApp Email");
+
         // Using a checkbox as a workaround for the active/inactive button
         echo '<div class="form-group">
                 <label for="active">Active</label>
@@ -212,6 +213,8 @@ if (isset($action)) {
               </div>';
     
         echo field("Current Balance", "number", "currentbalance", "Enter the Current Balance");
+        echo field("CashApp Remark", "textarea", "remark", "Enter the Remar ");
+
     
         echo $Submit;
         echo $Cancel;
@@ -291,7 +294,7 @@ if (isset($action)) {
         echo '<br>';
         $branchOptions = ""; // Initialize an empty string for options
         // Replace the query with your actual query to fetch branch IDs
-        $branchQuery = "SELECT * FROM branch";
+        $branchQuery = "SELECT * FROM branch where status=1";
         $branchResult = $conn->query($branchQuery);
         while ($branchRow = $branchResult->fetch_assoc()) {
             $branchOptions .= "<option value='{$branchRow['bid']}'>{$branchRow['name']}</option>";

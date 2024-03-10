@@ -73,25 +73,37 @@ class Creation
             }
         }
     }
-    public function CashUpAdd()
+    public function CashApp()
     {
-        if (isset($_POST)) {
-            $name = $_POST['name'];
-            $cashtag = $_POST['cashtag'];
-            $number = $_POST['openingbalance'];
-            $pageid = $_POST['pageid'];
-            $branchid = $_POST['branchid'];
-            $withdrawl = $_POST['withdrawl'];
-            $sql = "Insert into cashapp (name,cashtag,openingbalance,pageid,branchid,withdrawl) VALUES (?,?,?,?,?,?)";
-            $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "sssiis", $name, $cashtag, $number, $pageid, $branchid, $withdrawl);
-            $result = mysqli_stmt_execute($stmt);
-            if ($result) {
-                echo "User added successfully.";
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $name = $this->conn->real_escape_string($_POST['cashAppname']);
+            $cashtag = $this->conn->real_escape_string($_POST['cashApptag']);
+            $currentBalance = $this->conn->real_escape_string($_POST['currentbalance']);
+            $email = $this->conn->real_escape_string($_POST['email']);
+            $remark = $this->conn->real_escape_string($_POST['remark']);
+
+
+            $status = isset($_POST['active']) ? 1 : 0;
+    
+            $sql = "INSERT INTO cashapp (name, cashtag,start,email, current_balance,remark, status, created_at, updated_at) VALUES (?, ?,NOW(), ?,?,?, ?, NOW(), NOW())";
+            
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bind_param("sssdsi", $name, $cashtag,$email, $currentBalance,$remark, $status);
+    
+                if ($stmt->execute()) {
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp details added successfully.'];
+                    header("location: ../../index.php/Portal_Cashup_Management");
+                    exit();
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error adding CashApp details: ' . $stmt->error];
+                }
+                $stmt->close();
+            } else {
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
             }
         }
     }
-
+    
     public function CashOut()
     {
         if (isset($_POST)) {
@@ -364,8 +376,8 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->addUser();
 } else if (isset($_GET['action']) && $_GET['action'] == "platform") {
     $creation->Platform();
-} else if (isset($_GET['action']) && $_GET['action'] == "CashUpAdd") {
-    $creation->CashUpAdd();
+} else if (isset($_GET['action']) && $_GET['action'] == "CashApp") {
+    $creation->CashApp();
 } else if (isset($_GET['action']) && $_GET['action'] == "CashOut") {
     $creation->CashOut();
 } else if (isset($_GET['action']) && $_GET['action'] == "Deposit") {
