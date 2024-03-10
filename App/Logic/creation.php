@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 include "../db/db_connect.php";
 session_start();
 class Creation
@@ -108,54 +111,86 @@ class Creation
     {
         if (isset($_POST)) {
             $username = $_POST['username'];
-            $cashoutamount = $_POST['cashoutamount'];
-            $fbid = $_POST['fbid'];
-            $accessamount = $_POST['accessamount'];
+            $cashoutamount = $_POST['reedemamount'];
+            $fbid = $_POST['pagename'];
+            $accessamount = $_POST['excessamount'];
             $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
-            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
+            $cashupName = ($_POST['cashAppname'] !== 'other') ? $_POST['cashAppname'] : $_POST['cashAppname_other'];
+            $remark=$_POST['remark'];
             $tip = $_POST['tip'];
+            $type="Credit";
             $by_role = $this->srole;
             $by_username = $this->susername;
 
-            $sql = "Insert into cashOut (username,cashoutamount,fbid,accessamount,cashupname,platformname,tip,by_role,by_username) VALUES (?,?,?,?,?,?,?,?,?)";
-            $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "siiisssss", $username, $cashoutamount, $fbid, $accessamount, $cashupName, $platformName, $tip, $by_role, $by_username);
-            $result = mysqli_stmt_execute($stmt);
-            if ($result) {
-                echo "Cash Out added successfully.";
+            $sql = "Insert into transaction (username,redeem,page_no,excess,cashname,platform,tip,type,remark,by_u) VALUES (?,?,?,?,?,?,?,?,?,?)";
+           if( $stmt = mysqli_prepare($this->conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "sisissssss", $username, $cashoutamount, $fbid, $accessamount, $cashupName, $platformName, $tip, $type,$remark, $by_username);
+            if ($stmt->execute()) {
+                $_SESSION['toast'] = ['type' => 'success', 'message' => 'Recharge Added Sucessfully '];
+
+                echo "Transaction added successfully. Redirecting...<br>";
+                header("Location: ../../index.php/Portal_User_Management");
+                exit();
+            } else {
+                echo "Error adding transaction details: " . $stmt->error . "<br>";
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error adding transaction details: ' . $stmt->error];
             }
+            $stmt->close();
+        } else {
+            echo "Error preparing statement: " . $this->conn->error . "<br>";
+            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
         }
+    }
     }
 
     //pending
     public function Deposit()
     {
-        if (isset($_POST)) {
-            $username = $_POST['username'];
-            $depositAmount = $_POST['depositamount'];
-            $fbId = $_POST['pagename'];
-            $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
-            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
-            $bonusAmount = $_POST['bonusamount'];
-            $remark = $_POST['remark'];
-            $by_role = $this->srole;
-            $by_username = $this->susername;
-            $type = "Debit";
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Validate input fields
+            if (empty($_POST['username']) || empty($_POST['platformname']) || empty($_POST['cashAppname']) || empty($_POST['bonusamount'])) {
+                echo "Validation failed. Redirecting...<br>";
+                echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
 
-
-            $sql = "INSERT INTO transction (username, recharge, page_id, platform, cashupname, bonus, remark,by_username,by_role,type) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
-            $stmt = mysqli_prepare($this->conn, $sql);
-
-            mysqli_stmt_bind_param($stmt, "sdsssssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark, $by_username, $by_role);
-            $result = mysqli_stmt_execute($stmt);
-
-            if ($result) {
-                echo "Deposit added successfully.";
-            } else {
-                echo "Error adding deposit: " . mysqli_stmt_error($stmt);
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Please fill in all required fields.'];
+                header("Location: " . $_SERVER['REQUEST_URI']);
+                exit();
             }
 
-            mysqli_stmt_close($stmt);
+            $username = $this->conn->real_escape_string($_POST['username']);
+            $recharge = $this->conn->real_escape_string($_POST['depositamount']);
+            $pageId = 1;
+            $pagename = $_POST['pagename'] === 'other' ? $_POST['pagename_other'] : $_POST['pagename'];
+            $platform = $_POST['platformname'] === 'other' ? $_POST['platformname_other'] : $_POST['platformname'];
+            $cashName = $_POST['cashAppname'] === 'other' ? $_POST['cashAppname_other'] : $_POST['cashAppname'];
+            $bonus = $this->conn->real_escape_string($_POST['bonusamount']);
+            $remark = $this->conn->real_escape_string($_POST['remark']);
+            $byId = 1; // Assuming a default value for byId
+            $byUsername = $this->susername;
+
+            $type = "Debit"; // Adjust the type as needed
+
+            $sql = "INSERT INTO transaction (username, recharge, page_id,page_no, platform, cashname, bonus, remark, by_id, by_u, type, created_at, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, NOW(), NOW())";
+
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bind_param("sssssssssss", $username, $recharge, $pageId, $pagename, $platform, $cashName, $bonus, $remark, $byId, $byUsername, $type);
+
+                if ($stmt->execute()) {
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Recharge Added Sucessfully '];
+
+                    echo "Transaction added successfully. Redirecting...<br>";
+                    header("Location: ../../index.php/Portal_User_Management");
+                    exit();
+                } else {
+                    echo "Error adding transaction details: " . $stmt->error . "<br>";
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error adding transaction details: ' . $stmt->error];
+                }
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $this->conn->error . "<br>";
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+            }
         }
     }
     public function Redeem()
