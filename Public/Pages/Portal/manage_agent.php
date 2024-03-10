@@ -169,7 +169,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                                                     <td>
                                                     <form action=\"./update_agent\" method=\"post\">
-                                                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                                                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
                                                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                                                     </form>
                                                 </td>
