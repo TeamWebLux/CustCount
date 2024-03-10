@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM page ";
+        $sql = "SELECT * FROM platform ";
 
 
         $result = $conn->query($sql);
@@ -92,10 +92,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search Page</h4>
-                                    <p>Page by name</p>
+                                    <h4 class="card-title">Search Platform</h4>
+                                    <p>Platform by name</p>
                                 </div>
-                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Page</button>                       
+                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Platform</button>                       
 
                             </div>
 
@@ -104,9 +104,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
 
-                                <form action="./update_page" method="POST">
+                                <form action="./update_platform" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Page</option>
+                                        <option value="#">Select Platform</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
@@ -130,7 +130,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">Page List</h4>
+                                <h4 class="mb-0">Platform List</h4>
+                                <a href="./platform" style="text-decoration: none;">
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
+                            </a>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -154,7 +158,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             
                                             <th scope="col">ID</th>
                                             <th scope="col">Update</th>
-                                            <th scope="col">Page Name</th>
+                                            <th scope="col">Platform Name</th>
+                                            <th scope="col">Platform Balance</th>
+
                                             <th scope="col">Added By</th>
                                             <th scope="col">Created At</th>
                                             </tr>';
@@ -167,12 +173,14 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     
                                                     <td>{$row['pid']}</td>
                                                     <td>
-                    <form action=\"./update_page\" method=\"post\">
+                    <form action=\"./update_platform\" method=\"post\">
                         <input type=\"hidden\" name=\"state\" value=\"{$row['name']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
                                                     <td>{$row['name']}</td>
+                                                    <td>{$row['current_balance']}</td>
+
                                                     <td>{$row['by_u']}</td>
                                                     <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
                                                    

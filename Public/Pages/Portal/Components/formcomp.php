@@ -40,6 +40,45 @@ function select($label, $id, $name, $options, $selectedOption = null) {
 
     return $html;
 }
+function cfield($label, $id, $name, $value, $isChecked = false) {
+    $checkedAttribute = $isChecked ? 'checked' : '';
+
+    $html = '<div class="form-group">';
+    $html .= '<label for="' . $id . '">' . $label . '</label>';
+    $html .= '<input type="checkbox" id="' . $id . '" name="' . $name . '" value="' . $value . '" ' . $checkedAttribute . '>';
+    $html .= '</div>';
+
+    return $html;
+}
+function sbox($label, $id, $isChecked = false) {
+    // Use the ternary operator to set the 'checked' attribute
+    $checkedAttribute = $isChecked ? 'checked' : '';
+
+    $html = '<div class="form-check form-switch">';
+    $html .= '<input class="form-check-input" type="checkbox" name="'.$id.'" role="switch" id="' . $id . '" ' . $checkedAttribute . '>';
+    $html .= '<label class="form-check-label" for="' . $id . '">' . $label . '</label>';
+    $html .= '</div>';
+    $html .= '<script>
+        // Get the switch checkbox element
+        var switchCheckbox = document.getElementById("' . $id . '");
+        
+        // Add an event listener to handle the click event
+        switchCheckbox.addEventListener("click", function() {
+            // Update the value based on the checkbox state
+            var newValue = switchCheckbox.checked ? 1 : 0;
+            
+            // Log the new value (you can replace this with your desired logic)
+            console.log(newValue);
+        });
+    </script>';
+
+    return $html;
+}
+
+
+// Example usage
+
+
 
 // Example usage:
 
@@ -51,3 +90,11 @@ $formend=' </form>
 </div> <!-- end col -->
 </div>';
 ?>
+<script>
+
+var switchCheckbox = document.getElementById('flexSwitchCheckChecked');
+  switchCheckbox.addEventListener('click', function() {
+    switchCheckbox.checked = !switchCheckbox.checked;
+    console.log('Switch checkbox value changed to:', switchCheckbox.checked ? 1 : 0);
+  });
+</script>
