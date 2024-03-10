@@ -6,24 +6,25 @@ include '../db/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $conn->real_escape_string($_POST['username']);
-    $password = $_POST['password']; // Directly passing the password since it will be hashed
+    $password = $_POST['password'];
 
     // Retain the username in session for repopulating the form upon failure
     $_SESSION['login_form_values'] = ['username' => $username];
 
-    $sql = "SELECT * FROM users WHERE Username = ?";
+    $sql = "SELECT * FROM user WHERE username = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("s", $username);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
             if ($result->num_rows === 1) {
                 $row = $result->fetch_assoc();
-                if (password_verify($password, $row['Password'])) {
+                // Perform plain text password comparison (without hashing)
+                if ($password === $row['password']) {
                     $_SESSION['loggedin'] = true;
                     $_SESSION['username'] = $username;
-                    $_SESSION['userid'] = $row['UserID'];
-                    $_SESSION['role'] = $row['Role'];
-                    $_SESSION['fullname'] = $row['fullname'];
+                    $_SESSION['userid'] = $row['id'];
+                    $_SESSION['role'] = $row['role'];
+                    $_SESSION['fullname'] = $row['name'];
                     // Clear retained form values upon successful login
                     unset($_SESSION['login_form_values']);
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Successfully logged in'];

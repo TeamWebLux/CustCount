@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM pages ";
+        $sql = "SELECT * FROM page ";
 
 
         $result = $conn->query($sql);
@@ -95,7 +95,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <h4 class="card-title">Search Page</h4>
                                     <p>Page by name</p>
                                 </div>
-                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Page</button>                       
+                                <a href="./Add_Page" style="text-decoration: none;">
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Page</button>
+                            </a>
 
                             </div>
 
@@ -112,15 +114,14 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                                         ?>
 
-                                            <option name="userdata" value="<?php echo $row['page_name'] ?>"> <?php echo $row['page_name'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['name'] ?>"> <?php echo $row['name'] ?></option>
                                     <?php
                                         }
                                     }
                                     ?>
 
                                     </select>
-                                    <br>
-                                    <br>
+                    
                                     <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
                                 </form>
                             </div>
@@ -157,7 +158,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col">Update</th>
                                             <th scope="col">Page Name</th>
                                             <th scope="col">Added By</th>
-                                            <th scope="col">Page Unique Id</th>
                                             <th scope="col">Created At</th>
                                             </tr>';
                                                     ?>
@@ -167,17 +167,16 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
                                                     
-                                                    <td>{$row['page_id']}</td>
+                                                    <td>{$row['pid']}</td>
                                                     <td>
                     <form action=\"./update_page\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['page_name']}\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['name']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                                                    <td>{$row['page_name']}</td>
-                                                    <td>{$row['added_by']}</td>
-                                                    <td>{$row['createdAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['page_unique_id']}</td>
+                                                    <td>{$row['name']}</td>
+                                                    <td>{$row['by_u']}</td>
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
                                                    
                                                   </tr>";
                                                         }

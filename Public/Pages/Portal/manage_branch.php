@@ -70,8 +70,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         <?php
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
-
-        $sql = "SELECT * FROM user WHERE Role = 'User'";
+        $sql = "SELECT * FROM branch";
 
 
         $result = $conn->query($sql);
@@ -85,132 +84,110 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
 
             <div class="content-inner container-fluid pb-0" id="page_layout">
-
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Search User</h4>
-                                    <p>User by name</p>
+                                    <h4 class="card-title">Search Branch</h4>
+                                    <p>Branch by name</p>
                                 </div>
                             </div>
 
                             <!-- Select Dropdown -->
-
-
                             <div class="card-body">
-                                <form action="./update_user" method="POST">
+                                <form action="./update_branch" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select User</option>
+                                        <option value="#">Select Branch</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
-
+                                            // Use the 'name' field for the dropdown
                                         ?>
-
-                                            <option name="userdata" value="<?php echo $row['Username'] ?>"> <?php echo $row['Username'] ?></option>
-                                    <?php
+                                            <option value="<?php echo $row['name'] ?>"> <?php echo $row['name'] ?></option>
+                                        <?php
                                         }
-                                    }
-                                    ?>
-
+                                        ?>
                                     </select>
-                                    <br>
-                                    <br>
-                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
+                                    <br><br>
+                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="mb-0">User List</h4>
-                            </div>
-                            <?php
-                            // include './App/db/db_connect.php';
-                            // $sql = "SELECT * FROM users";
+            <?php
+        } else {
+            echo "0 results";
+        }
+            ?> <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0">Branch List</h4>
+                            <a href="./Add_Branch" style="text-decoration: none;">
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Branch</button>
+                            </a>
 
-                            $result = $conn->query($sql);
-
-                            // Check if there are results
-
-                            if ($result->num_rows > 0) {
-
-                            ?>
-
-                                <div class="card-body">
-                                    <div class="custom-table-effect table-responsive  border rounded">
-                                        <table class="table mb-0" id="datatable" data-toggle="data-table">
-                                            <thead>
-                                                <tr class="bg-white">
-                                                    <?php
-                                                    echo '<tr>
-                                            
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Update</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Full Name</th>
-                                            
-                                            <th scope="col">Role</th>
-                                            <th scope="col">Created At</th>
-                                            <th scope="col">Last Login</th>
-                                            </tr>';
-                                                    ?>
-                                                    <thead>
-                                                    <tbody>
-                                                        <?php
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            echo "<tr>
-                                                    
-                                                    <td>{$row['id']}</td>
-                                                    <td>
-                    <form action=\"./update_user\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
-                        <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
-                    </form>
-                </td>
-                                                    <td>{$row['username']}</td>
-                                                    <td>{$row['name']}</td>
-                                                    
-                                                    <td>{$row['role']}</td>
-                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['last_login']}</td>
-                                                   
-                                                  </tr>";
-                                                        }
-                                                        ?>
-
-                                                    </tbody>
-                                                <?php
-
-                                                // End table
-                                                echo '</table>';
-                                            } else {
-                                                echo "0 results";
-                                            }
-
-                                            // Close connection
-                                            $conn->close();
-                                                ?>
-
-
-
-                                    </div>
-                                </div>
                         </div>
-                    </div>
+                        <?php
+                        $sql = "SELECT `bid`, `name`, `status`, `created_at`, `updated_at` FROM `branch`";
 
+                        $result = $conn->query($sql);
+
+                        // Check if there are results
+                        if ($result->num_rows > 0) {
+                        ?>
+
+                            <div class="card-body">
+                                <div class="custom-table-effect table-responsive  border rounded">
+                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                        <thead>
+                                            <tr class="bg-white">
+                                                <th scope="col">Branch ID</th>
+                                                <th scope="col">Update</th>
+                                                <th scope="col">Branch Name</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Created At</th>
+                                                <th scope="col">Updated At</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<tr>
+                                                    <td>{$row['bid']}</td>
+                                                    <td>
+                                                        <form action=\"./update_branch\" method=\"post\">
+                                                            <input type=\"hidden\" name=\"state\" value=\"{$row['name']}\">
+                                                            <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>{$row['name']}</td>
+                                                    <td>" . ($row['status'] == 1 ? 'Activated' : 'Not Active') . "</td>
+                                                    <td>{$row['created_at']}</td>
+                                                    <td>{$row['updated_at']}</td>
+                                                </tr>";
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        <?php
+                            // Close connection
+                            $conn->close();
+                        } else {
+                            echo "0 results";
+                        }
+                        ?>
+
+
+
+                    </div>
                 </div>
             </div>
-
-
-
-
-
+            </div>
 
 
             <?
