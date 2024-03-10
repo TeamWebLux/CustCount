@@ -128,10 +128,6 @@
             </div>
         </section>
     </div>
-    <!-- end page -->
-
-    <!-- end page -->
-
 
     <?php include "./Public/Pages/Common/scripts.php" ?>
 
