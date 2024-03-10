@@ -42,7 +42,7 @@
 </head>
 
 
-<body  style="height: 100%; background-color: white;" class="">
+<body style="height: 100%; background-color: white;" class="">
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -54,74 +54,78 @@
     <!-- loader END -->
     <br>
     <br>
-    <br>
-    <br>
     <div class="wrapper">
         <section class="login-content overflow-hidden">
             <div class="row no-gutters align-items-center bg-white">
                 <div class="col-md-12 col-lg-6 align-self-center">
-                    <a href="../index.html" class="navbar-brand d-flex align-items-center mb-3 justify-content-center text-primary">
-                        <div class="logo-normal">
-                           <img src="../assets/images/CustCountFinal.png" style="height: 200px;" alt="">
-                        </div>
-                        <h1 style="font-family: 'Times New Roman', Times, serif; color: #39DFE5; font-size: 4em; font-weight: bold; " class="logo-title ms-3 mb-0">CustCount</h1>
-                        
-                        <h5  style= " text-decoration:double; position: relative; right: 180px; top: 40px; color: limegreen; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="logo-title ms-3 mb-0" >COUNT, IMPACT, PROSPER</h5>
-                    </a>
-                    <div class="row justify-content-center pt-5">
-                        <div class="col-md-9">
-                            <div class="card  d-flex justify-content-center mb-0 auth-card iq-auth-form">
-                                <div class="card-body">
-                                    <h2 class="mb-2 text-center" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"">Sign In</h2>
-                                    <p class="text-center">Login to stay connected.</p>
-                                    <form action="../App/Logic/login.php" method="post">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="username" class="form-label">User Name</label>
-                                                    <input value="<?php echo isset($_SESSION['login_form_values']['username']) ? htmlspecialchars($_SESSION['login_form_values']['username']) : ''; ?>" class="form-control" type="text" id="username" name="username" placeholder="Enter your user-name" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="password" class="form-label">Password</label>
-                                                    <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 d-flex justify-content-between">
-                                                <div class="form-check mb-3">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1">Remember Me</label>
-                                                </div>
-                                                <a href="recoverpw.html">Forgot Password?</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-primary">Sign In</button>
-                                        </div>
-                                        <p class="text-center my-3">or sign in with other accounts?</p>
-                                        <div class="d-flex justify-content-center">
-                                            <ul class="list-group list-group-horizontal list-group-flush">
-                                                
-                                                <li class="list-group-item border-0 pb-0">
-                                                    <a href="#"><img src="https://templates.iqonic.design/product/qompac-ui/html/dist/assets/images/brands/fb.svg" alt="fb" loading="lazy"></a>
-                                                </li>
-                                                
-                                            </ul>
-                                        </div>
-                                        <p class="mt-3 text-center">
-                                            Don’t have an account? <a href="./Register_to_CustCount" class="text-underline">Click here to sign up.</a>
-                                        </p>
-                                    </form>
+                    <div class="row justify-content-center">
+                        <div style="position: relative ; left: 100px;" class="col-md-12 col-lg-6 align-self-center">
+                            <a href="#" class="navbar-brand d-flex align-items-center mb-3 justify-content-center text-primary">
+                                <div class="logo-normal">
+                                    <img src="../assets/images/CustCountFinal.png" style="height: 100px; " alt="">
                                 </div>
+                                <h1 style="font-family: 'Times New Roman', Times, serif; color: #39DFE5; font-size: 3em; font-weight: bold; " class="logo-title ms-3 mb-0">CustCount</h1>
+
+                                <h5 style=" text-decoration:double; position: relative; right: 180px; top: 40px; color: limegreen; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="logo-title ms-3 mb-0">COUNT, IMPACT, PROSPER</h5>
+
+                            </a>
+                        </div>
+                        <div class="row justify-content-center pt-5">
+                            <div class="col-md-9">
+                                <div class="card  d-flex justify-content-center mb-0 auth-card iq-auth-form">
+                                    <div class="card-body">
+                                        <h2 class="mb-2 text-center" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"">Sign In</h2>
+                                    <p class=" text-center">Login to stay connected.</p>
+                                            <form action="../App/Logic/login.php" method="post">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="username" class="form-label">User Name</label>
+                                                            <input value="<?php echo isset($_SESSION['login_form_values']['username']) ? htmlspecialchars($_SESSION['login_form_values']['username']) : ''; ?>" class="form-control" type="text" id="username" name="username" placeholder="Enter your user-name" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="password" class="form-label">Password</label>
+                                                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 d-flex justify-content-between">
+                                                        <div class="form-check mb-3">
+                                                            <input type="checkbox" class="form-check-input" id="customCheck1">
+                                                            <label class="form-check-label" for="customCheck1">Remember Me</label>
+                                                        </div>
+                                                        <a href="recoverpw.html">Forgot Password?</a>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-primary">Sign In</button>
+                                                </div>
+                                                <p class="text-center my-3">or sign in with other accounts?</p>
+                                                <div class="d-flex justify-content-center">
+                                                    <ul class="list-group list-group-horizontal list-group-flush">
+
+                                                        <li class="list-group-item border-0 pb-0">
+                                                            <a href="#"><img src="https://templates.iqonic.design/product/qompac-ui/html/dist/assets/images/brands/fb.svg" alt="fb" loading="lazy"></a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <p class="mt-3 text-center">
+                                                    Don’t have an account? <a href="./Register_to_CustCount" class="text-underline">Click here to sign up.</a>
+                                                </p>
+                                            </form>
+                                  
                             </div>
                         </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-lg-6 d-lg-block d-none p-0 overflow-hidden" style="position: relative; right: 80px; background-color: #39DFE5;">
+                        <video src="../assets/images/CustCount.mp4" class="img-fluid gradient-main" alt="images" loop autoplay muted></video>
                     </div>
                 </div>
-                <div class="col-lg-6 d-lg-block d-none p-0 overflow-hidden" style="position: relative; right: 80px; background-color: #39DFE5;">
-                    <video  src="../assets/images/CustCount.mp4" class="img-fluid gradient-main" alt="images" loop autoplay muted></video>
-                </div>
-            </div>
         </section>
     </div>
 
