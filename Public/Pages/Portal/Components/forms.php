@@ -111,7 +111,7 @@ if (isset($action)) {
         $result = $conn->query("SELECT * FROM cashapp");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
@@ -124,8 +124,8 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     } else if ($action == "DEPOSIT" && ($role != "User")) {
-        $title = "Deposit Details";
-        $heading = "Fill in the Deposit Details";
+        $title = "Reedem Details";
+        $heading = "Fill in the Redeem Details";
         $actionUrl = "../App/Logic/creation.php?action=Deposit";
         echo fhead($title, $heading, $actionUrl);
         if (isset($_GET['u'])) {
@@ -138,7 +138,18 @@ if (isset($action)) {
             echo field("Enter the User Name", "text", "username", "Enter the Username");
         }
         echo field("Deposit Amount", "number", "depositamount", "Enter the Deposit Amount");
-        echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
+        $pageop = "<option value=''>Select Page</option>";
+        $result = $conn->query("SELECT name FROM page");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pageop .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        echo '<label for="pagename">Page Name</label>';
+        echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'platformname-other\')">' . $pageop . '</select>';
+        // echo '<input type="text" id="platformname-other" name="platformname_other" style="display:none;" placeholder="Enter Platform Name">';
+
+        // echo field("page ID", "text", "fbid", "Enter the Facebook ID");
         $platformOptions = "<option value=''>Select Platform</option>";
         $result = $conn->query("SELECT name FROM platform");
         if ($result->num_rows > 0) {
@@ -156,7 +167,7 @@ if (isset($action)) {
         $result = $conn->query("SELECT * FROM cashapp");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
@@ -243,7 +254,7 @@ if (isset($action)) {
         $result = $conn->query("SELECT * FROM cashapp");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
