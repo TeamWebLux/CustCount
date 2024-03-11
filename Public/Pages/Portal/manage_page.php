@@ -96,8 +96,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <p>Page by name</p>
                                 </div>
                                 <a href="./Add_Page" style="text-decoration: none;">
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Page</button>
-                            </a>
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Page</button>
+                                </a>
 
                             </div>
 
@@ -107,8 +107,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <div class="card-body">
 
                                 <form action="./update_page" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Page</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Page</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
@@ -121,7 +121,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     ?>
 
                                     </select>
-                    
+
                                     <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
                                 </form>
                             </div>

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -71,7 +70,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
         $sql = "SELECT * FROM user WHERE Role = 'Agent'";
-        
+
 
         $result = $conn->query($sql);
 
@@ -82,7 +81,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         ?>
 
 
-            
+
             <div class="content-inner container-fluid pb-0" id="page_layout">
 
 
@@ -93,7 +92,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Agent</h4>
                                     <p>Agent by name</p>
+                                    <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="Agent" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Agent </button>
+                                    </form>
+
                                 </div>
+
                             </div>
 
                             <!-- Select Dropdown -->
@@ -101,13 +106,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
                                 <form action="./update_agent" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Agent</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Agent</option>
                                         <?php
-                                        while ($row = $result->fetch_assoc()) {
-
-                                        ?>
-
+                                        while ($row = $result->fetch_assoc()) { ?>
                                             <option name="userdata" value="<?php echo $row['username'] ?>"> <?php echo $row['username'] ?></option>
                                     <?php
                                         }
@@ -128,6 +130,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0">Agent List</h4>
+                                <form action="./add_user" method="POST">
+                                    <input type="text" name="role" value="agent" hidden>
+                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Agent </button>
+                                </form>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';

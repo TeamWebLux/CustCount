@@ -32,7 +32,7 @@ function select($label, $id, $name, $options, $selectedOption = null) {
 
     foreach ($options as $option) {
         $selected = ($option == $selectedOption) ? 'selected' : '';
-        $html .= '<option ' . $selected . '>' . $option . '</option>';
+        $html .= '<option ' . $selected . ' >' . $option . '</option>';
     }
 
     $html .= '</select>

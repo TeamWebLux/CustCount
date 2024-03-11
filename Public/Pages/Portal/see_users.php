@@ -77,16 +77,16 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <?php
                         include './App/db/db_connect.php';
                         if ($role === 'Admin') {
-                            $sql = "SELECT * FROM users";
+                            $sql = "SELECT * FROM user";
                             // No parameters needed for Admin
                         } elseif ($role === 'Manager') {
-                            $sql = "SELECT * FROM users WHERE Role IN ('Agent', 'User', 'Supervisor')";
+                            $sql = "SELECT * FROM user WHERE Role IN ('Agent', 'User', 'Supervisor')";
                             $params = [];
                         } elseif ($role === 'Supervisor') {
-                            $sql = "SELECT * FROM users WHERE Role IN ('Agent', 'User')";
+                            $sql = "SELECT * FROM user WHERE Role IN ('Agent', 'User')";
                             $params = [];
                         } elseif ($role === 'Agent') {
-                            $sql = "SELECT * FROM users WHERE Role = 'User'";
+                            $sql = "SELECT * FROM user WHERE Role = 'User'";
                             $params = [];
                         }
                         
@@ -119,13 +119,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>
                                                     
-                                                    <td>{$row['UserID']}</td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
-                                                    <td>{$row['rawpass']}</td>
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
+                                                    <td>{$row['id']}</td>
+                                                    <td>{$row['username']}</td>
+                                                    <td>{$row['name']}</td>
+                                                    <td>{$row['password']}</td>
+                                                    <td>{$row['role']}</td>
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                                    <td>{$row['last_login']}</td>
                                                    
                                                   </tr>";
                                             }

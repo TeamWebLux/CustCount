@@ -93,6 +93,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Supervisor</h4>
                                     <p>Supervisor by name</p>
+                                    <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="Supervisor" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Supervisor </button>
+                                    </form>
+
                                 </div>
                             </div>
 
@@ -101,8 +106,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
                                 <form action="./update_supervisor" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Supervisor</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Supervisor</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 

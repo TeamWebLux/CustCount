@@ -13,7 +13,7 @@ include './Router/initialize.php';
 
 if ($uri == $firstparam || $uri == $secondparam) {
     echo '<script type="text/JavaScript"> 
-    window.location.replace("./index.php/Login_to_CustCount");
+    window.location.replace("./index.php/Portal");
     </script>';
     die();
 } else {
