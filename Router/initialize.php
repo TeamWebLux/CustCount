@@ -3,7 +3,7 @@
 
 
 // echo $uri;
-$firstparam ="/";
+$firstparam ="";
 $secondparam ="/index.php";
 $thirdparam ="/";
 $fourthparam ="/index.php";
