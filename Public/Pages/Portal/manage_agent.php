@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -71,7 +70,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
         $sql = "SELECT * FROM user WHERE Role = 'Agent'";
-        
+
 
         $result = $conn->query($sql);
 
@@ -82,7 +81,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         ?>
 
 
-            
+
             <div class="content-inner container-fluid pb-0" id="page_layout">
 
 
@@ -101,8 +100,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
                                 <form action="./update_agent" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Agent</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Agent</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 

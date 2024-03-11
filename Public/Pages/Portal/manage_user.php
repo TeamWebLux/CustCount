@@ -101,26 +101,23 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
 
                             <div class="card-body">
-                                <form action="./update_user" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select User</option>
-                                        <?php
-                                        while ($row = $result->fetch_assoc()) {
-
-                                        ?>
-
-                                            <option name="userdata" value="<?php echo $row['username'] ?>"> <?php echo $row['username'] ?></option>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-
-                                    </select>
-                                    <br>
-                                    <br>
-                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
-                                </form>
-                            </div>
+    <form action="./update_user" method="POST">
+        <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+            <option value="" disabled hidden>Select User</option>
+            <?php
+            // Assuming you have a valid $result object from your database query
+            while ($row = $result->fetch_assoc()) {
+            ?>
+                <option name="userdata" value="<?php echo $row['username'] ?>"><?php echo $row['username'] ?></option>
+            <?php
+            }}
+            ?>
+        </select>
+        <br>
+        <br>
+        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update</button>
+    </form>
+</div>
                         </div>
                     </div>
                 </div>
