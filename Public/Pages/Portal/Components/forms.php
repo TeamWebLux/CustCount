@@ -63,7 +63,32 @@ if (isset($action)) {
 
         echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
         // echo $status = field("Status", "text", "status", "Enter Status", isset($_POST['status']) ? $_POST['status'] : '');
-        echo $selectRole = select("Select Role", "role", "role", $option, isset($_POST['role']) ? $_POST['role'] : '');
+        // echo $selectRole = select("Select Role", "role", "role", $option, isset($_POST['role']) ? $_POST['role'] : '');
+        if($_POST['role']=='Supervisor'){
+            echo '<label for="pagename">Page Name</label>';
+            echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+
+
+
+        }elseif($_POST['role']=='Agent'){
+            echo '<label for="pagename">Page Name</label>';
+            echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+
+
+        }elseif($_POST['role']=='Manager'){
+            echo '<label for="Branchname">Branch Name</label>';
+            echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+
+            
+        }elseif($_POST['role']=='User'){
+            echo '<label for="Branchname">Branch Name</label>';
+            echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+    
+            echo '<label for="pagename">Page Name</label>';
+            echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+    
+            
+        }
         echo '<div id="agentadd" style="display:none;">';
         echo '<label for="pagename">Page Name</label>';
         echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
@@ -75,11 +100,6 @@ if (isset($action)) {
         echo '<div id="useradd" style="display:none;">';
         // Assuming 'managerid' is a predefined array containing manager options
         // echo $selectManager = select("Select Manager", "managerid", "managerid", $managerid, isset($_POST['managerid']) ? $_POST['managerid'] : '');
-        echo '<label for="Branchname">Branch Name</label>';
-        echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
-
-        echo '<label for="pagename">Page Name</label>';
-        echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
 
 
         // echo $branchId = field("Branch ID", "text", "branch_id", "Enter Branch ID");
