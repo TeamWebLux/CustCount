@@ -22,25 +22,25 @@ class Creation
             // Sanitize input data
             $name = $this->sanitizeInput($_POST['name']);
             $username = $this->sanitizeInput($_POST['username']);
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $rawpass = $this->sanitizeInput($_POST['password']);
+            $password = ($_POST['password']);
+            // $rawpass = $this->sanitizeInput($_POST['password']);
             $role = $this->sanitizeInput($_POST['role']);
             $managerid = isset($_POST['managerid']) ? $this->sanitizeInput($_POST['managerid']) : null;
             $agentid = isset($_POST['agentid']) ? $this->sanitizeInput($_POST['agentid']) : null;
-            $branchId = isset($_POST['branch_id']) ? $this->sanitizeInput($_POST['branch_id']) : null;
-            $pageId = isset($_POST['page_id']) ? $this->sanitizeInput($_POST['page_id']) : null;
+            $branchId = isset($_POST['branchname']) ? $this->sanitizeInput($_POST['branchname']) : null;
+            $pageId = isset($_POST['pagename']) ? $this->sanitizeInput($_POST['pagename']) : null;
 
             // Check if the username is unique
             if ($this->isUsernameUnique($username)) {
-                $query = "INSERT INTO users (fullname, username, password, role, rawpass, branchid, pageid) VALUES (  ?, ?, ?, ?, ?, ?, ?)";
+                $query = "INSERT INTO user (name, username, password, role, branchname, pagename) VALUES (  ?, ?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($this->conn, $query);
-                mysqli_stmt_bind_param($stmt, "sssssss", $name, $username, $password, $role, $rawpass, $branchId, $pageId);
+                mysqli_stmt_bind_param($stmt, "ssssss", $name, $username, $password, $role, $branchId, $pageId);
                 $result = mysqli_stmt_execute($stmt);
 
                 if ($result) {
                     echo "User added successfully.";
-                    $newUserId = mysqli_insert_id($this->conn);
-                    $this->addToTree($newUserId, $role, $managerid, $agentid);
+                    // $newUserId = mysqli_insert_id($this->conn);
+                    // $this->addToTree($newUserId, $role, $managerid, $agentid);
                 } else {
                     echo "Error adding user: " . mysqli_error($this->conn);
                 }
@@ -391,7 +391,7 @@ class Creation
 
     private function isUsernameUnique($username)
     {
-        $query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        $query = "SELECT COUNT(*) FROM user WHERE username = ?";
         $stmt = mysqli_prepare($this->conn, $query);
         mysqli_stmt_bind_param($stmt, "s", $username);
         mysqli_stmt_execute($stmt);
