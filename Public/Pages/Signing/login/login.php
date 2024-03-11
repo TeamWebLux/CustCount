@@ -112,7 +112,7 @@
                                                     </ul>
                                                 </div>
                                                 <p class="mt-3 text-center">
-                                                    Don’t have an account? <a href="./Register_to_CustCount" class="text-underline">Click here to sign up.</a>
+                                                    <!-- Don’t have an account? <a href="./Register_to_CustCount" class="text-underline">Click here to sign up.</a> -->
                                                 </p>
                                             </form>
                                   

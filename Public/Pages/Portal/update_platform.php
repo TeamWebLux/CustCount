@@ -65,7 +65,7 @@
             $username = $conn->real_escape_string($_POST['state']);
 
             // Prepare the SQL statement
-            $sql = "SELECT * FROM user WHERE Username = '$username'";
+            $sql = "SELECT * FROM platform WHERE name = '$username'";
 
             // Execute the query
             $result = $conn->query($sql);
@@ -81,7 +81,6 @@
                             <div class="card-header">
                                 <h4 class="mb-0"><?php echo $user; ?> Details</h4>
                             </div>
-
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
                                     <?php
@@ -89,36 +88,32 @@
                                     if ($result) {
                                         // Fetch the results
                                         echo '<table class="table mb-0">';
-                                        echo "<tr>";
+
                                         echo '<tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Update</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Page ID</th>
+                                            <th scope="col">Page Name</th>
+                                            <th scope="col">Added By</th>
+                                            <th scope="col">Status</th>
 
-                                <th scope="col">Created At</th>
-                                <th scope="col">Last Login</th>
-                    </tr>';
+                                            <th scope="col">Created At</th>
+                                </tr>';
+                                $id = 0;  // Initialize $id with a default value
+
                                         while ($row = $result->fetch_assoc()) {
                                             // Output column names as table headers
-                                            echo "<tr>
-                                    <td>{$row['id']}</td>
 
-                                    <td>{$row['username']}</td>
-                                    <td>{$row['name']}</td>
-                                    <td>{$row['password']}</td>
-                                    <td>{$row['role']}</td>
-                                    <td>{$row['pageid']}</td>
 
-                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                    <td>{$row['last_login']}</td>
-                                   
-                    echo </tr>";
-                                            $id = $row['id'];
+                                            echo "<tr>";
+                                            echo "<td>" . $row['pid'] . "</td>";
+                                            echo "<td>" . $row['name'] . "</td>";
+                                            echo "<td>" . $row['by_u'] . "</td>";
+                                            echo "<td>" . ($row['status'] == 1 ? 'Activated' : 'Not Active') . "</td>";
+
+
+                                            echo "<td>" . $row['created_at'] . "</td>";
+                                            $id = $row['pid'];
                                             $status = $row['status'];
+                                            echo "</tr>";
                                         }
                                         echo "</table>";
                                     } else {
@@ -129,13 +124,11 @@
                                 <br>
                                 <br>
 
-
-
-                                <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'user', 'status','id')">
+                                <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>
+                                <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'platform', 'status','pid')">
                                     <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActivate' : 'Activate'  ?></i>
                                 </a>
-
-                                <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+                                <!-- <button type="button" class="btn btn-success rounded-pill mt-2">Page is Active</button> -->
                             </div>
                         </div>
                     </div>
@@ -145,39 +138,8 @@
         </div>
 
 
-
-
-
-
-        <?
-        include("./Public/Pages/Common/footer.php");
-        // print_r($_SESSION);
-        ?>
-
-    </main>
-    <!-- Wrapper End-->
-    <!-- Live Customizer start -->
-    <!-- Setting offcanvas start here -->
-    <?php
-    include("./Public/Pages/Common/theme_custom.php");
-
-    ?>
-
-    <!-- Settings sidebar end here -->
-
-    <?php
-    include("./Public/Pages/Common/settings_link.php");
-
-    ?>
-    <!-- Live Customizer end -->
-
-    <!-- Library Bundle Script -->
-    <?php
-    include("./Public/Pages/Common/scripts.php");
-
-    ?>
-    <script>
-                    function status(product_id, table, field, id) {
+        <script>
+            function status(product_id, table, field,id) {
                 if (confirm("Are you sure you want to Activate or Deactivate?")) {
                     const xhr = new XMLHttpRequest();
                     xhr.open("POST", "../App/Logic/commonf.php?action=status", true);
@@ -186,7 +148,7 @@
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                     // Include additional parameters in the data sent to the server
-                    const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id;
+                    const data = "id=" + product_id + "&table=" + table + "&field=" + field+"&cid="+id;
 
                     // Log the data being sent
                     console.log("Data sent to server:", data);
@@ -235,10 +197,38 @@
                     xhr.send(data);
                 }
             }
+        </script>
 
-    </script>
 
 
+
+        <?
+        include("./Public/Pages/Common/footer.php");
+        // print_r($_SESSION);
+        ?>
+
+    </main>
+    <!-- Wrapper End-->
+    <!-- Live Customizer start -->
+    <!-- Setting offcanvas start here -->
+    <?php
+    include("./Public/Pages/Common/theme_custom.php");
+
+    ?>
+
+    <!-- Settings sidebar end here -->
+
+    <?php
+    include("./Public/Pages/Common/settings_link.php");
+
+    ?>
+    <!-- Live Customizer end -->
+
+    <!-- Library Bundle Script -->
+    <?php
+    include("./Public/Pages/Common/scripts.php");
+
+    ?>
 
 </body>
 

@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM users WHERE Role = 'User'";
+        $sql = "SELECT * FROM user WHERE Role = 'User'";
 
 
         $result = $conn->query($sql);
@@ -94,6 +94,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search User</h4>
                                     <p>User by name</p>
+                                    <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="User" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add User </button>
+                                    </form>
+
                                 </div>
                             </div>
 
@@ -102,23 +107,21 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
                                 <form action="./update_user" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select User</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select User</option>
                                         <?php
+                                        // Assuming you have a valid $result object from your database query
                                         while ($row = $result->fetch_assoc()) {
-
                                         ?>
-
-                                            <option name="userdata" value="<?php echo $row['Username'] ?>"> <?php echo $row['Username'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['username'] ?>"><?php echo $row['username'] ?></option>
                                     <?php
                                         }
                                     }
                                     ?>
-
                                     </select>
                                     <br>
                                     <br>
-                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
+                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -129,6 +132,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0">User List</h4>
+                                <a href="./Add_User" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
+                                </a>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -166,19 +173,19 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
                                                     
-                                                    <td>{$row['UserID']}</td>
+                                                    <td>{$row['id']}</td>
                                                     <td>
                     <form action=\"./update_user\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
+                                                    <td>{$row['username']}</td>
+                                                    <td>{$row['name']}</td>
                                                     
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
+                                                    <td>{$row['role']}</td>
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                                    <td>{$row['last_login']}</td>
                                                    
                                                   </tr>";
                                                         }

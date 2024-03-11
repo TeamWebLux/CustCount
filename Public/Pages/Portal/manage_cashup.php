@@ -71,7 +71,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
 
-        $sql = "SELECT * FROM cashups ";
+        $sql = "SELECT * FROM cashapp ";
 
 
         $result = $conn->query($sql);
@@ -95,7 +95,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <h4 class="card-title">Search CashApp</h4>
                                     <p>CashApp by name</p>
                                 </div>
-                                <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Cashup</button>
+                                <a href="./Add_CashApp" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add CashApp</button>
+                                </a>
 
                             </div>
 
@@ -104,15 +106,15 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
 
-                                <form action="./update_cashup" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select CashApp</option>
+                                <form action="./update_cashApp" method="POST">
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select CashAPP</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
                                         ?>
 
-                                            <option name="userdata" value="<?php echo $row['cashup_name'] ?>"> <?php echo $row['cashup_name'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['name'] ?>"> <?php echo $row['name'] ?></option>
                                     <?php
                                         }
                                     }
@@ -132,6 +134,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0">CashApp List</h4>
+                                <a href="./Add_CashApp" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add CashApp</button>
+                                </a>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -153,12 +159,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     <?php
 
                                                     echo '<tr>
-        <th scope="col">CashApp Unique ID</th>
+        <th scope="col">ID</th>
         <th scope="col">Update</th>
         <th scope="col">Start Date</th>
         <th scope="col">End Date</th>
         <th scope="col">Opening Balance</th>
-        <th scope="col">Page Allocation ID</th>
         <th scope="col">CashApp Name</th>
         <th scope="col">Cash Tag</th>
         <th scope="col">Email Address</th>
@@ -171,22 +176,21 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         <?php
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
-                <td>{$row['cashup_unique_id']}</td>
+                <td>{$row['cid']}</td>
                 <td>
-                    <form action=\"./update_cashup\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['cashup_name']}\">
+                    <form action=\"./update_cashApp\" method=\"post\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['name']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                <td>{$row['start_date']}</td>
-                <td>{$row['end_date']}</td>
-                <td>{$row['opening_balance']}</td>
-                <td>{$row['page_allocation_id']}</td>
-                <td>{$row['cashup_name']}</td>
-                <td>{$row['cash_tag']}</td>
-                <td>{$row['email_address']}</td>
-                <td>{$row['status']}</td>
-                <td>{$row['remarks']}</td>
+                <td>{$row['start']}</td>
+                <td>{$row['end']}</td>
+                <td>{$row['current_balance']}</td>
+                <td>{$row['name']}</td>
+                <td>{$row['cashtag']}</td>
+                <td>{$row['email']}</td>
+                <td>" . ($row['status'] == 1 ? 'Activated' : 'Not Active') . "</td>
+                <td>{$row['remark']}</td>
               </tr>";
                                                         }
                                                         ?>

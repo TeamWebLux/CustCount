@@ -65,7 +65,7 @@
             $username = $conn->real_escape_string($_POST['state']);
 
             // Prepare the SQL statement
-            $sql = "SELECT * FROM user WHERE Username = '$username'";
+            $sql = "SELECT * FROM cashapp WHERE name = '$username'";
 
             // Execute the query
             $result = $conn->query($sql);
@@ -81,7 +81,6 @@
                             <div class="card-header">
                                 <h4 class="mb-0"><?php echo $user; ?> Details</h4>
                             </div>
-
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
                                     <?php
@@ -89,36 +88,35 @@
                                     if ($result) {
                                         // Fetch the results
                                         echo '<table class="table mb-0">';
-                                        echo "<tr>";
-                                        echo '<tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Update</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Page ID</th>
 
-                                <th scope="col">Created At</th>
-                                <th scope="col">Last Login</th>
-                    </tr>';
+                                        echo '<tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">End Date</th>
+                                        <th scope="col">Opening Balance</th>
+                                        <th scope="col">CashApp Name</th>
+                                        <th scope="col">Cash Tag</th>
+                                        <th scope="col">Email Address</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Remarks</th>
+                                                                </tr>';
                                         while ($row = $result->fetch_assoc()) {
                                             // Output column names as table headers
+
+
                                             echo "<tr>
-                                    <td>{$row['id']}</td>
-
-                                    <td>{$row['username']}</td>
-                                    <td>{$row['name']}</td>
-                                    <td>{$row['password']}</td>
-                                    <td>{$row['role']}</td>
-                                    <td>{$row['pageid']}</td>
-
-                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                    <td>{$row['last_login']}</td>
-                                   
-                    echo </tr>";
-                                            $id = $row['id'];
+                                            <td>{$row['cid']}</td>
+                                            <td>{$row['start']}</td>
+                                            <td>{$row['end']}</td>
+                                            <td>{$row['current_balance']}</td>
+                                            <td>{$row['name']}</td>
+                                            <td>{$row['cashtag']}</td>
+                                            <td>{$row['email']}</td>
+                                            <td>" . ($row['status'] == 1 ? 'Activated' : 'Not Active') . "</td>
+                                            <td>{$row['remark']}</td>";
+                                            $id = $row['cid'];
                                             $status = $row['status'];
+                                            echo "</tr>";
                                         }
                                         echo "</table>";
                                     } else {
@@ -128,14 +126,18 @@
                                 </div>
                                 <br>
                                 <br>
-
-
-
-                                <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'user', 'status','id')">
-                                    <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActivate' : 'Activate'  ?></i>
+                                <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'start','cid')">
+                                    <button type="button" class="btn btn-warning rounded-pill mt-2">Start Date</button>
+                                </a>
+                                <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'end','cid')">
+                                    <button type="button" class="btn btn-warning rounded-pill mt-2">End Date</button>
                                 </a>
 
-                                <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+
+                                <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'cashapp', 'status','cid')">
+                                    <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActivate' : 'Activate'  ?></i>
+                                </a>
+                                <!-- <button type="button" class="btn btn-success rounded-pill mt-2">Page is Active</button> -->
                             </div>
                         </div>
                     </div>
@@ -145,39 +147,67 @@
         </div>
 
 
+        <script>
+                        function modify(product_id, table, field, id) {
+                if (confirm("Are you sure you want to Activate or Deactivate?")) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "../App/Logic/commonf.php?action=modify", true);
 
+                    // Set the Content-Type header
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
+                    // Include additional parameters in the data sent to the server
+                    const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id;
 
+                    // Log the data being sent
+                    console.log("Data sent to server:", data);
 
-        <?
-        include("./Public/Pages/Common/footer.php");
-        // print_r($_SESSION);
-        ?>
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            console.log("XHR status:", xhr.status);
 
-    </main>
-    <!-- Wrapper End-->
-    <!-- Live Customizer start -->
-    <!-- Setting offcanvas start here -->
-    <?php
-    include("./Public/Pages/Common/theme_custom.php");
+                            if (xhr.status === 200) {
+                                console.log("Response received:", xhr.responseText);
 
-    ?>
+                                try {
+                                    const response = JSON.parse(xhr.responseText);
 
-    <!-- Settings sidebar end here -->
+                                    if (response) {
+                                        console.log("Parsed JSON response:", response);
 
-    <?php
-    include("./Public/Pages/Common/settings_link.php");
+                                        if (response.success) {
+                                            alert("Done successfully!");
+                                            location.reload();
+                                        } else {
+                                            alert("Error : " + response.message);
+                                        }
+                                    } else {
+                                        console.error("Invalid JSON response:", xhr.responseText);
+                                        alert("Invalid JSON response from the server.");
+                                    }
+                                } catch (error) {
+                                    console.error("Error parsing JSON:", error);
+                                    alert("Error parsing JSON response from the server.");
+                                }
+                            } else {
+                                console.error("HTTP request failed:", xhr.statusText);
+                                alert("Error: " + xhr.statusText);
+                            }
+                        }
+                    };
 
-    ?>
-    <!-- Live Customizer end -->
+                    // Log any network errors
+                    xhr.onerror = function() {
+                        console.error("Network error occurred.");
+                        alert("Network error occurred. Please try again.");
+                    };
 
-    <!-- Library Bundle Script -->
-    <?php
-    include("./Public/Pages/Common/scripts.php");
+                    // Send the request
+                    xhr.send(data);
+                }
+            }
 
-    ?>
-    <script>
-                    function status(product_id, table, field, id) {
+            function status(product_id, table, field, id) {
                 if (confirm("Are you sure you want to Activate or Deactivate?")) {
                     const xhr = new XMLHttpRequest();
                     xhr.open("POST", "../App/Logic/commonf.php?action=status", true);
@@ -235,10 +265,38 @@
                     xhr.send(data);
                 }
             }
+        </script>
 
-    </script>
 
 
+
+        <?
+        include("./Public/Pages/Common/footer.php");
+        // print_r($_SESSION);
+        ?>
+
+    </main>
+    <!-- Wrapper End-->
+    <!-- Live Customizer start -->
+    <!-- Setting offcanvas start here -->
+    <?php
+    include("./Public/Pages/Common/theme_custom.php");
+
+    ?>
+
+    <!-- Settings sidebar end here -->
+
+    <?php
+    include("./Public/Pages/Common/settings_link.php");
+
+    ?>
+    <!-- Live Customizer end -->
+
+    <!-- Library Bundle Script -->
+    <?php
+    include("./Public/Pages/Common/scripts.php");
+
+    ?>
 
 </body>
 
