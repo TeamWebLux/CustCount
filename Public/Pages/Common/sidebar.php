@@ -261,7 +261,7 @@
                                         </svg>
                                     </i>
                                     <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right"> E </i>
-                                    <span class="item-name">Add Cash UP</span>
+                                    <span class="item-name">Add Cash App</span>
                                 </a>
                             </li>
                             <li class="nav-item">

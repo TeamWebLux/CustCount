@@ -89,8 +89,8 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
-        } else if ($action == "CASH_UP_ADD" && $role = ("Admin" || "Manager")) {
-        $title = "Cash Up Add Details ";
+    } else if ($action == "CASH_UP_ADD" && $role = ("Admin" || "Manager")) {
+        $title = "Cash App Add Details ";
         $heading = "Enter the Details Correctly";
         $action = "../App/Logic/creation.php?action=cashAppAdd";
         echo fhead($title, $heading, $action);
