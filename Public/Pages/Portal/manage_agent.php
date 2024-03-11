@@ -92,7 +92,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Agent</h4>
                                     <p>Agent by name</p>
+                                    <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="Agent" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Agent </button>
+                                    </form>
+
                                 </div>
+
                             </div>
 
                             <!-- Select Dropdown -->
@@ -103,10 +109,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
                                         <option value="" disabled hidden>Select Agent</option>
                                         <?php
-                                        while ($row = $result->fetch_assoc()) {
-
-                                        ?>
-
+                                        while ($row = $result->fetch_assoc()) { ?>
                                             <option name="userdata" value="<?php echo $row['username'] ?>"> <?php echo $row['username'] ?></option>
                                     <?php
                                         }
@@ -127,6 +130,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0">Agent List</h4>
+                                <form action="./add_user" method="POST">
+                                    <input type="text" name="role" value="agent" hidden>
+                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Agent </button>
+                                </form>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';

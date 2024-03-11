@@ -91,6 +91,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Branch</h4>
                                     <p>Branch by name</p>
+
                                 </div>
                             </div>
 

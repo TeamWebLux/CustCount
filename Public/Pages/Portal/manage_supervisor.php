@@ -93,6 +93,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Supervisor</h4>
                                     <p>Supervisor by name</p>
+                                    <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="Supervisor" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Supervisor </button>
+                                    </form>
+
                                 </div>
                             </div>
 
