@@ -97,7 +97,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col"> Amount</th>
                                             <th scope="col">Bonus Amount</th>
                                             <th scope="col">Platform</th>
-                                            <th scope="col">Cash Up Name</th>
+                                            <th scope="col">Cash App Name</th>
                                             <th scope="col">By Username</th>
                                             <th scope="col">By Role</th>
                                             <th scope="col">Added Time</th>
