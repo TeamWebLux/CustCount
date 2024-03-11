@@ -14,104 +14,82 @@ if (isset($action)) {
     $heading = "Fill the User details";
     $role = $_SESSION['role'];
     // echo $role;
-    if (isset($_GET['u'])) {
-        $option = [$_GET['u']];
-
-
-    } else {
-        if ($role == "Admin") {
-            $option = ["Select Role", "Admin", "User", "Agent", "Manager"];
-        } elseif ($role == "Agent") {
-            $option = ["Select Role",  "User"];
-        } elseif ($role == "Manager") {
-            $option = ["Select Role", "User", "Agent", "Manager"];
-        }
-    }
     // Assuming you have defined or included your functions like fhead, field, select, etc.
     // ...
 
     if ($action == 'ADD_USER' || $action == 'EDIT_USER') {
         $title = $action == 'ADD_USER' ? "Add User" : "Edit User";
         $postUrl = $action == 'ADD_USER' ? "../App/Logic/creation.php?action=UserAdd" : './edit_user';
-
+    
         echo fhead($title, $heading, $postUrl);
         echo '<br>';
+    
         $branchopt = "<option value=''>Select Branch Name</option>";
-        $result = $conn->query("SELECT * FROM branch where status=1");
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        $resultBranch = $conn->query("SELECT * FROM branch where status=1");
+        if ($resultBranch->num_rows > 0) {
+            while ($row = $resultBranch->fetch_assoc()) {
                 $branchopt .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
+    
         $pageopt = "<option value=''>Select Page Name</option>";
-        $result = $conn->query("SELECT * FROM page where status=1");
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        $resultPage = $conn->query("SELECT * FROM page where status=1");
+        if ($resultPage->num_rows > 0) {
+            while ($row = $resultPage->fetch_assoc()) {
                 $pageopt .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
-
-
+    
         echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
         echo $username = field("Username", "text", "username", "Enter Your Username", isset($_POST['username']) ? $_POST['username'] : '');
         echo $password = field("Password", "password", "password", "Enter Your Password", isset($_POST['password']) ? $_POST['password'] : '');
-
+        echo '<input type="hidden" name="role" value="' . (isset($_POST['role']) ? $_POST['role'] : '') . '" >';
+    
         // Additional fields for 'EDIT_USER'
         if ($action == 'EDIT_USER') {
             echo $email = field("Email", "email", "email", "Enter Your Email", isset($_POST['email']) ? $_POST['email'] : '');
         }
-
+    
         echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
-        // echo $status = field("Status", "text", "status", "Enter Status", isset($_POST['status']) ? $_POST['status'] : '');
-        // echo $selectRole = select("Select Role", "role", "role", $option, isset($_POST['role']) ? $_POST['role'] : '');
-        if($_POST['role']=='Supervisor'){
-            echo '<label for="pagename">Page Name</label>';
-            echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-
-
-
-        }elseif($_POST['role']=='Agent'){
-            echo '<label for="pagename">Page Name</label>';
-            echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-
-
-        }elseif($_POST['role']=='Manager'){
-            echo '<label for="Branchname">Branch Name</label>';
-            echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
-
-            
-        }elseif($_POST['role']=='User'){
-            echo '<label for="Branchname">Branch Name</label>';
-            echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
     
-            echo '<label for="pagename">Page Name</label>';
-            echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-    
-            
+        if (isset($_POST['role'])) {
+            if ($_POST['role'] == 'Supervisor' || $_POST['role'] == 'Agent') {
+                echo '<label for="pagename">Page Name</label>';
+                echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+            } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
+                echo '<label for="Branchname">Branch Name</label>';
+                echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+                echo '<label for="pagename">Page Name</label>';
+                echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+            } else {
+                echo "Invalid attempt";
+            }
         }
+    
         echo '<div id="agentadd" style="display:none;">';
         echo '<label for="pagename">Page Name</label>';
         echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
         echo '</div>';
+    
         echo '<div id="mageradd" style="display:none;">';
         echo '<label for="Branchname">Branch Name</label>';
         echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
         echo '</div>';
+    
         echo '<div id="useradd" style="display:none;">';
         // Assuming 'managerid' is a predefined array containing manager options
         // echo $selectManager = select("Select Manager", "managerid", "managerid", $managerid, isset($_POST['managerid']) ? $_POST['managerid'] : '');
-
-
+    
         // echo $branchId = field("Branch ID", "text", "branch_id", "Enter Branch ID");
-
+    
         // Assuming 'agentid' is a predefined array containing agent options
         // echo $selectAgent = select("Select Agent", "agentid", "agentid", $agentid, isset($_POST['agentid']) ? $_POST['agentid'] : '');
         echo '</div>';
-
+    
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    } else if ($action == "CASH_UP_ADD" && $role = ("Admin" || "Manager")) {
+        } else if ($action == "CASH_UP_ADD" && $role = ("Admin" || "Manager")) {
         $title = "Cash Up Add Details ";
         $heading = "Enter the Details Correctly";
         $action = "../App/Logic/creation.php?action=cashAppAdd";
