@@ -101,8 +101,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
                                 <form action="./update_supervisor" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Supervisor</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Supervisor</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 

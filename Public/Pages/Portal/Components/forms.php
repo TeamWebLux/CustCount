@@ -54,6 +54,20 @@ if (isset($action)) {
         echo '<div id="useradd" style="display:none;">';
         // Assuming 'managerid' is a predefined array containing manager options
         // echo $selectManager = select("Select Manager", "managerid", "managerid", $managerid, isset($_POST['managerid']) ? $_POST['managerid'] : '');
+        $branchopt = "<option value=''>Select cashApp Name</option>";
+        $result = $conn->query("SELECT * FROM branch");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $branchopt .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        $cashAppOptions .= "<option value='other'>Other</option>";
+        echo '<label for="cashAppname">cashApp Name</label>';
+        echo '<select class="form-select" id="cashAppname" name="cashAppname" onchange="showOtherField(this, \'cashAppname-other\')">' . $cashAppOptions . '</select>';
+        echo '<input type="text" id="cashAppname-other" name="cashAppname_other" style="display:none;" placeholder="Enter cashApp Name">';
+
+        
+        
         echo $branchId = field("Branch ID", "text", "branch_id", "Enter Branch ID");
         echo $pageId = field("Page ID", "text", "page_id", "Enter Page ID");
 
