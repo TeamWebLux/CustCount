@@ -114,10 +114,6 @@
                                 return strtotime($b['created_at']) - strtotime($a['created_at']);
                             });
                     ?>
-                            <div class="form-group">
-                                <label>Date Range:</label>
-                                <input type="text" id="dateRangePicker" class="form-control" />
-                            </div>
 
                             <div class="table-responsive">
 
