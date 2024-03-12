@@ -203,7 +203,7 @@
 
 
                     <?php endif; ?>
-                    <li class="nav-item static-item">
+                    <!-- <li class="nav-item static-item">
                         <a class="nav-link static-item disabled" href="#" tabindex="-1">
                             <span class="default-icon">Add Data</span>
                             <span class="mini-icon">-</span>
@@ -333,7 +333,7 @@
                             </li>
                         </ul>
 
-
+ -->
 
 
 
