@@ -60,7 +60,7 @@
    <!-- Slider-tab Script -->
    <script src="../../assets/js/plugins/slider-tabs.js"></script>
 
-   <script src="../../js/assets/pages/data-table.js"></script>
+   <script src="../../assets/js/pages/data-table.js"></script>
 
 
    <script src="../../js/assets/vendors.min.js"></script>
