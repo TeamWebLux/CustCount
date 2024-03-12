@@ -96,6 +96,7 @@
 $(document).ready(function() {
     "use strict";
 
+
     // Initialize DataTable
     var table = $('#example1').DataTable({
         'paging': true,
@@ -103,30 +104,12 @@ $(document).ready(function() {
         'searching': true,
         'ordering': true,
         'info': true,
-        'autoWidth': true
+        'autoWidth': true,
+        dom: 'Bfrtip',
+		buttons: [
+			'copy', 'excel', 'pdf', 'print'
+		],
+//      
     });
-
-    // Add a date range filter
-    $('#dateRangePicker').daterangepicker({
-        autoUpdateInput: false,
-        locale: {
-            cancelLabel: 'Clear'
-        }
-    });
-
-    // Apply the date range filter
-    $('#dateRangePicker').on('apply.daterangepicker', function(ev, picker) {
-        table.columns(0).search(
-            moment(picker.startDate).format('YYYY-MM-DD') + ' to ' + moment(picker.endDate).format('YYYY-MM-DD')
-        ).draw();
-    });
-
-    // Clear the date range filter
-    $('#dateRangePicker').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-        table.columns(0).search('').draw();
-    });
-
-    // Your other DataTable configurations...
 
 });
