@@ -93,11 +93,11 @@
 	
 	
 //   }); // End of use strict
-$(function () {
+$(document).ready(function() {
     "use strict";
 
     // Initialize DataTable
-    var table = $('#example').DataTable({
+    var table = $('#example1').DataTable({
         'paging': true,
         'lengthChange': true,
         'searching': true,
@@ -108,20 +108,22 @@ $(function () {
 
     // Add a date range filter
     $('#dateRangePicker').daterangepicker({
-        opens: 'left',
+        autoUpdateInput: false,
         locale: {
-            format: 'YYYY-MM-DD'
+            cancelLabel: 'Clear'
         }
     });
 
     // Apply the date range filter
     $('#dateRangePicker').on('apply.daterangepicker', function(ev, picker) {
-        table.columns(0).search(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD')).draw();
+        table.columns(0).search(
+            moment(picker.startDate).format('YYYY-MM-DD') + ' to ' + moment(picker.endDate).format('YYYY-MM-DD')
+        ).draw();
     });
 
     // Clear the date range filter
-    $('#clearDateRange').click(function() {
-        $('#dateRangePicker').val('');
+    $('#dateRangePicker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
         table.columns(0).search('').draw();
     });
 
