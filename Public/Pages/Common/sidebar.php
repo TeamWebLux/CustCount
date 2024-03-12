@@ -437,7 +437,6 @@
                 <?php endif; ?>
 
                 <!-- Item 5: Accessible by Admin only -->
-                <?php if ($role == 'Admin') : ?>
 
 
 
@@ -482,6 +481,8 @@
                             <span class="item-name">Settings</span>
                         </a>
                     </li>
+                    <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin', 'Agent', 'Users'])) : ?>
+
                     <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="../Public/Pages/Common/destroy_session.php">
                             <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
@@ -495,9 +496,9 @@
                             <span class="item-name">Logout</span>
                         </a>
                     </li>
+                    <?php endif; ?>
 
 
-                <?php endif; ?>
                 <!-- Sidebar Menu End -->
         </div>
     </div>
