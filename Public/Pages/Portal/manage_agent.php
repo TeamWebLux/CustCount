@@ -132,7 +132,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <h4 class="mb-0">Agent List</h4>
                                 <form action="./add_user" method="POST">
                                     <input type="text" name="role" value="agent" hidden>
-                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Agent </button>
                                 </form>
 
                             </div>
