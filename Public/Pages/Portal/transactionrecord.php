@@ -131,8 +131,8 @@
                                     <td><?= $row['excess'] ?></td>
                                     <td><?= $row['bonus'] ?></td>
                                     <td><?= $row['platform'] ?></td>
-                                    <td><?= $row['page_no'] ?></td>
-                                    <td><?= $row['cashname'] ?></td>
+                                    <td><?= $row['page'] ?></td>
+                                    <td><?= $row['cashapp'] ?></td>
 
                                     <td><?= $row['created_at'] ?></td>
                                     <td><?= $row['username'] ?></td>

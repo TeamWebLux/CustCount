@@ -85,6 +85,8 @@
                             $u = $_GET['r'];
                             $sql = "select * from transaction where platform='$u'";
                             $result = $conn->query($sql);
+                        }elseif($action = "PLATFORMREC" && isset($_GET['u'])){
+
                         }
 
 
