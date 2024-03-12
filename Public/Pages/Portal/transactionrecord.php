@@ -81,7 +81,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">See All the data</h3>
-				  <h6 class="box-subtitle"></h6>
+                    <h6 class="box-subtitle"></h6>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -114,6 +114,12 @@
                                 return strtotime($b['created_at']) - strtotime($a['created_at']);
                             });
                     ?>
+                            <div class="form-group">
+                                <label>Date Range:</label>
+                                <input type="text" id="dateRangePicker" class="form-control" />
+                                <button id="clearDateRange" class="btn btn-secondary">Clear</button>
+                            </div>
+
                             <div class="table-responsive">
 
                                 <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
