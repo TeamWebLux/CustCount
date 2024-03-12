@@ -210,13 +210,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                 </div>
             </div>
-
-
-
-
-
-
-
             <?
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);

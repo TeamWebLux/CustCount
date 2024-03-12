@@ -75,9 +75,9 @@
                         </div>
                         <?php
                         include './App/db/db_connect.php';
+                        
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
-
                         $action = strtoupper($lastSegment);
 
 
