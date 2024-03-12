@@ -61,7 +61,7 @@ $(function () {
     } );
  
     // DataTable
-    var table = $('#example').DataTable();
+    var table = $('#example6').DataTable();
  
     // Apply the search
     table.columns().every( function () {
@@ -78,7 +78,7 @@ $(function () {
 	
 	
 	//---------------Form inputs
-	var table = $('#example6').DataTable();
+	var table = $('#example').DataTable();
  
     $('#data-update').click( function() {
         var data = table.$('input, select').serialize();
