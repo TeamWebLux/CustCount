@@ -27,7 +27,6 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Login_to_CustCount'                    => './Public/Pages/Signing/login/login.php',
         $prefix . $root . '/Register_to_CustCount'                 => './Public/Pages/Signing/register/register.php',
         $prefix . $root . '/Forgot_pass'                           => './Public/Pages/Signing/forgot/forgot.php',
-
         //? AGENT DASHBOARD
         $prefix . $root . '/Portal'                                       => './Public/Pages/Portal/main_dashboard.php',
         $prefix . $root . '/Portal_Add_Deposit'                           => './Public/Pages/Portal/add_deposit.php',
