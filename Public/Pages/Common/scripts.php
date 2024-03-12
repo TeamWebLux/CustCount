@@ -60,15 +60,17 @@
    <!-- Slider-tab Script -->
    <script src="../../assets/js/plugins/slider-tabs.js"></script>
 
+   <script src="../../js/assets/pages/data-table.js"></script>
 
 
+   <script src="../../js/assets/vendors.min.js"></script>
 
-   <script src="../../js/vendors.min.js"></script>
-   <script src="../../js/pages/chat-popup.js"></script>
+   <script src="../../assets/js/vendors.min.js"></script>
+   <script src="../../assets/js/pages/chat-popup.js"></script>
    <script src="../../assets/icons/feather-icons/feather.min.js"></script>
 
    <!-- CRMi App -->
-   <script src="../../js/template.js"></script>
+   <script src="../../assets/js/template.js"></script>
 
    <!-- Lodash Utility -->
    <script src="../../assets/vendor/lodash/lodash.min.js"></script>
