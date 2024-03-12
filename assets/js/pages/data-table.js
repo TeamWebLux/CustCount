@@ -98,7 +98,7 @@ $(document).ready(function() {
 
 
     // Initialize DataTable
-    var table = $('#example1').DataTable({
+    var table = $('#example').DataTable({
         'paging': true,
         'lengthChange': true,
         'searching': true,
