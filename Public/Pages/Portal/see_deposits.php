@@ -111,7 +111,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     <td>{$row['recharge']}</td>
                                                     <td>{$row['bonus']}</td>
                                                     <td>{$row['platform']}</td>
-                                                    <td>{$row['cashname']}</td>
+                                                    <td>{$row['cashapp']}</td>
                                                     <td>{$row['by_u']}</td>
                                                     <td>{$row['by_role']}</td>
                                                     <td>{$row['created_at']}</td>
