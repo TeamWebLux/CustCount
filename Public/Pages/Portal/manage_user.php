@@ -159,7 +159,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             
                                             <th scope="col">ID</th>
                                             <th scope="col">Update</th>
-                                            <th scope="col">Name</th>
+                                            <th scope="col">UserName</th>
+                                            <th scope="col">Password</th>
+
                                             <th scope="col">Full Name</th>
                                             
                                             <th scope="col">Role</th>
@@ -181,6 +183,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                     </form>
                 </td>
                                                     <td>{$row['username']}</td>
+                                                    <td>{$row['password']}</td>
+
                                                     <td>{$row['name']}</td>
                                                     
                                                     <td>{$row['role']}</td>
