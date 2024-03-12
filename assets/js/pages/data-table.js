@@ -99,12 +99,12 @@ $(document).ready(function() {
 
     // Initialize DataTable
     var table = $('#example').DataTable({
-        'paging': true,
-        'lengthChange': true,
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': true,
+        // 'paging': true,
+        // 'lengthChange': true,
+        // 'searching': true,
+        // 'ordering': true,
+        // 'info': true,
+        // 'autoWidth': true,
         dom: 'Bfrtip',
 		buttons: [
 			'copy', 'excel', 'pdf', 'print'
