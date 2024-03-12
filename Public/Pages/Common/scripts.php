@@ -89,3 +89,13 @@
    <!-- qompacui Script -->
    <script src="../../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
    <script src="../../assets/js/sidebarf700.js?v=1.0.1" defer></script>
+
+   <script src="../../assets/js/vendors.min.js"></script>
+	<script src="../../assets/js/pages/chat-popup.js"></script>
+    <script src="../../assets/js/icons/feather-icons/feather.min.js"></script>	
+	<script src="../../assets/js/vendor_components/datatable/datatables.min.js"></script>
+	
+	<!-- CRMi App -->
+	<script src="../../assets/js/template.js"></script>
+	
+	<script src="../../assets/js/pages/data-table.js"></script>
