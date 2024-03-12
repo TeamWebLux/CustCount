@@ -105,7 +105,7 @@
             ?>
 					<div class="table-responsive">
 
-                    <table class="table mb-0" id="table_id" data-toggle="data-table">
+                    <table class="table mb-0" id="example1" data-toggle="data-table">
                         <thead>
                             <tr>
                                 <th>Transaction Type</th>
