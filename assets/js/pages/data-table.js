@@ -27,7 +27,7 @@ $(function () {
         'searching'   : true,
         'ordering'    : true,
         'info'        : true,
-        'autoWidth'   : false,
+        'autoWidth'   : true,
   
 	} );
 	
