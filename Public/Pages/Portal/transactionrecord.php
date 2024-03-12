@@ -112,6 +112,9 @@
                                 <th>Redeem</th>
                                 <th>Excess Amount</th>
                                 <th>Bonus Amount</th>
+                                <th>Free Play</th>
+
+
                                 <th>Platform Name</th>
                                 <th>Page Name</th>
                                 <th>CashApp Name</th>
@@ -130,6 +133,8 @@
                                     <td><?= $row['redeem'] ?></td>
                                     <td><?= $row['excess'] ?></td>
                                     <td><?= $row['bonus'] ?></td>
+                                    <td><?= $row['freepik'] ?></td>
+
                                     <td><?= $row['platform'] ?></td>
                                     <td><?= $row['page'] ?></td>
                                     <td><?= $row['cashapp'] ?></td>
