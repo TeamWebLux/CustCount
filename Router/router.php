@@ -67,7 +67,7 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/update_manager'                       => './Public/Pages/Portal/update_manager.php',
         $prefix . $root . '/update_supervisor'                    => './Public/Pages/Portal/update_supervisor.php',
         $prefix . $root . '/update_page'                          => './Public/Pages/Portal/update_page.php',
-        $prefix . $root . '/update_cashup'                        => './Public/Pages/Portal/update_cashup.php',
+        $prefix . $root . '/update_cashApp'                        => './Public/Pages/Portal/update_cashup.php',
         $prefix . $root . '/Portal_Agent_Management'              => './Public/Pages/Portal/manage_agent.php',
         $prefix . $root . '/Portal_Supervisor_Management'         => './Public/Pages/Portal/manage_supervisor.php',
         $prefix . $root . '/Portal_Manager_Management'            => './Public/Pages/Portal/manage_manager.php',
