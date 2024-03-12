@@ -115,6 +115,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0">Supervisor List</h4>
+                                <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="Supervisor" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Supervisor </button>
+                                    </form>
+
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
