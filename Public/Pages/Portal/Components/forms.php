@@ -19,7 +19,7 @@ if (isset($action)) {
 
     if ($action == 'ADD_USER' || $action == 'EDIT_USER') {
         $title = $action == 'ADD_USER' ? "Add User" : "Edit User";
-        $postUrl = $action == 'ADD_USER' ? "../App/Logic/creation.php?action=UserAdd" : './edit_user';
+        $postUrl = $action == 'ADD_USER' ? "../App/Logic/register.php" : './edit_user';
     
         echo fhead($title, $heading, $postUrl);
         echo '<br>';
@@ -66,15 +66,15 @@ if (isset($action)) {
             }
         }
     
-        echo '<div id="agentadd" style="display:none;">';
-        echo '<label for="pagename">Page Name</label>';
-        echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-        echo '</div>';
+        // echo '<div id="agentadd" style="display:none;">';
+        // echo '<label for="pagename">Page Name</label>';
+        // echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+        // echo '</div>';
     
-        echo '<div id="mageradd" style="display:none;">';
-        echo '<label for="Branchname">Branch Name</label>';
-        echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
-        echo '</div>';
+        // echo '<div id="mageradd" style="display:none;">';
+        // echo '<label for="Branchname">Branch Name</label>';
+        // echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+        // echo '</div>';
     
         echo '<div id="useradd" style="display:none;">';
         // Assuming 'managerid' is a predefined array containing manager options
@@ -374,25 +374,25 @@ if (isset($action)) {
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#role').change(function() {
-            var isManager = $(this).val() === 'Manager';
-            $('#mageradd').toggle(isManager);
+    // $(document).ready(function() {
+    //     $('#role').change(function() {
+    //         var isManager = $(this).val() === 'Manager';
+    //         $('#mageradd').toggle(isManager);
 
 
-        });
-        $('#role').change(function() {
-            var isManager = $(this).val() === 'Agent';
-            $('#agentadd').toggle(isManager);
+    //     });
+    //     $('#role').change(function() {
+    //         var isManager = $(this).val() === 'Agent';
+    //         $('#agentadd').toggle(isManager);
 
 
-        });
-        $('#role').change(function() {
-            var isManager = $(this).val() === 'User';
-            $('#useradd').toggle(isManager);
+    //     });
+    //     $('#role').change(function() {
+    //         var isManager = $(this).val() === 'User';
+    //         $('#useradd').toggle(isManager);
 
 
-        });
+    //     });
 
-    });
+    // });
 </script>

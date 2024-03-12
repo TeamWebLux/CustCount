@@ -9,12 +9,13 @@ function setToast($type, $message)
 include '../db/db_connect.php';
 
 // Default redirect location set to the registration page for reattempt
-$redirectTo = '../../index.php/Register_to_CustCount';
+$redirectTo = '../../index.php/add_user';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    print_r($_POST);
     // Retrieve and sanitize form data
-    $fullname = trim($_POST['fullname']);
+    $fullname = trim($_POST['name']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
@@ -23,20 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Additional fields
     $fbLink = trim($_POST['fb_link']);
-    $pageId = trim($_POST['page_id']);
+    $pageId = trim($_POST['pagename']);
+    $branchname = trim($_POST['branchname']);
+    $by_u=$_SESSION['username'];
+
     // Get the user's IP address
     $ipAddress = $_SERVER['REMOTE_ADDR'];
 
-    // If the IP address is not a valid IPv4 address, set a default value (e.g., 127.0.0.1)
-    // if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-    //     $ipAddress = '127.0.0.1';
-    // }
-
     // Validate inputs are not empty
-    if (empty($fullname) || empty($username) || empty($role) || !$termsAccepted) {
+    if (empty($fullname) || empty($username) || empty($role)) {
         // Set error message and retain form values
         setToast('error', 'Please fill in all required fields and accept the terms.');
         $_SESSION['form_values'] = $_POST;
+        print_r($_POST);
         header('Location: ' . $redirectTo);
         exit();
     }
@@ -48,9 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
-            // Username already exists
             setToast('error', 'Username already taken. Please choose another.');
             $_SESSION['form_values'] = $_POST;
+            print_r($_POST);
+
             $stmt->close();
             header('Location: ' . $redirectTo);
             exit();
@@ -62,23 +63,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Define additional fields' values
+    $status = '1'; // Replace with actual value
+     // Replace with actual value
+
     // Proceed with database insertion since validation passed
-    $sql = "INSERT INTO user (name, username, `Fb-link`, page_id, ip_address,password, status, role,`by`, last_login, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, ?, ?,?,?, ?, NOW(), NOW(), NOW())";
+    $sql = "INSERT INTO user (name, username, `Fb-link`, pagename, branchname, ip_address, password, status, role, `by`, last_login, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssssssss", $fullname, $username, $fbLink, $pageId, $ipAddress,$password, $status,$role, $by);
-
-        // You need to define the values for the additional fields, assuming you have them
-        $status = ''; // Replace with actual value
-        $by = ''; // Replace with actual value
-        $lastLogin = ''; // Replace with actual value
-        //$createdAt = NOW(); // You can use NOW() for the current timestamp
-        //$updatedAt = NOW(); // You can use NOW() for the current timestamp
+        $stmt->bind_param("ssssssssss", $fullname, $username, $fbLink, $pageId, $branchname, $ipAddress, $password, $status, $role, $by_u);
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
-            $redirectTo = '../../index.php'; // Success: Redirect to the home page or dashboard
+            // $redirectTo = '../../index.php'; // Success: Redirect to the home page or dashboard
         } else {
             setToast('error', 'Error: ' . $stmt->error);
         }
@@ -94,3 +92,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
+?>

@@ -3,8 +3,8 @@
 
 
 // echo $uri;
-$firstparam ="/";
-$secondparam ="/index.php";
-$thirdparam ="";
+$firstparam ="/CustCount/";
+$secondparam ="/CustCount/index.php";
+$thirdparam ="/CustCount";
 $fourthparam ="/index.php";
 ?>
