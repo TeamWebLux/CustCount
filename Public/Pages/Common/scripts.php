@@ -63,7 +63,7 @@
    <script src="../../assets/js/pages/data-table.js"></script>
 
 
-   <script src="../../js/assets/vendors.min.js"></script>
+   <script src="../../assets/js/vendors.min.js"></script>
 
    <script src="../../assets/js/vendors.min.js"></script>
    <script src="../../assets/js/pages/chat-popup.js"></script>
