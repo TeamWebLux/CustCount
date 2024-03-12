@@ -78,100 +78,104 @@
 
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
-        <div class="box">
-				<div class="box-header with-border">
-				  <!-- <h3 class="box-title">Hover Export Data Table</h3>
+            <div class="box">
+                <div class="box-header with-border">
+                    <!-- <h3 class="box-title">Hover Export Data Table</h3>
 				  <h6 class="box-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6> -->
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-					<div class="table-responsive">
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- <div class="table-responsive">
 					  <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                      </table>
+                      </table> -->
 
 
-            <?php
-            include "./App/db/db_connect.php";
+                    <?php
+                    include "./App/db/db_connect.php";
 
-            if (isset($_GET['u'])) {
-                $u = $_GET['u'];
-                $sql = "SELECT * FROM transaction WHERE username = ?";
+                    if (isset($_GET['u'])) {
+                        $u = $_GET['u'];
+                        $sql = "SELECT * FROM transaction WHERE username = ?";
 
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param('s', $u);
-                $stmt->execute();
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param('s', $u);
+                        $stmt->execute();
 
-                $result = $stmt->get_result();
-                $results = $result->fetch_all(MYSQLI_ASSOC);
+                        $result = $stmt->get_result();
+                        $results = $result->fetch_all(MYSQLI_ASSOC);
 
-                $stmt->close();
-                $conn->close();
+                        $stmt->close();
+                        $conn->close();
 
-                if (empty($results)) {
-                    echo "No records found";
-                } else {
-                    usort($results, function ($a, $b) {
-                        return strtotime($b['created_at']) - strtotime($a['created_at']);
-                    });
-            ?>
-					<div class="table-responsive">
+                        if (empty($results)) {
+                            echo "No records found";
+                        } else {
+                            usort($results, function ($a, $b) {
+                                return strtotime($b['created_at']) - strtotime($a['created_at']);
+                            });
+                    ?>
+                            <div class="table-responsive">
 
-                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                        <thead>
-                            <tr>
-                                <th>Transaction Type</th>
-                                <th>Recharge</th>
-                                <th>Redeem</th>
-                                <th>Excess Amount</th>
-                                <th>Bonus Amount</th>
-                                <th>Free Play</th>
-
-
-                                <th>Platform Name</th>
-                                <th>Page Name</th>
-                                <th>CashApp Name</th>
-                                <th>Timestamp</th>
-                                <th>Username</th>
-                                <th>By</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($results as $row) : ?>
-                                <tr>
-                                    <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
-                                        <?= $row['type'] ?>
-                                    </td>
-                                    <td><?= $row['recharge'] ?></td>
-                                    <td><?= $row['redeem'] ?></td>
-                                    <td><?= $row['excess'] ?></td>
-                                    <td><?= $row['bonus'] ?></td>
-                                    <td><?= $row['freepik'] ?></td>
-
-                                    <td><?= $row['platform'] ?></td>
-                                    <td><?= $row['page'] ?></td>
-                                    <td><?= $row['cashapp'] ?></td>
-
-                                    <td><?= $row['created_at'] ?></td>
-                                    <td><?= $row['username'] ?></td>
-                                    <td><?= $row['by_u'] ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-            <?php
-                }
-            } else {
-                echo "User parameter ('u') not provided.";
-            }
-            ?>
+                                <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction Type</th>
+                                            <th>Recharge</th>
+                                            <th>Redeem</th>
+                                            <th>Excess Amount</th>
+                                            <th>Bonus Amount</th>
+                                            <th>Free Play</th>
 
 
+                                            <th>Platform Name</th>
+                                            <th>Page Name</th>
+                                            <th>CashApp Name</th>
+                                            <th>Timestamp</th>
+                                            <th>Username</th>
+                                            <th>By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($results as $row) : ?>
+                                            <tr>
+                                                <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
+                                                    <?= $row['type'] ?>
+                                                </td>
+                                                <td><?= $row['recharge'] ?></td>
+                                                <td><?= $row['redeem'] ?></td>
+                                                <td><?= $row['excess'] ?></td>
+                                                <td><?= $row['bonus'] ?></td>
+                                                <td><?= $row['freepik'] ?></td>
 
-            <?
-            include("./Public/Pages/Common/footer.php");
-            // print_r($_SESSION);
-            ?>
+                                                <td><?= $row['platform'] ?></td>
+                                                <td><?= $row['page'] ?></td>
+                                                <td><?= $row['cashapp'] ?></td>
+
+                                                <td><?= $row['created_at'] ?></td>
+                                                <td><?= $row['username'] ?></td>
+                                                <td><?= $row['by_u'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                        <?php
+                        }
+                    } else {
+                        echo "User parameter ('u') not provided.";
+                    }
+                        ?>
+
+
+
+                        <?
+                        include("./Public/Pages/Common/footer.php");
+                        // print_r($_SESSION);
+                        ?>
+                            </div>
+                </div>
+            </div>
+        </div>
 
     </main>
     <!-- Wrapper End-->
