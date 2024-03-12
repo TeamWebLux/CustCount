@@ -176,7 +176,7 @@ if (isset($action)) {
         }
         echo field("Deposit Amount", "number", "depositamount", "Enter the Deposit Amount");
         $pageop = "<option value=''>Select Page</option>";
-        $result = $conn->query("SELECT name FROM page");
+        $result = $conn->query("SELECT name FROM page where status=1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $pageop .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
@@ -188,7 +188,7 @@ if (isset($action)) {
 
         // echo field("page ID", "text", "fbid", "Enter the Facebook ID");
         $platformOptions = "<option value=''>Select Platform</option>";
-        $result = $conn->query("SELECT name FROM platform");
+        $result = $conn->query("SELECT name FROM platform where status=1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $platformOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
@@ -201,7 +201,7 @@ if (isset($action)) {
 
         // echo field("cashApp Name", "text", "cashAppname", "Enter the cashApp Name");
         $cashAppOptions = "<option value=''>Select cashApp</option>";
-        $result = $conn->query("SELECT * FROM cashapp");
+        $result = $conn->query("SELECT * FROM cashapp where status=1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
