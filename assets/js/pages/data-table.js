@@ -17,7 +17,7 @@ $(function () {
     });
 	
 	
-	$('#example').DataTable( {
+	$('#example1').DataTable( {
 		dom: 'Bfrtip',
 		buttons: [
 			'copy', 'excel', 'pdf', 'print'
