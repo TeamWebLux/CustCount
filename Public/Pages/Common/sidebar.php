@@ -339,7 +339,7 @@
 
                     <?php endif; ?>
                     </li>
-                    <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin'])) : ?>
+                    <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin','Agent','Users'])) : ?>
 
 
 
@@ -372,6 +372,8 @@
                                 </i>
                             </a>
                             <ul class="sub-nav collapse" id="sidebar-special" data-bs-parent="#sidebar-menu">
+                            <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin','Agent','Users'])) : ?>
+
                                 <li class="nav-item">
                                     <a class="nav-link  <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_See_Users') echo 'active';  ?> " href="../index.php/Portal_See_Users">
                                         <i class="icon">
@@ -385,6 +387,9 @@
                                         <span class="item-name">See Users </span>
                                     </a>
                                 </li>
+                                <?php endif; ?>
+                                <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin','Agent','Users'])) : ?>
+
                                 <li class="nav-item">
                                     <a class="nav-link  <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/See_Reports') echo 'active';  ?> " href="../index.php/See_Reports">
                                         <i class="icon">
@@ -398,6 +403,9 @@
                                         <span class="item-name">See Reports </span>
                                     </a>
                                 </li>
+                                <?php endif; ?>
+                                <?php if (in_array($role, ['Supervisor', 'Manager', 'Admin','Agent','Users'])) : ?>
+
 
                                 <li class="nav-item">
                                     <a class="nav-link  <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Portal_See_Deposits') echo 'active';  ?>" href="../index.php/Portal_See_Deposits">
@@ -413,6 +421,7 @@
                                     </a>
                                 </li>
                             </ul>
+                            <?php endif; ?>
 
 
 
