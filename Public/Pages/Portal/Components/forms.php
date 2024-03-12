@@ -366,14 +366,17 @@ if (isset($action)) {
         echo select("Field", "field", "field", $option,isset($_POST['field']) ? $_POST['field'] : '');
         if (isset($_POST['field'])) {
             $field = $_POST['field'];
-            $branchOptions = ""; // Initialize an empty string for options
-            $branchQuery = "SELECT * FROM $field where status=1";
+            $branchOptions = []; // Initialize an empty string for options
+            $branchQuery = "SELECT name FROM $field where status=1";
             $branchResult = $conn->query($branchQuery);
             while ($branchRow = $branchResult->fetch_assoc()) {
-                $branchOptions .= "<option value='{$branchRow['name']}'>{$branchRow['name']}</option>";
+                $branchOptions[$branchRow['name']] = $branchRow['name'];
+                // $branchOptions .= "<option value='{$branchRow['name']}'>{$branchRow['name']}</option>";
             }
-            echo '<label for="branchname">Branch Name</label>';
-            echo '<select class="form-select" id="platformname" name="condtion" onchange="showOtherField(this, \'branchname-other\')">' . $branchOptions . '</select>';
+            echo select("Sub Section","condtion","condtion",$branchOptions,isset($_POST['condtion']) ? $_POST['condtion'] : '');
+
+            // echo '<label for="branchname">Branch Name</label>';
+            // echo '<select class="form-select" id="platformname" name="condtion" onchange="showOtherField(this, \'branchname-other\')">' . $branchOptions . '</select>';
         }
         echo $Submit;
         echo $Cancel;
