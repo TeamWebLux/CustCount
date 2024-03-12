@@ -29,6 +29,7 @@
 
 
 
+
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -46,3 +47,35 @@
 
 
 <!-- Include Toastr CSS -->
+<script>
+$(document).ready(function() {
+    $.fn.dataTable.ext.errMode = 'throw'; // or 'none'
+
+    // Destroy DataTable if it already exists
+    if ($.fn.DataTable.isDataTable('#table_id')) {
+        $('#table_id').DataTable().destroy();
+    }
+
+    // Initialize DataTable
+    $('#table_id').DataTable({
+        searching: true,
+        paging: true,
+        ordering: true
+    });
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [
+            {
+                extend: 'colvis',
+                postfixButtons: ['colvisRestore'],
+                collectionLayout: 'fixed two-column'
+            }
+        ]
+    });
+
+    // Add the controls to the desired location
+    $('#columnToggleDropdown').on('click', function () {
+        table.buttons().container().appendTo($('#columnControls'));
+    });
+
+});
+</script>

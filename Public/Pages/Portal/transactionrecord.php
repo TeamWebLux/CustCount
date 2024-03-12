@@ -38,7 +38,8 @@
             width: 100%;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid black;
             padding: 8px;
             text-align: left;
@@ -78,80 +79,87 @@
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
 
-        <?php
-include "./App/db/db_connect.php";
-if ($_GET['u']) {
-    $sql = "SELECT 'CashIn' AS transaction_type,  deposit_amount, added_time, username,by_username FROM deposits WHERE username = ?
-        UNION ALL
-        SELECT 'CashOut', cashoutamount, timestamp, username,by_username FROM cashOut WHERE username = ?";
-    $username = $_GET['u'];
-} elseif ($_GET['a']) {
-    $sql = "SELECT 'CashIn' AS transaction_type, deposit_amount, added_time, username FROM deposits WHERE by_username = ?
-        UNION ALL
-        SELECT 'CashOut', cashoutamount, timestamp, username FROM cashOut WHERE by_username = ?";
-    $username = $_GET['a'];
-}
+            <?php
+            include "./App/db/db_connect.php";
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('ss', $username, $username);
-$stmt->execute();
-$result = $stmt->get_result();
-$results = $result->fetch_all(MYSQLI_ASSOC);
-$stmt->close();
-$conn->close();
+            if (isset($_GET['u'])) {
+                $u = $_GET['u'];
+                $sql = "SELECT * FROM transaction WHERE username = ?";
 
-if (empty($results)) {
-    echo "No records found";
-} else {
-    usort($results, function ($a, $b) {
-        return strtotime($b['added_time']) - strtotime($a['added_time']);
-    });
-?>
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('s', $u);
+                $stmt->execute();
 
-    <table>
-        <thead>
-            <tr>
-                <th>Transaction Type</th>
-                <th>Deposite</th>
-                <th>Redeem</th>
+                $result = $stmt->get_result();
+                $results = $result->fetch_all(MYSQLI_ASSOC);
 
-                <th>Timestamp</th>
-                <th>Username</th>
-                <th>By </th>
+                $stmt->close();
+                $conn->close();
 
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($results as $row): ?>
-                <tr>
-                    <td class="<?= ($row['transaction_type'] === 'CashIn') ? 'cashin' : 'cashout' ?>">
-                        <?= $row['transaction_type'] ?>
-                    </td>
-                    <td><?= $row['deposit_amount'] ?></td>
-                    <td><?= $row['added_time'] ?></td>
-                    <td><?= $row['username'] ?></td>
-                    <td><?= $row['by_username'] ?></td>
+                if (empty($results)) {
+                    echo "No records found";
+                } else {
+                    usort($results, function ($a, $b) {
+                        return strtotime($b['created_at']) - strtotime($a['created_at']);
+                    });
+            ?>
 
-                </tr>
-            <?php endforeach;
-            echo "End Of the result"; ?>
-        </tbody>
-    </table>
-
-<?php } ?>
+                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                        <thead>
+                            <tr>
+                                <th>Transaction Type</th>
+                                <th>Recharge</th>
+                                <th>Redeem</th>
+                                <th>Excess Amount</th>
+                                <th>Bonus Amount</th>
+                                <th>Free Play</th>
 
 
-        </div>
+                                <th>Platform Name</th>
+                                <th>Page Name</th>
+                                <th>CashApp Name</th>
+                                <th>Timestamp</th>
+                                <th>Username</th>
+                                <th>By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($results as $row) : ?>
+                                <tr>
+                                    <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
+                                        <?= $row['type'] ?>
+                                    </td>
+                                    <td><?= $row['recharge'] ?></td>
+                                    <td><?= $row['redeem'] ?></td>
+                                    <td><?= $row['excess'] ?></td>
+                                    <td><?= $row['bonus'] ?></td>
+                                    <td><?= $row['freepik'] ?></td>
+
+                                    <td><?= $row['platform'] ?></td>
+                                    <td><?= $row['page'] ?></td>
+                                    <td><?= $row['cashapp'] ?></td>
+
+                                    <td><?= $row['created_at'] ?></td>
+                                    <td><?= $row['username'] ?></td>
+                                    <td><?= $row['by_u'] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+            <?php
+                }
+            } else {
+                echo "User parameter ('u') not provided.";
+            }
+            ?>
 
 
 
-
-
-
-        <?
-        include("./Public/Pages/Common/footer.php");
-        // print_r($_SESSION);
-        ?>
+            <?
+            include("./Public/Pages/Common/footer.php");
+            // print_r($_SESSION);
+            ?>
 
     </main>
     <!-- Wrapper End-->

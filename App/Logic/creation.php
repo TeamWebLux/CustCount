@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 include "../db/db_connect.php";
 session_start();
 class Creation
@@ -19,25 +22,33 @@ class Creation
             // Sanitize input data
             $name = $this->sanitizeInput($_POST['name']);
             $username = $this->sanitizeInput($_POST['username']);
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $rawpass = $this->sanitizeInput($_POST['password']);
+            $password = ($_POST['password']);
             $role = $this->sanitizeInput($_POST['role']);
             $managerid = isset($_POST['managerid']) ? $this->sanitizeInput($_POST['managerid']) : null;
             $agentid = isset($_POST['agentid']) ? $this->sanitizeInput($_POST['agentid']) : null;
-            $branchId = isset($_POST['branch_id']) ? $this->sanitizeInput($_POST['branch_id']) : null;
-            $pageId = isset($_POST['page_id']) ? $this->sanitizeInput($_POST['page_id']) : null;
-
+            $pageId = isset($_POST['pagename']) ? $this->sanitizeInput($_POST['pagename']) : null;
+    
+            // Set branchId to null initially
+            $branchId = 123;
+    
+            // Check if the branchname is provided
+            // if (isset($_POST['branchname']) && $_POST['branchname'] !== '') {
+            //     // If branchname is provided, sanitize and set the branchId
+            //     $branchId = $this->sanitizeInput($_POST['branchname']);
+            // } else {
+            //     // If branchname is not provided, fetch the branchId based on pageId
+            //     $branchId = $this->getBranchNameByPageName($pageId, $this->conn);
+            // }
+    
             // Check if the username is unique
             if ($this->isUsernameUnique($username)) {
-                $query = "INSERT INTO users (fullname, username, password, role, rawpass, branchid, pageid) VALUES (  ?, ?, ?, ?, ?, ?, ?)";
+                $query = "INSERT INTO user (name, username, password, role, branchname, pagename) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($this->conn, $query);
-                mysqli_stmt_bind_param($stmt, "sssssss", $name, $username, $password, $role, $rawpass, $branchId, $pageId);
+                mysqli_stmt_bind_param($stmt, "ssssss", $name, $username, $password, $role, $branchId, $pageId);
                 $result = mysqli_stmt_execute($stmt);
-
+    
                 if ($result) {
                     echo "User added successfully.";
-                    $newUserId = mysqli_insert_id($this->conn);
-                    $this->addToTree($newUserId, $role, $managerid, $agentid);
                 } else {
                     echo "Error adding user: " . mysqli_error($this->conn);
                 }
@@ -47,7 +58,7 @@ class Creation
             }
         }
     }
-    public function Platform()
+        public function Platform()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $platformName = $this->conn->real_escape_string($_POST['platformname']);
@@ -73,6 +84,34 @@ class Creation
             }
         }
     }
+    public function RechargePlatform()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $platformName = $this->conn->real_escape_string($_POST['platform']);
+            $amount = $this->conn->real_escape_string($_POST['amount']);
+            $remark = $this->conn->real_escape_string($_POST['remark']);
+            $addedBy = $_SESSION['username'];
+    
+            $sql = "INSERT INTO platformRecord (platform, amount, by_name, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?, NOW(), NOW(), ?)";
+    
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bind_param("sdss", $platformName, $amount, $addedBy, $remark);
+    
+                if ($stmt->execute()) {
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
+                    header("Location: ../../index.php/Portal_Platform_Management");
+                    exit();
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging Platform: ' . $stmt->error];
+                }
+                $stmt->close();
+            } else {
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+            }
+        }
+    }
+    
     public function CashApp()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -84,12 +123,12 @@ class Creation
 
 
             $status = isset($_POST['active']) ? 1 : 0;
-    
+
             $sql = "INSERT INTO cashapp (name, cashtag,start,email, current_balance,remark, status, created_at, updated_at) VALUES (?, ?,NOW(), ?,?,?, ?, NOW(), NOW())";
-            
+
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sssdsi", $name, $cashtag,$email, $currentBalance,$remark, $status);
-    
+                $stmt->bind_param("sssdsi", $name, $cashtag, $email, $currentBalance, $remark, $status);
+
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp details added successfully.'];
                     header("location: ../../index.php/Portal_Cashup_Management");
@@ -103,26 +142,66 @@ class Creation
             }
         }
     }
+    public function RechargeCashApp()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $cashAppName = $this->conn->real_escape_string($_POST['cashapp']);
+            $amount = $this->conn->real_escape_string($_POST['amount']);
+            $remark = $this->conn->real_escape_string($_POST['remark']);
+            $addedBy = $_SESSION['username'];
+    
+            $sql = "INSERT INTO cashappRecord ( name,amount, by_name, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?, NOW(), NOW(), ?)";
+    
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bind_param("sdss", $cashAppName, $amount, $addedBy, $remark);
+    
+                if ($stmt->execute()) {
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp recharged successfully.'];
+                    header("Location: ../../index.php/Portal_Cashup_Management");
+                    exit();
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging CashApp: ' . $stmt->error];
+                }
+                $stmt->close();
+            } else {
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+            }
+        }
+    }
     
     public function CashOut()
     {
         if (isset($_POST)) {
             $username = $_POST['username'];
-            $cashoutamount = $_POST['cashoutamount'];
-            $fbid = $_POST['fbid'];
-            $accessamount = $_POST['accessamount'];
+            $cashoutamount = $_POST['reedemamount'];
+            $fbid = $_POST['pagename'];
+            $accessamount = $_POST['excessamount'];
             $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
-            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
+            $cashupName = ($_POST['cashAppname'] !== 'other') ? $_POST['cashAppname'] : $_POST['cashAppname_other'];
+            $remark = $_POST['remark'];
             $tip = $_POST['tip'];
+            $type = "Credit";
             $by_role = $this->srole;
             $by_username = $this->susername;
 
-            $sql = "Insert into cashOut (username,cashoutamount,fbid,accessamount,cashupname,platformname,tip,by_role,by_username) VALUES (?,?,?,?,?,?,?,?,?)";
-            $stmt = mysqli_prepare($this->conn, $sql);
-            mysqli_stmt_bind_param($stmt, "siiisssss", $username, $cashoutamount, $fbid, $accessamount, $cashupName, $platformName, $tip, $by_role, $by_username);
-            $result = mysqli_stmt_execute($stmt);
-            if ($result) {
-                echo "Cash Out added successfully.";
+            $sql = "Insert into transaction (username,redeem,page_no,excess,cashname,platform,tip,type,remark,by_u) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            if ($stmt = mysqli_prepare($this->conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sisissssss", $username, $cashoutamount, $fbid, $accessamount, $cashupName, $platformName, $tip, $type, $remark, $by_username);
+                if ($stmt->execute()) {
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Recharge Added Sucessfully '];
+
+                    echo "Transaction added successfully. Redirecting...<br>";
+                    header("Location: ../../index.php/Portal_User_Management");
+                    exit();
+                } else {
+                    echo "Error adding transaction details: " . $stmt->error . "<br>";
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error adding transaction details: ' . $stmt->error];
+                }
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $this->conn->error . "<br>";
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
             }
         }
     }
@@ -130,32 +209,117 @@ class Creation
     //pending
     public function Deposit()
     {
-        if (isset($_POST)) {
-            $username = $_POST['username'];
-            $depositAmount = $_POST['depositamount'];
-            $fbId = $_POST['fbid'];
-            $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
-            $cashupName = ($_POST['cashupname'] !== 'other') ? $_POST['cashupname'] : $_POST['cashupname_other'];
-            $bonusAmount = $_POST['bonusamount'];
-            $remark = $_POST['remark'];
-            $by_role = $this->srole;
-            $by_username = $this->susername;
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Validate input fields
+            if (empty($_POST['username']) || empty($_POST['platformname']) || empty($_POST['cashAppname']) || empty($_POST['bonusamount'])) {
+                echo "Validation failed. Redirecting...<br>";
+                echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
 
-            $sql = "INSERT INTO deposits (username, deposit_amount, fb_id, platform_name, cashup_name, bonus_amount, remark,by_username,by_role) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
-            $stmt = mysqli_prepare($this->conn, $sql);
-
-            mysqli_stmt_bind_param($stmt, "sdsssssss", $username, $depositAmount, $fbId, $platformName, $cashupName, $bonusAmount, $remark, $by_username, $by_role);
-            $result = mysqli_stmt_execute($stmt);
-
-            if ($result) {
-                echo "Deposit added successfully.";
-            } else {
-                echo "Error adding deposit: " . mysqli_stmt_error($stmt);
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Please fill in all required fields.'];
+                header("Location: " . $_SERVER['REQUEST_URI']);
+                exit();
             }
 
-            mysqli_stmt_close($stmt);
+            $username = $this->conn->real_escape_string($_POST['username']);
+            $recharge = $this->conn->real_escape_string($_POST['depositamount']);
+            $pageId = 1;
+            $pagename = $_POST['pagename'] === 'other' ? $_POST['pagename_other'] : $_POST['pagename'];
+            $platform = $_POST['platformname'] === 'other' ? $_POST['platformname_other'] : $_POST['platformname'];
+            $cashName = $_POST['cashAppname'] === 'other' ? $_POST['cashAppname_other'] : $_POST['cashAppname'];
+            $bonus = $this->conn->real_escape_string($_POST['bonusamount']);
+            $remark = $this->conn->real_escape_string($_POST['remark']);
+            $byId = 1; // Assuming a default value for byId
+            $byUsername = $this->susername;
+            $conn = $this->conn;
+
+            $branchId = $this->getBranchNameByPageName($pagename, $conn);
+
+
+            $type = "Debit"; // Adjust the type as needed
+
+            $sql = "INSERT INTO transaction (username, recharge, page_id,page, platform,branch, cashapp, bonus, remark, by_id, by_u, type, created_at, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, NOW(), NOW())";
+
+            if ($stmt = $this->conn->prepare($sql)) {
+                $stmt->bind_param("ssssssssssss", $username, $recharge, $pageId, $pagename, $platform, $branchId, $cashName, $bonus, $remark, $byId, $byUsername, $type);
+
+                if ($stmt->execute()) {
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Recharge Added Sucessfully '];
+
+                    echo "Transaction added successfully. Redirecting...<br>";
+                    header("Location: ../../index.php/Portal_User_Management");
+                    exit();
+                } else {
+                    echo "Error adding transaction details: " . $stmt->error . "<br>";
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error adding transaction details: ' . $stmt->error];
+                }
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $this->conn->error . "<br>";
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+            }
         }
     }
+
+     function getBranchNameByPageName($pageName, $conn)
+    {
+        // Sanitize input to prevent SQL injection
+        $pageName = mysqli_real_escape_string($conn, $pageName);
+
+        // SQL query to retrieve branch name based on page name
+        $query = "SELECT branch.name AS branch_name
+              FROM page
+              JOIN branch ON page.bid = branch.bid
+              WHERE page.name = '$pageName'";
+
+        // Execute the query
+        $result = $conn->query($query);
+
+        if ($result && $result->num_rows > 0) {
+            // Fetch the branch name from the result
+            $row = $result->fetch_assoc();
+            $branchId = $row['branch_name'];
+
+            // Free the result set
+            $result->free_result();
+
+            // Return the branch name
+            return $branchId;
+        } else {
+            // Return null if no result found
+            return null;
+        }
+    }
+    public function getUserDataByUsername($username)
+{
+    // Sanitize input to prevent SQL injection
+    $username = $this->conn->real_escape_string($username);
+
+    // SQL query to retrieve user data by username
+    $query = "SELECT * FROM user WHERE username = '$username'";
+
+    // Execute the query
+    $result = $this->conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        // Fetch the user data from the result
+        $userData = $result->fetch_assoc();
+
+        // Free the result set
+        $result->free_result();
+
+        // Return the user data as an array
+        return $userData;
+    } else {
+        // Return null if no result found
+        return null;
+    }
+}
+
+
+
+
+
     public function Redeem()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -168,6 +332,11 @@ class Creation
             $remark = $_POST['remark'] ?? '';
             $by_role = $this->srole;
             $by_username = $this->susername;
+            $conn = $this->conn;
+            $user=$this->getUserDataByUsername($name);
+            
+
+            // $branchName = $this->getBranchNameByPageName($pagename, $conn);
 
 
             // Prepare an SQL statement to insert the form data into the database
@@ -354,7 +523,7 @@ class Creation
 
     private function isUsernameUnique($username)
     {
-        $query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        $query = "SELECT COUNT(*) FROM user WHERE username = ?";
         $stmt = mysqli_prepare($this->conn, $query);
         mysqli_stmt_bind_param($stmt, "s", $username);
         mysqli_stmt_execute($stmt);
@@ -388,9 +557,13 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->Redeem();
 } else if (isset($_GET['action']) && $_GET['action'] == "AddBranch") {
     $creation->AddBranch();
-}else if (isset($_GET['action']) && $_GET['action'] == "AddPage") {
+} else if (isset($_GET['action']) && $_GET['action'] == "AddPage") {
     $creation->AddPage();
-}
+} else if (isset($_GET['action']) && $_GET['action'] == "Recharge_Cashup") {
+    $creation->RechargeCashApp();
+} else if (isset($_GET['action']) && $_GET['action'] == "Recharge_platform") {
+    $creation->RechargePlatform();
+} 
 
 
 

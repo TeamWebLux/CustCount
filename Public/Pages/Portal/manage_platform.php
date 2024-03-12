@@ -95,7 +95,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <h4 class="card-title">Search Platform</h4>
                                     <p>Platform by name</p>
                                 </div>
-                                <button type="button"  class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Platform</button>                       
+                                <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Platform</button>
 
                             </div>
 
@@ -105,8 +105,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <div class="card-body">
 
                                 <form action="./update_platform" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Platform</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Platform</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
@@ -119,7 +119,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     ?>
 
                                     </select>
-                    
+
                                     <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
                                 </form>
                             </div>
@@ -132,8 +132,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <div class="card-header">
                                 <h4 class="mb-0">Platform List</h4>
                                 <a href="./platform" style="text-decoration: none;">
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
-                            </a>
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
+                                </a>
 
                             </div>
                             <?php
@@ -210,13 +210,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                 </div>
             </div>
-
-
-
-
-
-
-
             <?
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);

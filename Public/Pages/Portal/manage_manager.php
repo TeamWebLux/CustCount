@@ -70,8 +70,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         <?php
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
-        $sql = "SELECT * FROM users WHERE Role = 'Manager'";
-        
+        $sql = "SELECT * FROM user WHERE Role = 'Manager'";
+
 
         $result = $conn->query($sql);
 
@@ -82,7 +82,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         ?>
 
 
-            
+
             <div class="content-inner container-fluid pb-0" id="page_layout">
 
 
@@ -93,6 +93,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Manager</h4>
                                     <p>Manager by name</p>
+                                    <form action="./add_user" method="POST">
+                                        <input type="text" name="role" value="Manager" hidden>
+                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Manager </button>
+                                    </form>
+
                                 </div>
                             </div>
 
@@ -101,14 +106,14 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                             <div class="card-body">
                                 <form action="./update_manager" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Manager</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Manager</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
 
                                         ?>
 
-                                            <option name="userdata" value="<?php echo $row['Username'] ?>"> <?php echo $row['Username'] ?></option>
+                                            <option name="userdata" value="<?php echo $row['username'] ?>"> <?php echo $row['username'] ?></option>
                                     <?php
                                         }
                                     }
@@ -155,6 +160,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Password</th>
                                             <th scope="col">Role</th>
+                                            <th scope="col">Page ID</th>
+
                                             <th scope="col">Created At</th>
                                             <th scope="col">Last Login</th>
                                             </tr>';
@@ -165,20 +172,22 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                         while ($row = $result->fetch_assoc()) {
                                                             echo "<tr>
                                                     
-                                                    <td>{$row['UserID']}</td>
+                                                    <td>{$row['id']}</td>
 
                                                     <td>
                     <form action=\"./update_manager\" method=\"post\">
-                        <input type=\"hidden\" name=\"state\" value=\"{$row['Username']}\">
+                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
                         <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
                     </form>
                 </td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
-                                                    <td>{$row['rawpass']}</td>
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
+                                                    <td>{$row['username']}</td>
+                                                    <td>{$row['name']}</td>
+                                                    <td>{$row['password']}</td>
+                                                    <td>{$row['role']}</td>
+                                                    <td>{$row['pageid']}</td>
+
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                                    <td>{$row['last_login']}</td>
                                                    
                                                   </tr>";
                                                         }

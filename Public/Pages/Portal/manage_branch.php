@@ -91,14 +91,15 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Branch</h4>
                                     <p>Branch by name</p>
+
                                 </div>
                             </div>
 
                             <!-- Select Dropdown -->
                             <div class="card-body">
                                 <form action="./update_branch" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;">
-                                        <option value="#">Select Branch</option>
+                                    <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select Branch</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
                                             // Use the 'name' field for the dropdown
@@ -125,7 +126,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         <div class="card-header">
                             <h4 class="mb-0">Branch List</h4>
                             <a href="./Add_Branch" style="text-decoration: none;">
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Branch</button>
+                                <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Branch</button>
                             </a>
 
                         </div>

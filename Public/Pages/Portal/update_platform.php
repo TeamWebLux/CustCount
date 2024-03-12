@@ -97,7 +97,7 @@
 
                                             <th scope="col">Created At</th>
                                 </tr>';
-                                $id = 0;  // Initialize $id with a default value
+                                        $id = 0;  // Initialize $id with a default value
 
                                         while ($row = $result->fetch_assoc()) {
                                             // Output column names as table headers
@@ -124,6 +124,12 @@
                                 <br>
                                 <br>
 
+                                <a href="./Recharge_Platform?name=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
+                                </a>
+                                <a href="./PlatformRec?r=<?php echo $username; ?>">
+                                    <button type="submit" class="btn btn-warning rounded-pill mt-2">Transaction Record</button>
+                                </a>
                                 <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>
                                 <a href="javascript:void(0);" class="btn btn-outline-info rounded-pill mt-2" onclick="status(<?php echo $id; ?>, 'platform', 'status','pid')">
                                     <i class="fas fa-xmark"><?php echo $status == 1 ? 'DeActivate' : 'Activate'  ?></i>
@@ -139,7 +145,7 @@
 
 
         <script>
-            function status(product_id, table, field,id) {
+            function status(product_id, table, field, id) {
                 if (confirm("Are you sure you want to Activate or Deactivate?")) {
                     const xhr = new XMLHttpRequest();
                     xhr.open("POST", "../App/Logic/commonf.php?action=status", true);
@@ -148,7 +154,7 @@
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                     // Include additional parameters in the data sent to the server
-                    const data = "id=" + product_id + "&table=" + table + "&field=" + field+"&cid="+id;
+                    const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id;
 
                     // Log the data being sent
                     console.log("Data sent to server:", data);

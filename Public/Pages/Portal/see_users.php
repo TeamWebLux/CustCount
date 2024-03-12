@@ -1,4 +1,3 @@
-
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -31,19 +30,19 @@
     }
 
     ?>
-                   
 
-<?php
-$role = $_SESSION['role'];
-if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
-    // The user is a manager, let them stay on the page
-     // You can continue to load the rest of the page here
-} else {
-    // The user is not a manager, redirect them to the login page
-    header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
-    exit(); // Prevent further execution of the script
-}
-?>
+
+    <?php
+    $role = $_SESSION['role'];
+    if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
+        // The user is a manager, let them stay on the page
+        // You can continue to load the rest of the page here
+    } else {
+        // The user is not a manager, redirect them to the login page
+        header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
+        exit(); // Prevent further execution of the script
+    }
+    ?>
 </head>
 
 <body class="  ">
@@ -75,35 +74,35 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <h4 class="mb-0">User List</h4>
                         </div>
                         <?php
+                        
                         include './App/db/db_connect.php';
                         if ($role === 'Admin') {
-                            $sql = "SELECT * FROM users";
+                            $sql = "SELECT * FROM user";
                             // No parameters needed for Admin
                         } elseif ($role === 'Manager') {
-                            $sql = "SELECT * FROM users WHERE Role IN ('Agent', 'User', 'Supervisor')";
+                            $sql = "SELECT * FROM user WHERE Role IN ('Agent', 'User', 'Supervisor')";
                             $params = [];
                         } elseif ($role === 'Supervisor') {
-                            $sql = "SELECT * FROM users WHERE Role IN ('Agent', 'User')";
+                            $sql = "SELECT * FROM user WHERE Role IN ('Agent', 'User')";
                             $params = [];
                         } elseif ($role === 'Agent') {
-                            $sql = "SELECT * FROM users WHERE Role = 'User'";
+                            $sql = "SELECT * FROM user WHERE Role = 'User'";
                             $params = [];
                         }
-                        
+
 
                         $result = $conn->query($sql);
 
 
                         if ($result->num_rows > 0) {
-                            ?>
-                        <div class="card-body">
-                            <div class="custom-table-effect table-responsive  border rounded">
-                                <table class="table mb-0" id="datatable" data-toggle="data-table">
-                                    <thead>
-                                        <tr class="bg-white">
-                                            <?php 
-                                            echo '<tr>
-                                            
+                        ?>
+                            <div class="card-body">
+                                <div class="custom-table-effect table-responsive  border rounded">
+                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                        <thead>
+                                            <tr class="bg-white">
+                                                <?php
+                                                echo '<tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Full Name</th>
@@ -112,58 +111,58 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col">Created At</th>
                                             <th scope="col">Last Login</th>
                                             </tr>';
-                        ?>
-                        <thead>
-                        <tbody>
-                        <?php
-                                            while ($row = $result->fetch_assoc()) {
-                                                echo "<tr>
+                                                ?>
+                                                <thead>
+                                                <tbody>
+                                                    <?php
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo "<tr>
                                                     
-                                                    <td>{$row['UserID']}</td>
-                                                    <td>{$row['Username']}</td>
-                                                    <td>{$row['fullname']}</td>
-                                                    <td>{$row['rawpass']}</td>
-                                                    <td>{$row['Role']}</td>
-                                                    <td>{$row['CreatedAt']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['LastLogin']}</td>
+                                                    <td>{$row['id']}</td>
+                                                    <td>{$row['username']}</td>
+                                                    <td>{$row['name']}</td>
+                                                    <td>{$row['password']}</td>
+                                                    <td>{$row['role']}</td>
+                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
+                                                    <td>{$row['last_login']}</td>
                                                    
                                                   </tr>";
-                                            }
-                                            ?>
-                        
-                        </tbody>
-                        <?php
-                
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            <?php
+
                                             // End table
                                             echo '</table>';
                                         } else {
                                             echo "0 results";
                                         }
-                
+
                                         // Close connection
                                         $conn->close();
-                                        ?>
-                                      
-                                        
-                                    
+                                            ?>
+
+
+
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
-       
 
 
 
 
 
 
-            <?
-            include("./Public/Pages/Common/footer.php");
-            // print_r($_SESSION);
-            ?>
+
+        <?
+        include("./Public/Pages/Common/footer.php");
+        // print_r($_SESSION);
+        ?>
 
     </main>
     <!-- Wrapper End-->

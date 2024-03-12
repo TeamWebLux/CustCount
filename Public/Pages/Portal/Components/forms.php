@@ -14,27 +14,36 @@ if (isset($action)) {
     $heading = "Fill the User details";
     $role = $_SESSION['role'];
     // echo $role;
-
-    if ($role == "Admin") {
-        $option = ["Select Role", "Admin", "User", "Agent", "Manager"];
-    } elseif ($role == "Agent") {
-        $option = ["Select Role",  "User"];
-    } elseif ($role == "Manager") {
-        $option = ["Select Role", "User", "Agent", "Manager"];
-    }
     // Assuming you have defined or included your functions like fhead, field, select, etc.
     // ...
 
     if ($action == 'ADD_USER' || $action == 'EDIT_USER') {
         $title = $action == 'ADD_USER' ? "Add User" : "Edit User";
-        $postUrl = $action == 'ADD_USER' ? "../App/Logic/creation.php?action=UserAdd" : './edit_user';
+        $postUrl = $action == 'ADD_USER' ? "../App/Logic/register.php" : './edit_user';
 
         echo fhead($title, $heading, $postUrl);
         echo '<br>';
 
+        $branchopt = "<option value=''>Select Branch Name</option>";
+        $resultBranch = $conn->query("SELECT * FROM branch where status=1");
+        if ($resultBranch->num_rows > 0) {
+            while ($row = $resultBranch->fetch_assoc()) {
+                $branchopt .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+
+        $pageopt = "<option value=''>Select Page Name</option>";
+        $resultPage = $conn->query("SELECT * FROM page where status=1");
+        if ($resultPage->num_rows > 0) {
+            while ($row = $resultPage->fetch_assoc()) {
+                $pageopt .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+
         echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
         echo $username = field("Username", "text", "username", "Enter Your Username", isset($_POST['username']) ? $_POST['username'] : '');
         echo $password = field("Password", "password", "password", "Enter Your Password", isset($_POST['password']) ? $_POST['password'] : '');
+        echo '<input type="hidden" name="role" value="' . (isset($_POST['role']) ? $_POST['role'] : '') . '" >';
 
         // Additional fields for 'EDIT_USER'
         if ($action == 'EDIT_USER') {
@@ -42,20 +51,36 @@ if (isset($action)) {
         }
 
         echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
-        echo $pageId = field("Page ID", "text", "page_id", "Enter Page ID", isset($_POST['page_id']) ? $_POST['page_id'] : '');
-        // echo $status = field("Status", "text", "status", "Enter Status", isset($_POST['status']) ? $_POST['status'] : '');
-        echo $selectRole = select("Select Role", "role", "role", $option, isset($_POST['role']) ? $_POST['role'] : '');
-        echo '<div id="agentadd" style="display:none;">';
-        echo $pageId = field("Page ID", "text", "page_id", "Enter Page ID");
-        echo '</div>';
-        echo '<div id="mageradd" style="display:none;">';
-        echo $branchId = field("Branch ID", "text", "branch_id", "Enter Branch ID");
-        echo '</div>';
+
+        if (isset($_POST['role'])) {
+            if ($_POST['role'] == 'Supervisor' || $_POST['role'] == 'Agent') {
+                echo '<label for="pagename">Page Name</label>';
+                echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+            } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
+                echo '<label for="Branchname">Branch Name</label>';
+                echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+                echo '<label for="pagename">Page Name</label>';
+                echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+            } else {
+                echo "Invalid attempt";
+            }
+        }
+
+        // echo '<div id="agentadd" style="display:none;">';
+        // echo '<label for="pagename">Page Name</label>';
+        // echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+        // echo '</div>';
+
+        // echo '<div id="mageradd" style="display:none;">';
+        // echo '<label for="Branchname">Branch Name</label>';
+        // echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+        // echo '</div>';
+
         echo '<div id="useradd" style="display:none;">';
         // Assuming 'managerid' is a predefined array containing manager options
         // echo $selectManager = select("Select Manager", "managerid", "managerid", $managerid, isset($_POST['managerid']) ? $_POST['managerid'] : '');
-        echo $branchId = field("Branch ID", "text", "branch_id", "Enter Branch ID");
-        echo $pageId = field("Page ID", "text", "page_id", "Enter Page ID");
+
+        // echo $branchId = field("Branch ID", "text", "branch_id", "Enter Branch ID");
 
         // Assuming 'agentid' is a predefined array containing agent options
         // echo $selectAgent = select("Select Agent", "agentid", "agentid", $agentid, isset($_POST['agentid']) ? $_POST['agentid'] : '');
@@ -65,7 +90,7 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     } else if ($action == "CASH_UP_ADD" && $role = ("Admin" || "Manager")) {
-        $title = "Cash Up Add Details ";
+        $title = "Cash App Add Details ";
         $heading = "Enter the Details Correctly";
         $action = "../App/Logic/creation.php?action=cashAppAdd";
         echo fhead($title, $heading, $action);
@@ -79,7 +104,7 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     } else if ($action == "CASH_OUT" && ($role == "Agent" || $role == "Supervisor" || $role == "Admin")) {
-        $title = "Cash Out Details";
+        $title = "Reedem  Details";
         $heading = "Enter the Details Correctly";
         $action = "../App/Logic/creation.php?action=CashOut";
 
@@ -91,11 +116,20 @@ if (isset($action)) {
             echo field("Enter the User Name", "text", "username", "Enter the Username");
         }
 
-        echo field("Cash Out Amount", "number", "cashoutamount", "Enter the Cash Out Amount");
-        echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
+        echo field("Reedem Amount", "number", "reedemamount", "Enter the Reedem Amount");
+        $pageop = "<option value=''>Select Page</option>";
+        $result = $conn->query("SELECT * FROM page where status =1");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pageop .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        echo '<label for="pagename">Page Name</label>';
+        echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'platformname-other\')">' . $pageop . '</select>';
+
         echo field("Excess Amount", "number", "excessamount", "Enter the Excess Amount");
         $platformOptions = "<option value=''>Select Platform</option>";
-        $result = $conn->query("SELECT name FROM platform");
+        $result = $conn->query("SELECT name FROM platform where status =1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $platformOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
@@ -108,10 +142,10 @@ if (isset($action)) {
 
         // echo field("cashApp Name", "text", "cashAppname", "Enter the cashApp Name");
         $cashAppOptions = "<option value=''>Select cashApp</option>";
-        $result = $conn->query("SELECT * FROM cashapp");
+        $result = $conn->query("SELECT * FROM cashapp where status =1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
@@ -119,13 +153,16 @@ if (isset($action)) {
         echo '<select class="form-select" id="cashAppname" name="cashAppname" onchange="showOtherField(this, \'cashAppname-other\')">' . $cashAppOptions . '</select>';
         echo '<input type="text" id="cashAppname-other" name="cashAppname_other" style="display:none;" placeholder="Enter cashApp Name">';
         echo field("Tip", "number", "tip", "Enter the Tip Amount");
+        echo field("Remark", "text", "remark", "Enter the Remark ");
 
         echo $Submit;
         echo $Cancel;
         echo $formend;
     } else if ($action == "DEPOSIT" && ($role != "User")) {
-        $title = "Deposit Details";
-        $heading = "Fill in the Deposit Details";
+        echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
+
+        $title = "Reedem Details";
+        $heading = "Fill in the Redeem Details";
         $actionUrl = "../App/Logic/creation.php?action=Deposit";
         echo fhead($title, $heading, $actionUrl);
         if (isset($_GET['u'])) {
@@ -138,9 +175,20 @@ if (isset($action)) {
             echo field("Enter the User Name", "text", "username", "Enter the Username");
         }
         echo field("Deposit Amount", "number", "depositamount", "Enter the Deposit Amount");
-        echo field("FB ID", "text", "fbid", "Enter the Facebook ID");
+        $pageop = "<option value=''>Select Page</option>";
+        $result = $conn->query("SELECT name FROM page where status=1");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pageop .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
+            }
+        }
+        echo '<label for="pagename">Page Name</label>';
+        echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'platformname-other\')">' . $pageop . '</select>';
+        // echo '<input type="text" id="platformname-other" name="platformname_other" style="display:none;" placeholder="Enter Platform Name">';
+
+        // echo field("page ID", "text", "fbid", "Enter the Facebook ID");
         $platformOptions = "<option value=''>Select Platform</option>";
-        $result = $conn->query("SELECT name FROM platform");
+        $result = $conn->query("SELECT name FROM platform where status=1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $platformOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
@@ -153,10 +201,10 @@ if (isset($action)) {
 
         // echo field("cashApp Name", "text", "cashAppname", "Enter the cashApp Name");
         $cashAppOptions = "<option value=''>Select cashApp</option>";
-        $result = $conn->query("SELECT * FROM cashapp");
+        $result = $conn->query("SELECT * FROM cashapp where status=1");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
@@ -170,36 +218,35 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    } 
+    }
     if ($action == "PLATFORM" && $role == "Admin") {
         $title = "Add Platform Name";
         $heading = "Enter the Platform Information Below";
         $actionUrl = "../App/Logic/creation.php?action=platform"; // Adjust the action as needed
-    
+
         echo fhead($title, $heading, $actionUrl);
-        
+
         // Fields for Platform Details
         echo field("Platform Name", "text", "platformname", "Enter the Platform Name");
         // echo field("Status", "checkbox", "status", "Active");
-    
+
         // Using a checkbox as a workaround for the active/inactive button
         echo '<div class="form-group">
                 <label for="status">Status</label>
                 <input type="checkbox" id="status" name="status" value="1">
               </div>';
-    
+
         echo field("Current Balance", "number", "currentbalance", "Enter the Current Balance");
         // echo field("Added By", "text", "addedby", "Enter the Name of the Person Adding");
-    
+
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    }
-    else if ($action == "ADD_CASHAPP" && $role == "Admin") {
+    } else if ($action == "ADD_CASHAPP" && $role == "Admin") {
         $title = "CashApp Details";
         $heading = "Enter CashApp Information";
         $actionUrl = "../App/Logic/creation.php?action=CashApp"; // Adjust the action as needed
-    
+
         echo fhead($title, $heading, $actionUrl);
         // Fields for CashApp Details
         echo field("CashApp Name", "text", "cashAppname", "Enter the CashApp Name");
@@ -211,16 +258,15 @@ if (isset($action)) {
                 <label for="active">Active</label>
                 <input type="checkbox" id="active" name="active" value="1">
               </div>';
-    
+
         echo field("Current Balance", "number", "currentbalance", "Enter the Current Balance");
         echo field("CashApp Remark", "textarea", "remark", "Enter the Remar ");
 
-    
+
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    }
-    else if ($action == "WITHDRAWL" && ($role == "Admin")) {
+    } else if ($action == "WITHDRAWL" && ($role == "Admin")) {
         // Fetch platform names from the database
         $title = "Withdrawl Action Details";
         $heading = "Fill in the Details";
@@ -243,7 +289,7 @@ if (isset($action)) {
         $result = $conn->query("SELECT * FROM cashapp");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $cashAppOptions .= "<option value='" . htmlspecialchars($row['cashApp_name']) . "'>" . htmlspecialchars($row['cashApp_name']) . "</option>";
+                $cashAppOptions .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
         $cashAppOptions .= "<option value='other'>Other</option>";
@@ -310,8 +356,62 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
+    } elseif ($action == 'SEE_REPORTS') {
+        $title =  "See All Reports ";
+        $heading = "Select the details carefully";
+        $postUrl = isset($_POST['condtion'])? "./Reports":"#";
+        echo fhead($title, $heading, $postUrl);
+        echo '<br>';
+        $option = ["Select the Fields", "branch", "page", "platform", "cashapp"];
+        echo select("Field", "field", "field", $option,isset($_POST['field']) ? $_POST['field'] : '');
+        if (isset($_POST['field'])) {
+            $field = $_POST['field'];
+            $branchOptions = []; // Initialize an empty string for options
+            $branchQuery = "SELECT name FROM $field where status=1";
+            $branchResult = $conn->query($branchQuery);
+            while ($branchRow = $branchResult->fetch_assoc()) {
+                $branchOptions[$branchRow['name']] = $branchRow['name'];
+                // $branchOptions .= "<option value='{$branchRow['name']}'>{$branchRow['name']}</option>";
+            }
+            echo select("Sub Section","condtion","condtion",$branchOptions,isset($_POST['condtion']) ? $_POST['condtion'] : '');
+
+            // echo '<label for="branchname">Branch Name</label>';
+            // echo '<select class="form-select" id="platformname" name="condtion" onchange="showOtherField(this, \'branchname-other\')">' . $branchOptions . '</select>';
+        }
+        echo $Submit;
+        echo $Cancel;
+        echo $formend;
+    }elseif ($action == "RECHARGE_PLATFORM" || $action == "RECHARGE_CASHAPP") {
+        // Set dynamic title based on the action
+        $title = ($action == "RECHARGE_PLATFORM") ? "Recharge Platform" : "Recharge CashApp";
+        $heading = "Select the details carefully";
+        $postUrl = ($action == "RECHARGE_PLATFORM") ? "../App/Logic/creation.php?action=Recharge_platform" : "../App/Logic/creation.php?action=Recharge_Cashup";
+        echo fhead($title, $heading, $postUrl);
+        echo '<br>';
+    
+        // Adding Cashtag field
+    
+        // Additional fields for RECHARGE_PLATFORM
+        if ($action == "RECHARGE_PLATFORM") {
+            echo field("Platform Name", "text", "platform", "Enter Platform Name",isset($_GET['name']) ? $_GET['name'] : '',"required","readonly");
+            echo field("Amount", "text", "amount", "Enter Amount ");
+            echo field("Remark", "text", "remark", "Enter Remark ");
+
+        }
+    
+        // Additional fields for RECHARGE_CASHAPP
+        if ($action == "RECHARGE_CASHAPP") {
+            echo field("CashApp Name", "text", "cashapp", "Enter CashApp Name",isset($_GET['name']) ? $_GET['name'] : '',"required","readonly");
+            echo field("Amount", "text", "amount", "Enter Amount ");
+            echo field("Remark", "text", "remark", "Enter Remark ");
+        }
+    
+        echo $Submit;
+        echo $Cancel;
+        echo $formend;
     }
 }
+    
 
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -328,25 +428,25 @@ if (isset($action)) {
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#role').change(function() {
-            var isManager = $(this).val() === 'Manager';
-            $('#mageradd').toggle(isManager);
+    // $(document).ready(function() {
+    //     $('#role').change(function() {
+    //         var isManager = $(this).val() === 'Manager';
+    //         $('#mageradd').toggle(isManager);
 
 
-        });
-        $('#role').change(function() {
-            var isManager = $(this).val() === 'Agent';
-            $('#agentadd').toggle(isManager);
+    //     });
+    //     $('#role').change(function() {
+    //         var isManager = $(this).val() === 'Agent';
+    //         $('#agentadd').toggle(isManager);
 
 
-        });
-        $('#role').change(function() {
-            var isManager = $(this).val() === 'User';
-            $('#useradd').toggle(isManager);
+    //     });
+    //     $('#role').change(function() {
+    //         var isManager = $(this).val() === 'User';
+    //         $('#useradd').toggle(isManager);
 
 
-        });
+    //     });
 
-    });
+    // });
 </script>

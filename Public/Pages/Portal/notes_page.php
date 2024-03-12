@@ -92,8 +92,9 @@
                 </div>
             </div>
             <?php
+            $username=$_SESSION['username'];
             $role = $_SESSION['role'];
-            $sql = "SELECT * FROM notes WHERE by_role ='$role' ORDER BY created_at DESC ";
+            $sql = "SELECT * FROM notes WHERE by_username ='$username' ORDER BY created_at DESC ";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -102,8 +103,8 @@ if ($result->num_rows > 0) {
         echo '<div class="col-lg-4">';
         echo '    <div class="card text-white bg-primary mb-3" style="position: relative;">'; // Added relative positioning for absolute delete icon positioning
         echo '        <div class="card-body">';
-        echo '            <a href="../App/Logic/delete_note.php?id=' . htmlspecialchars($row["id"]) . '" style="font-size: 34px; position: absolute; top: 0px; right: 10px; color: white; text-decoration: none;" onclick="return confirm(\'Are you sure you want to delete this note?\');">&times;</a>'; // Delete icon/button
-        echo '            <h4 class="card-title text-white">' . htmlspecialchars($row["title"]) . '</h4>';
+        echo '            <a href="../App/Logic/delete_note.php?id=' . htmlspecialchars($row["nid"]) . '" style="font-size: 34px; position: absolute; top: 0px; right: 10px; color: white; text-decoration: none;" onclick="return confirm(\'Are you sure you want to delete this note?\');">&times;</a>'; // Delete icon/button
+        echo '            <h4 class="card-title text-white">' . htmlspecialchars($row["tittle"]) . '</h4>';
         echo '            <blockquote class="blockquote mb-0">';
         echo '                <p class="font-size-14">' . htmlspecialchars($row["content"]) . '</p>';
         echo '                <footer class="blockquote-footer text-white font-size-12">' . htmlspecialchars($row["created_at"]) . '</cite></footer>';

@@ -76,7 +76,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         </div>
                         <?php
                         include './App/db/db_connect.php';
-                        $sql = "SELECT * FROM deposits";
+                        $sql = "SELECT * FROM transaction where type='Debit'";
 
                         $result = $conn->query($sql);
 
@@ -97,7 +97,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col"> Amount</th>
                                             <th scope="col">Bonus Amount</th>
                                             <th scope="col">Platform</th>
-                                            <th scope="col">Cash Up Name</th>
+                                            <th scope="col">Cash App Name</th>
                                             <th scope="col">By Username</th>
                                             <th scope="col">By Role</th>
                                             <th scope="col">Added Time</th>
@@ -106,15 +106,15 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<thead><tr><tbody>
                                                     
-                                                    <td>{$row['id']}</td>
+                                                    <td>{$row['tid']}</td>
                                                     <td>{$row['username']}</td>
-                                                    <td>{$row['deposit_amount']}</td>
-                                                    <td>{$row['bonus_amount']}</td>
-                                                    <td>{$row['platform_name']}</td>
-                                                    <td>{$row['cashup_name']}</td>
-                                                    <td>{$row['by_username']}</td>
+                                                    <td>{$row['recharge']}</td>
+                                                    <td>{$row['bonus']}</td>
+                                                    <td>{$row['platform']}</td>
+                                                    <td>{$row['cashapp']}</td>
+                                                    <td>{$row['by_u']}</td>
                                                     <td>{$row['by_role']}</td>
-                                                    <td>{$row['added_time']}</td>
+                                                    <td>{$row['created_at']}</td>
                                                   </tr></tbody>";
                                             }
                                             
