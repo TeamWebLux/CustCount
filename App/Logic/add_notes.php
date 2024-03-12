@@ -5,7 +5,7 @@ include '../db/db_connect.php';
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO notes (title, content, by_role, unique_id) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO notes (title, content, by_username, unique_id) VALUES (?, ?, ?, ?)");
 
     $title = $_POST['title'];
     $content = $_POST['content'];

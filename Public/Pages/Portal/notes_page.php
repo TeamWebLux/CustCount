@@ -92,8 +92,9 @@
                 </div>
             </div>
             <?php
+            $username=$_SESSION['username'];
             $role = $_SESSION['role'];
-            $sql = "SELECT * FROM notes WHERE by_role ='$role' ORDER BY created_at DESC ";
+            $sql = "SELECT * FROM notes WHERE by_username ='$username' ORDER BY created_at DESC ";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
