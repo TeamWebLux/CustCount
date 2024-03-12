@@ -21,7 +21,14 @@ $(function () {
 		dom: 'Bfrtip',
 		buttons: [
 			'copy', 'excel', 'pdf', 'print'
-		]
+		],
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+  
 	} );
 	
 	$('#tickets').DataTable({
