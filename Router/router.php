@@ -46,10 +46,19 @@ if ($uri == $firstparam || $uri == $secondparam) {
          $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
+         $prefix . $root . '/Add_Branch'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/Recharge_cashapp'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/Recharge_Platform'                         => './Public/Pages/Portal/temp.php',
+
+         $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
-        
+        $prefix . $root . '/See_Reports'                          => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Reports'                          => './Public/Pages/Portal/see_reports.php',
+        $prefix . $root . '/PlatformRec'                          => './Public/Pages/Portal/pcrecord.php',
+
         $prefix . $root . '/Portal_User_Management'               => './Public/Pages/Portal/manage_user.php',
         $prefix . $root . '/update_user'                          => './Public/Pages/Portal/update_user.php',
         $prefix . $root . '/update_agent'                         => './Public/Pages/Portal/update_agent.php',

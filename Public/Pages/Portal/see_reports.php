@@ -74,25 +74,15 @@
                             <h4 class="mb-0">User List</h4>
                         </div>
                         <?php
-                        
                         include './App/db/db_connect.php';
-                        if ($role === 'Admin') {
-                            $sql = "SELECT * FROM user";
-                            // No parameters needed for Admin
-                        } elseif ($role === 'Manager') {
-                            $sql = "SELECT * FROM user WHERE Role IN ('Agent', 'User', 'Supervisor')";
-                            $params = [];
-                        } elseif ($role === 'Supervisor') {
-                            $sql = "SELECT * FROM user WHERE Role IN ('Agent', 'User')";
-                            $params = [];
-                        } elseif ($role === 'Agent') {
-                            $sql = "SELECT * FROM user WHERE Role = 'User'";
-                            $params = [];
+
+                        if (isset($_POST)) {
+                            print_r($_POST);
+                            $condition = $_POST['field'];
+                            $query = $_POST['condtion'];
+                            $sql = "select * from transaction where $condition='$query'";
+                            $result = $conn->query($sql);
                         }
-
-
-                        $result = $conn->query($sql);
-
 
                         if ($result->num_rows > 0) {
                         ?>
@@ -105,11 +95,11 @@
                                                 echo '<tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Full Name</th>
-                                            <th scope="col">Password</th>
+                                            <th scope="col">Recharge</th>
+                                            <th scope="col">Redeem</th>
+
                                             <th scope="col">Role</th>
                                             <th scope="col">Created At</th>
-                                            <th scope="col">Last Login</th>
                                             </tr>';
                                                 ?>
                                                 <thead>
@@ -118,13 +108,13 @@
                                                     while ($row = $result->fetch_assoc()) {
                                                         echo "<tr>
                                                     
-                                                    <td>{$row['id']}</td>
+                                                    <td>{$row['tid']}</td>
                                                     <td>{$row['username']}</td>
-                                                    <td>{$row['name']}</td>
-                                                    <td>{$row['password']}</td>
-                                                    <td>{$row['role']}</td>
+                                                    <td>{$row['recharge']}</td>
+                                                    <td>{$row['redeem']}</td>
+
+                                                    <td>{$row['by_role']}</td>
                                                     <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                                    <td>{$row['last_login']}</td>
                                                    
                                                   </tr>";
                                                     }
