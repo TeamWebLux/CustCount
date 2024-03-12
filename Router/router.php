@@ -37,6 +37,8 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_users.php',
 
         $prefix . $root . '/Portal_User_Management'                          => './Public/Pages/Portal/manage_user.php',
+        $prefix . $root . '/Portal_Branch_Management'                          => './Public/Pages/Portal/manage_branch.php',
+
         //forms 
          $prefix . $root . '/cash_up_add'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/cash_out'                         => './Public/Pages/Portal/temp.php',
