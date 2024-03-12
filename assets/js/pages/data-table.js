@@ -61,7 +61,7 @@ $(function () {
     } );
  
     // DataTable
-    var table = $('#example5').DataTable();
+    var table = $('#example').DataTable();
  
     // Apply the search
     table.columns().every( function () {
