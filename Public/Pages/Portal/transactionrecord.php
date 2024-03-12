@@ -104,7 +104,7 @@
                     });
             ?>
 
-                    <table id="example">
+                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                         <thead>
                             <tr>
                                 <th>Transaction Type</th>
