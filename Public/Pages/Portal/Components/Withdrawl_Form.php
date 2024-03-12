@@ -1,6 +1,4 @@
 <br>
-
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -48,9 +46,6 @@
                             <span class="fs-13 text-muted">e.g "Your money in Rupees - ₹"</span>
                         </div>
                     </div>
-
-
-
                     <div class="mb-2">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="customCheck11">

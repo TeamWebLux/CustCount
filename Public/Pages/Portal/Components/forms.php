@@ -359,11 +359,11 @@ if (isset($action)) {
     } elseif ($action == 'SEE_REPORTS') {
         $title =  "See All Reports ";
         $heading = "Select the details carefully";
-        $postUrl = isset($_POST['condtion'])? "./Reports":"#";
+        $postUrl = isset($_POST['condtion']) ? "./Reports" : "#";
         echo fhead($title, $heading, $postUrl);
         echo '<br>';
         $option = ["Select the Fields", "branch", "page", "platform", "cashapp"];
-        echo select("Field", "field", "field", $option,isset($_POST['field']) ? $_POST['field'] : '');
+        echo select("Field", "field", "field", $option, isset($_POST['field']) ? $_POST['field'] : '');
         if (isset($_POST['field'])) {
             $field = $_POST['field'];
             $branchOptions = []; // Initialize an empty string for options
@@ -373,7 +373,7 @@ if (isset($action)) {
                 $branchOptions[$branchRow['name']] = $branchRow['name'];
                 // $branchOptions .= "<option value='{$branchRow['name']}'>{$branchRow['name']}</option>";
             }
-            echo select("Sub Section","condtion","condtion",$branchOptions,isset($_POST['condtion']) ? $_POST['condtion'] : '');
+            echo select("Sub Section", "condtion", "condtion", $branchOptions, isset($_POST['condtion']) ? $_POST['condtion'] : '');
 
             // echo '<label for="branchname">Branch Name</label>';
             // echo '<select class="form-select" id="platformname" name="condtion" onchange="showOtherField(this, \'branchname-other\')">' . $branchOptions . '</select>';
@@ -381,37 +381,36 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    }elseif ($action == "RECHARGE_PLATFORM" || $action == "RECHARGE_CASHAPP") {
+    } elseif ($action == "RECHARGE_PLATFORM" || $action == "RECHARGE_CASHAPP") {
         // Set dynamic title based on the action
         $title = ($action == "RECHARGE_PLATFORM") ? "Recharge Platform" : "Recharge CashApp";
         $heading = "Select the details carefully";
         $postUrl = ($action == "RECHARGE_PLATFORM") ? "../App/Logic/creation.php?action=Recharge_platform" : "../App/Logic/creation.php?action=Recharge_Cashup";
         echo fhead($title, $heading, $postUrl);
         echo '<br>';
-    
+
         // Adding Cashtag field
-    
+
         // Additional fields for RECHARGE_PLATFORM
         if ($action == "RECHARGE_PLATFORM") {
-            echo field("Platform Name", "text", "platform", "Enter Platform Name",isset($_GET['name']) ? $_GET['name'] : '',"required","readonly");
+            echo field("Platform Name", "text", "platform", "Enter Platform Name", isset($_GET['name']) ? $_GET['name'] : '', "required", "readonly");
             echo field("Amount", "text", "amount", "Enter Amount ");
             echo field("Remark", "text", "remark", "Enter Remark ");
-
         }
-    
+
         // Additional fields for RECHARGE_CASHAPP
         if ($action == "RECHARGE_CASHAPP") {
-            echo field("CashApp Name", "text", "cashapp", "Enter CashApp Name",isset($_GET['name']) ? $_GET['name'] : '',"required","readonly");
+            echo field("CashApp Name", "text", "cashapp", "Enter CashApp Name", isset($_GET['name']) ? $_GET['name'] : '', "required", "readonly");
             echo field("Amount", "text", "amount", "Enter Amount ");
             echo field("Remark", "text", "remark", "Enter Remark ");
         }
-    
+
         echo $Submit;
         echo $Cancel;
         echo $formend;
     }
 }
-    
+
 
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

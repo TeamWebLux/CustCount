@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-
 <?php
 include("./Public/Pages/Common/header.php");
 include "./Public/Pages/Common/auth_user.php";
@@ -31,7 +30,6 @@ if (isset($_SESSION['login_error'])) {
 
 ?>
 
-
 <?php
 $role = $_SESSION['role'];
 if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
@@ -42,9 +40,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
     exit(); // Prevent further execution of the script
 }
-
-
-
 ?>
 
 </head>
@@ -53,14 +48,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- loader Start -->
     <?php
     // include("./Public/Pages/Common/loader.php");
-
     ?>
     <!-- loader END -->
-
     <!-- sidebar  -->
     <?php
     include("./Public/Pages/Common/sidebar.php");
-
     ?>
 
     <main class="main-content">
@@ -73,20 +65,14 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
         $sql = "SELECT * FROM user WHERE Role = 'User'";
 
-
         $result = $conn->query($sql);
 
         // Check if there are results
 
         if ($result->num_rows > 0) {
-
         ?>
 
-
-
             <div class="content-inner container-fluid pb-0" id="page_layout">
-
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -98,7 +84,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                         <input type="text" name="role" value="User" hidden>
                                         <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add User </button>
                                     </form>
-
                                 </div>
                             </div>
 
@@ -135,7 +120,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <!-- <a href="./Add_User" style="text-decoration: none;">
                                     <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add User</button>
                                 </a> -->
-
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -146,24 +130,19 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             // Check if there are results
 
                             if ($result->num_rows > 0) {
-
                             ?>
-
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
                                         <table class="table mb-0" id="datatable" data-toggle="data-table">
                                             <thead>
                                                 <tr class="bg-white">
                                                     <?php
-                                                    echo '<tr>
-                                            
+                                                    echo '<tr>              
                                             <th scope="col">ID</th>
                                             <th scope="col">Update</th>
                                             <th scope="col">UserName</th>
                                             <th scope="col">Password</th>
-
                                             <th scope="col">Full Name</th>
-                                            
                                             <th scope="col">Role</th>
                                             <th scope="col">Created At</th>
                                             <th scope="col">Last Login</th>
@@ -173,8 +152,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     <tbody>
                                                         <?php
                                                         while ($row = $result->fetch_assoc()) {
-                                                            echo "<tr>
-                                                    
+                                                            echo "<tr>                                                    
                                                     <td>{$row['id']}</td>
                                                     <td>
                     <form action=\"./update_user\" method=\"post\">
@@ -207,23 +185,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             // Close connection
                                             $conn->close();
                                                 ?>
-
-
-
                                     </div>
                                 </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
-
-
-
-
-
             <?
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);
@@ -235,46 +202,27 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
 
-
-
-
-
-
     </script>
-
 
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
-
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
-
 
     <!-- Lodash Utility -->
     <script src="../assets/vendor/lodash/lodash.min.js"></script>
@@ -294,9 +242,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
     <?php
-
     // include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

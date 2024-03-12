@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-
 <?php
 include("./Public/Pages/Common/header.php");
 include "./Public/Pages/Common/auth_user.php";
@@ -28,9 +27,7 @@ if (isset($_SESSION['login_error'])) {
     echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
     unset($_SESSION['login_error']); // Clear the error message
 }
-
 ?>
-
 
 <?php
 $role = $_SESSION['role'];
@@ -42,8 +39,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
     exit(); // Prevent further execution of the script
 }
-
-
 
 ?>
 
@@ -70,9 +65,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         <?php
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
-
         $sql = "SELECT * FROM page ";
-
 
         $result = $conn->query($sql);
 
@@ -81,12 +74,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         if ($result->num_rows > 0) {
 
         ?>
-
-
-
             <div class="content-inner container-fluid pb-0" id="page_layout">
-
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -98,20 +86,16 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <a href="./Add_Page" style="text-decoration: none;">
                                     <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Page</button>
                                 </a>
-
                             </div>
 
                             <!-- Select Dropdown -->
 
-
                             <div class="card-body">
-
                                 <form action="./update_page" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
                                         <option value="" disabled hidden>Select Page</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
-
                                         ?>
 
                                             <option name="userdata" value="<?php echo $row['name'] ?>"> <?php echo $row['name'] ?></option>
@@ -119,9 +103,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                         }
                                     }
                                     ?>
-
                                     </select>
-
                                     <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
                                 </form>
                             </div>
@@ -143,9 +125,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             // Check if there are results
 
                             if ($result->num_rows > 0) {
-
                             ?>
-
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
                                         <table class="table mb-0" id="datatable" data-toggle="data-table">
@@ -190,12 +170,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             } else {
                                                 echo "0 results";
                                             }
-
                                             // Close connection
                                             $conn->close();
                                                 ?>
-
-
 
                                     </div>
                                 </div>
@@ -204,12 +181,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                 </div>
             </div>
-
-
-
-
-
-
 
             <?
             include("./Public/Pages/Common/footer.php");
@@ -222,45 +193,27 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
 
-
-
-
-
-
     </script>
-
 
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
-
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
 
 
     <!-- Lodash Utility -->
@@ -281,9 +234,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
     <?php
-
     // include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

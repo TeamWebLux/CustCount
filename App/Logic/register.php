@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
-             $redirectTo = '../../index.php/Portal'; // Success: Redirect to the home page or dashboard
+            $redirectTo = '../../index.php/Portal'; // Success: Redirect to the home page or dashboard
         } else {
             setToast('error', 'Error: ' . $stmt->error);
         }

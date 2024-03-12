@@ -20,7 +20,6 @@
         echoToastScript($toast['type'], $toast['message']);
         unset($_SESSION['toast']); // Clear the toast message from session
     }
-
     if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
     // Display error message if available
@@ -30,7 +29,6 @@
     }
 
     ?>
-
 
     <?php
     $role = $_SESSION['role'];
@@ -63,7 +61,6 @@
         <?php
         include("./Public/Pages/Common/main_content.php");
         ?>
-
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
 
@@ -132,23 +129,12 @@
                                         // Close connection
                                         $conn->close();
                                             ?>
-
-
-
                                 </div>
                             </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-
-
-
-
-
-
         <?
         include("./Public/Pages/Common/footer.php");
         // print_r($_SESSION);
@@ -167,7 +153,6 @@
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
 

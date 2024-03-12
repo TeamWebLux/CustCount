@@ -27,4 +27,3 @@ switch ($_SESSION['role']) {
         header('Location: ../Error/no_dash.php ');
         exit;
 }
-?>

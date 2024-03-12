@@ -28,9 +28,7 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
-
     ?>
-
 
     <?php
     $role = $_SESSION['role'];
@@ -64,9 +62,7 @@
         include("./Public/Pages/Common/main_content.php");
         ?>
 
-
         <div class="content-inner container-fluid pb-0" id="page_layout">
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -75,18 +71,16 @@
                         </div>
                         <?php
                         include './App/db/db_connect.php';
-
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
                         $action = strtoupper($lastSegment);
                         echo $action;
-                        
+
                         if ($action = "PLATFORMREC" && isset($_GET['r'])) {
                             $u = $_GET['r'];
                             $sql = "select * from transaction where platform='$u'";
                             $result = $conn->query($sql);
-                        }elseif($action = "PLATFORMREC" && isset($_GET['u'])){
-
+                        } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
                         }
 
 
@@ -120,8 +114,7 @@
                                                 <tbody>
                                                     <?php
                                                     while ($row = $result->fetch_assoc()) {
-                                                        echo "<tr>
-                                                    
+                                                        echo "<tr> 
                                                     <td>{$row['tid']}</td>
                                                     <td>{$row['username']}</td>
                                                     <td>{$row['recharge']}</td>
@@ -133,62 +126,46 @@
                                                   </tr>";
                                                     }
                                                     ?>
-
                                                 </tbody>
                                             <?php
-
                                             // End table
                                             echo '</table>';
                                         } else {
                                             echo "0 results";
                                         }
-
                                         // Close connection
                                         $conn->close();
                                             ?>
-
-
 
                                 </div>
                             </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-
-
-
-
-
 
         <?
         include("./Public/Pages/Common/footer.php");
         // print_r($_SESSION);
         ?>
-
     </main>
     <!-- Wrapper End-->
     <!-- Live Customizer start -->
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
 
     <!-- Library Bundle Script -->
     <?php
     include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

@@ -27,10 +27,10 @@ class Creation
             $managerid = isset($_POST['managerid']) ? $this->sanitizeInput($_POST['managerid']) : null;
             $agentid = isset($_POST['agentid']) ? $this->sanitizeInput($_POST['agentid']) : null;
             $pageId = isset($_POST['pagename']) ? $this->sanitizeInput($_POST['pagename']) : null;
-    
+
             // Set branchId to null initially
             $branchId = 123;
-    
+
             // Check if the branchname is provided
             // if (isset($_POST['branchname']) && $_POST['branchname'] !== '') {
             //     // If branchname is provided, sanitize and set the branchId
@@ -39,14 +39,14 @@ class Creation
             //     // If branchname is not provided, fetch the branchId based on pageId
             //     $branchId = $this->getBranchNameByPageName($pageId, $this->conn);
             // }
-    
+
             // Check if the username is unique
             if ($this->isUsernameUnique($username)) {
                 $query = "INSERT INTO user (name, username, password, role, branchname, pagename) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($this->conn, $query);
                 mysqli_stmt_bind_param($stmt, "ssssss", $name, $username, $password, $role, $branchId, $pageId);
                 $result = mysqli_stmt_execute($stmt);
-    
+
                 if ($result) {
                     echo "User added successfully.";
                 } else {
@@ -58,7 +58,7 @@ class Creation
             }
         }
     }
-        public function Platform()
+    public function Platform()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $platformName = $this->conn->real_escape_string($_POST['platformname']);
@@ -91,13 +91,13 @@ class Creation
             $amount = $this->conn->real_escape_string($_POST['amount']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
             $addedBy = $_SESSION['username'];
-    
+
             $sql = "INSERT INTO platformRecord (platform, amount, by_name, created_at, updated_at, remark) 
                     VALUES (?, ?, ?, NOW(), NOW(), ?)";
-    
+
             if ($stmt = $this->conn->prepare($sql)) {
                 $stmt->bind_param("sdss", $platformName, $amount, $addedBy, $remark);
-    
+
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
                     header("Location: ../../index.php/Portal_Platform_Management");
@@ -111,7 +111,7 @@ class Creation
             }
         }
     }
-    
+
     public function CashApp()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -149,13 +149,13 @@ class Creation
             $amount = $this->conn->real_escape_string($_POST['amount']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
             $addedBy = $_SESSION['username'];
-    
+
             $sql = "INSERT INTO cashappRecord ( name,amount, by_name, created_at, updated_at, remark) 
                     VALUES (?, ?, ?, NOW(), NOW(), ?)";
-    
+
             if ($stmt = $this->conn->prepare($sql)) {
                 $stmt->bind_param("sdss", $cashAppName, $amount, $addedBy, $remark);
-    
+
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp recharged successfully.'];
                     header("Location: ../../index.php/Portal_Cashup_Management");
@@ -169,7 +169,7 @@ class Creation
             }
         }
     }
-    
+
     public function CashOut()
     {
         if (isset($_POST)) {
@@ -261,7 +261,7 @@ class Creation
         }
     }
 
-     function getBranchNameByPageName($pageName, $conn)
+    function getBranchNameByPageName($pageName, $conn)
     {
         // Sanitize input to prevent SQL injection
         $pageName = mysqli_real_escape_string($conn, $pageName);
@@ -291,30 +291,30 @@ class Creation
         }
     }
     public function getUserDataByUsername($username)
-{
-    // Sanitize input to prevent SQL injection
-    $username = $this->conn->real_escape_string($username);
+    {
+        // Sanitize input to prevent SQL injection
+        $username = $this->conn->real_escape_string($username);
 
-    // SQL query to retrieve user data by username
-    $query = "SELECT * FROM user WHERE username = '$username'";
+        // SQL query to retrieve user data by username
+        $query = "SELECT * FROM user WHERE username = '$username'";
 
-    // Execute the query
-    $result = $this->conn->query($query);
+        // Execute the query
+        $result = $this->conn->query($query);
 
-    if ($result && $result->num_rows > 0) {
-        // Fetch the user data from the result
-        $userData = $result->fetch_assoc();
+        if ($result && $result->num_rows > 0) {
+            // Fetch the user data from the result
+            $userData = $result->fetch_assoc();
 
-        // Free the result set
-        $result->free_result();
+            // Free the result set
+            $result->free_result();
 
-        // Return the user data as an array
-        return $userData;
-    } else {
-        // Return null if no result found
-        return null;
+            // Return the user data as an array
+            return $userData;
+        } else {
+            // Return null if no result found
+            return null;
+        }
     }
-}
 
 
 
@@ -333,8 +333,8 @@ class Creation
             $by_role = $this->srole;
             $by_username = $this->susername;
             $conn = $this->conn;
-            $user=$this->getUserDataByUsername($name);
-            
+            $user = $this->getUserDataByUsername($name);
+
 
             // $branchName = $this->getBranchNameByPageName($pagename, $conn);
 
@@ -563,7 +563,7 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->RechargeCashApp();
 } else if (isset($_GET['action']) && $_GET['action'] == "Recharge_platform") {
     $creation->RechargePlatform();
-} 
+}
 
 
 

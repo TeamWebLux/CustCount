@@ -5,7 +5,7 @@ include '../db/db_connect.php';
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare and bind
-    $username=$_SESSION['username'];
+    $username = $_SESSION['username'];
 
     $stmt = $conn->prepare("INSERT INTO notes (tittle, content, by_username, unique_id) VALUES (?, ?, ?, ?)");
 
@@ -37,4 +37,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("location: ../../index.php/Portal_Notes"); // Adjust the redirect location as needed
     exit();
 }
-?>

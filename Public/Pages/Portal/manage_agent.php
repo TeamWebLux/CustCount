@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-
 <?php
 include("./Public/Pages/Common/header.php");
 include "./Public/Pages/Common/auth_user.php";
@@ -42,8 +41,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     exit(); // Prevent further execution of the script
 }
 
-
-
 ?>
 
 </head>
@@ -52,14 +49,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- loader Start -->
     <?php
     // include("./Public/Pages/Common/loader.php");
-
     ?>
     <!-- loader END -->
 
     <!-- sidebar  -->
     <?php
     include("./Public/Pages/Common/sidebar.php");
-
     ?>
 
     <main class="main-content">
@@ -77,14 +72,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         // Check if there are results
 
         if ($result->num_rows > 0) {
-
         ?>
 
-
-
             <div class="content-inner container-fluid pb-0" id="page_layout">
-
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -96,13 +86,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                         <input type="text" name="role" value="Agent" hidden>
                                         <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Agent </button>
                                     </form>
-
                                 </div>
-
                             </div>
 
                             <!-- Select Dropdown -->
-
 
                             <div class="card-body">
                                 <form action="./update_agent" method="POST">
@@ -115,7 +102,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                         }
                                     }
                                     ?>
-
                                     </select>
                                     <br>
                                     <br>
@@ -198,26 +184,16 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             } else {
                                                 echo "0 results";
                                             }
-
                                             // Close connection
                                             $conn->close();
                                                 ?>
-
-
 
                                     </div>
                                 </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
-
-
-
-
 
             <?php
             include("./Public/Pages/Common/footer.php");
@@ -230,22 +206,15 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
-
-
-
-
-
 
     </script>
 
@@ -254,22 +223,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
-
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
-
 
     <!-- Lodash Utility -->
     <script src="../assets/vendor/lodash/lodash.min.js"></script>
@@ -291,7 +249,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <?php
 
     // include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

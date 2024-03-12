@@ -12,14 +12,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 $roles = array("Admin", "User", "Guest");
 
 // Check if the username is provided in the AJAX request
-if(isset($_POST['username'])) {
+if (isset($_POST['username'])) {
     $username = $_POST['username'];
-    
+
     // Fetch all user details based on the provided username
     $query = "SELECT * FROM users WHERE Username = '$username'";
     $result = $conn->query($query);
 
-    if($result->num_rows > 0) {
+    if ($result->num_rows > 0) {
         // Display user details
         $row = $result->fetch_assoc();
         echo '<form id="updateForm">';
@@ -29,9 +29,9 @@ if(isset($_POST['username'])) {
         echo '<p>Full Name: <input type="text" name="fullname" value="' . htmlspecialchars($row['fullname']) . '"></p>';
         echo '<p>New Password: <input type="password" name="newPassword"></p>';
         echo '<p>Role: <select name="role">';
-        foreach($roles as $role) {
+        foreach ($roles as $role) {
             echo '<option value="' . $role . '"';
-            if($role == $row['Role']) {
+            if ($role == $row['Role']) {
                 echo ' selected';
             }
             echo '>' . $role . '</option>';
@@ -45,4 +45,3 @@ if(isset($_POST['username'])) {
 } else {
     echo 'Username not provided.';
 }
-?>

@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-
 <?php
 include("./Public/Pages/Common/header.php");
 include "./Public/Pages/Common/auth_user.php";
@@ -20,7 +19,6 @@ if (isset($_SESSION['toast'])) {
     echoToastScript($toast['type'], $toast['message']);
     unset($_SESSION['toast']); // Clear the toast message from session
 }
-
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 // Display error message if available
@@ -28,9 +26,7 @@ if (isset($_SESSION['login_error'])) {
     echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
     unset($_SESSION['login_error']); // Clear the error message
 }
-
 ?>
-
 
 <?php
 $role = $_SESSION['role'];
@@ -43,8 +39,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     exit(); // Prevent further execution of the script
 }
 
-
-
 ?>
 
 </head>
@@ -53,14 +47,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- loader Start -->
     <?php
     // include("./Public/Pages/Common/loader.php");
-
     ?>
     <!-- loader END -->
 
     <!-- sidebar  -->
     <?php
     include("./Public/Pages/Common/sidebar.php");
-
     ?>
 
     <main class="main-content">
@@ -78,14 +70,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         // Check if there are results
 
         if ($result->num_rows > 0) {
-
         ?>
-
-
-
             <div class="content-inner container-fluid pb-0" id="page_layout">
-
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -100,10 +86,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                                 </div>
                             </div>
-
                             <!-- Select Dropdown -->
-
-
                             <div class="card-body">
                                 <form action="./update_supervisor" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="state" id="userSelect" style="width: 100%;" required>
@@ -118,7 +101,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                         }
                                     }
                                     ?>
-
                                     </select>
                                     <br>
                                     <br>
@@ -143,9 +125,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             // Check if there are results
 
                             if ($result->num_rows > 0) {
-
                             ?>
-
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
                                         <table class="table mb-0" id="datatable" data-toggle="data-table">
@@ -183,8 +163,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                             <td>{$row['password']}</td>
                                                             <td>{$row['role']}</td>
                                                             <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                                            <td>{$row['last_login']}</td>
-                                                           
+                                                            <td>{$row['last_login']}</td>                                                        
                                                   </tr>";
                                                         }
                                                         ?>
@@ -201,75 +180,44 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             // Close connection
                                             $conn->close();
                                                 ?>
-
-
-
                                     </div>
                                 </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
-
-
-
-
-
             <?
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);
             ?>
-
     </main>
     <!-- Wrapper End-->
     <!-- Live Customizer start -->
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
 
 
-
-
-
-
     </script>
-
 
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
-
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
-
-
     <!-- Lodash Utility -->
     <script src="../assets/vendor/lodash/lodash.min.js"></script>
     <!-- Utilities Functions -->
@@ -288,9 +236,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <script src="../assets/js/qompac-uif700.js?v=1.0.1" defer></script>
     <script src="../assets/js/sidebarf700.js?v=1.0.1" defer></script>
     <?php
-
     // include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

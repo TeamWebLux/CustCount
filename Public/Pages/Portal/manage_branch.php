@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-
 <?php
 include("./Public/Pages/Common/header.php");
 include "./Public/Pages/Common/auth_user.php";
@@ -28,9 +27,7 @@ if (isset($_SESSION['login_error'])) {
     echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
     unset($_SESSION['login_error']); // Clear the error message
 }
-
 ?>
-
 
 <?php
 $role = $_SESSION['role'];
@@ -42,9 +39,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
     exit(); // Prevent further execution of the script
 }
-
-
-
 ?>
 
 </head>
@@ -53,14 +47,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- loader Start -->
     <?php
     // include("./Public/Pages/Common/loader.php");
-
     ?>
     <!-- loader END -->
 
     <!-- sidebar  -->
     <?php
     include("./Public/Pages/Common/sidebar.php");
-
     ?>
 
     <main class="main-content">
@@ -71,8 +63,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
         $sql = "SELECT * FROM branch";
-
-
         $result = $conn->query($sql);
 
         // Check if there are results
@@ -91,7 +81,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <div class="header-title">
                                     <h4 class="card-title">Search Branch</h4>
                                     <p>Branch by name</p>
-
                                 </div>
                             </div>
 
@@ -138,7 +127,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         // Check if there are results
                         if ($result->num_rows > 0) {
                         ?>
-
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
                                     <table class="table mb-0" id="datatable" data-toggle="data-table">
@@ -183,14 +171,10 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         }
                         ?>
 
-
-
                     </div>
                 </div>
             </div>
             </div>
-
-
             <?
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);
@@ -202,22 +186,15 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
-
-
-
-
-
 
     </script>
 
@@ -226,22 +203,11 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
-
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
-
 
     <!-- Lodash Utility -->
     <script src="../assets/vendor/lodash/lodash.min.js"></script>
