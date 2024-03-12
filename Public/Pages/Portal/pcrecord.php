@@ -75,10 +75,17 @@
                         </div>
                         <?php
                         include './App/db/db_connect.php';
-                        
+
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
                         $action = strtoupper($lastSegment);
+                        if ($action = "PlatformRec" && $_GET('u')) {
+                            $u=$_GET['u'];
+                                $sql = "select * from transaction where platform='$u'";
+                                $result = $conn->query($sql);
+
+
+                        }
 
 
                         // if (isset($_POST)) {

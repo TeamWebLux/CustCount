@@ -153,7 +153,6 @@
                                 <span class="item-name"> Page Management</span>
                             </a>
                         </li>
-
                     <?php endif; ?>
                     <?php if (in_array($role, ['Admin'])) : ?>
                         <li class="nav-item">
