@@ -74,7 +74,7 @@
                             <h4 class="mb-0">User List</h4>
                         </div>
                         <?php
-                        
+
                         include './App/db/db_connect.php';
                         if ($role === 'Admin') {
                             $sql = "SELECT * FROM user";
@@ -98,7 +98,7 @@
                         ?>
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                    <table class="table mb-0" id="example" data-toggle="data-table">
                                         <thead>
                                             <tr class="bg-white">
                                                 <?php
