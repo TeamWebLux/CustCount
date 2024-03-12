@@ -133,7 +133,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <div class="card-header">
                                 <h4 class="mb-0">User List</h4>
                                 <a href="./add_user" style="text-decoration: none;">
-                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add User</button>
+                                    <button type="submit" class="btn btn-outline-info rounded-pill mt-2">Add User</button>
                                 </a>
 
                             </div>
