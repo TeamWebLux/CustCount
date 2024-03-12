@@ -185,7 +185,7 @@ class Creation
             $by_role = $this->srole;
             $by_username = $this->susername;
 
-            $sql = "Insert into transaction (username,redeem,page_no,excess,cashname,platform,tip,type,remark,by_u) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $sql = "Insert into transaction (username,redeem,page,excess,cashapp,platform,tip,type,remark,by_u) VALUES (?,?,?,?,?,?,?,?,?,?)";
             if ($stmt = mysqli_prepare($this->conn, $sql)) {
                 mysqli_stmt_bind_param($stmt, "sisissssss", $username, $cashoutamount, $fbid, $accessamount, $cashupName, $platformName, $tip, $type, $remark, $by_username);
                 if ($stmt->execute()) {
