@@ -126,6 +126,10 @@
                                 </div>
                                 <br>
                                 <br>
+                                <a href="./Recharge_cashapp?name=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
+                                </a>
+
                                 <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'start','cid')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">Start Date</button>
                                 </a>

@@ -1,5 +1,6 @@
 <?php
 session_start(); // Start the session
+include "creation.php";
 
 function setToast($type, $message)
 {
@@ -25,8 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Additional fields
     $fbLink = trim($_POST['fb_link']);
     $pageId = trim($_POST['pagename']);
-    $branchname = trim($_POST['branchname']);
-    $by_u=$_SESSION['username'];
+    // $branchname = trim($_POST['branchname']);
+    $by_u = $_SESSION['username'];
+
+    if (isset($_POST['branchname']) && $_POST['branchname'] !== '') {
+        // If branchname is provided, sanitize and set the branchId
+        $branchId = $_POST['branchname'];
+    } else {
+        // If branchname is not provided, fetch the branchId based on pageId
+        $creationInstance = new Creation($conn);
+        $branchId = $creationInstance->getBranchNameByPageName($pageId, $conn);
+    }
 
     // Get the user's IP address
     $ipAddress = $_SERVER['REMOTE_ADDR'];
@@ -65,18 +75,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Define additional fields' values
     $status = '1'; // Replace with actual value
-     // Replace with actual value
+    // Replace with actual value
 
     // Proceed with database insertion since validation passed
     $sql = "INSERT INTO user (name, username, `Fb-link`, pagename, branchname, ip_address, password, status, role, `by`, last_login, created_at, updated_at) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssssssss", $fullname, $username, $fbLink, $pageId, $branchname, $ipAddress, $password, $status, $role, $by_u);
+        $stmt->bind_param("ssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password, $status, $role, $by_u);
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
-            // $redirectTo = '../../index.php'; // Success: Redirect to the home page or dashboard
+             $redirectTo = '../../index.php/Portal'; // Success: Redirect to the home page or dashboard
         } else {
             setToast('error', 'Error: ' . $stmt->error);
         }
@@ -92,4 +102,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
-?>
