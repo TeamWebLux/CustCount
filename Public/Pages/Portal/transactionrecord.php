@@ -80,8 +80,8 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Hover Export Data Table</h3>
-				  <h6 class="box-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                    <h3 class="box-title">See All the data</h3>
+				  <h6 class="box-subtitle"></h6>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
