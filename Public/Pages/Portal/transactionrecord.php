@@ -104,7 +104,7 @@
                     });
             ?>
 
-                    <table>
+                    <table id="example">
                         <thead>
                             <tr>
                                 <th>Transaction Type</th>
