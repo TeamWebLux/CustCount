@@ -79,7 +79,7 @@
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
                         $action = strtoupper($lastSegment);
-                        if ($action = "PlatformRec" && $_GET('u')) {
+                        if ($action = "PLATFORMREC" && $_GET('u')) {
                             $u=$_GET['u'];
                                 $sql = "select * from transaction where platform='$u'";
                                 $result = $conn->query($sql);
