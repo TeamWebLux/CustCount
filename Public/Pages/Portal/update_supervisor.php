@@ -128,8 +128,8 @@
 <br>
 <br>
 
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button>
+                            <!-- <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
+                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button> -->
                             <button type="button" class="btn btn-outline-info rounded-pill mt-2">Password Reset</button>
                             <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
                             <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
