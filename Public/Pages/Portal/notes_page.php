@@ -103,7 +103,7 @@ if ($result->num_rows > 0) {
         echo '<div class="col-lg-4">';
         echo '    <div class="card text-white bg-primary mb-3" style="position: relative;">'; // Added relative positioning for absolute delete icon positioning
         echo '        <div class="card-body">';
-        echo '            <a href="../App/Logic/delete_note.php?id=' . htmlspecialchars($row["id"]) . '" style="font-size: 34px; position: absolute; top: 0px; right: 10px; color: white; text-decoration: none;" onclick="return confirm(\'Are you sure you want to delete this note?\');">&times;</a>'; // Delete icon/button
+        echo '            <a href="../App/Logic/delete_note.php?id=' . htmlspecialchars($row["nid"]) . '" style="font-size: 34px; position: absolute; top: 0px; right: 10px; color: white; text-decoration: none;" onclick="return confirm(\'Are you sure you want to delete this note?\');">&times;</a>'; // Delete icon/button
         echo '            <h4 class="card-title text-white">' . htmlspecialchars($row["tittle"]) . '</h4>';
         echo '            <blockquote class="blockquote mb-0">';
         echo '                <p class="font-size-14">' . htmlspecialchars($row["content"]) . '</p>';
