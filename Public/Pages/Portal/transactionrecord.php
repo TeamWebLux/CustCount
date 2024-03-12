@@ -130,8 +130,6 @@
                                             <th>Excess Amount</th>
                                             <th>Bonus Amount</th>
                                             <th>Free Play</th>
-
-
                                             <th>Platform Name</th>
                                             <th>Page Name</th>
                                             <th>CashApp Name</th>
