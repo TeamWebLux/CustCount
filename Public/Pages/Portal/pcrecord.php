@@ -81,8 +81,8 @@
                         $action = strtoupper($lastSegment);
                         echo $action;
                         
-                        if ($action = "PLATFORMREC" && isset($_GET['u'])) {
-                            $u = $_GET['u'];
+                        if ($action = "PLATFORMREC" && isset($_GET['r'])) {
+                            $u = $_GET['r'];
                             $sql = "select * from transaction where platform='$u'";
                             $result = $conn->query($sql);
                         }
