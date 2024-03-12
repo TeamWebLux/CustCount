@@ -117,7 +117,6 @@
                             <div class="form-group">
                                 <label>Date Range:</label>
                                 <input type="text" id="dateRangePicker" class="form-control" />
-                                <button id="clearDateRange" class="btn btn-secondary">Clear</button>
                             </div>
 
                             <div class="table-responsive">
