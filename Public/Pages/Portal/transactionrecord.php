@@ -116,7 +116,7 @@
             ?>
 					<div class="table-responsive">
 
-                    <table class="table mb-0" id="example" data-toggle="data-table">
+                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                         <thead>
                             <tr>
                                 <th>Transaction Type</th>
