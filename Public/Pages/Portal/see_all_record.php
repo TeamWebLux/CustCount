@@ -143,6 +143,25 @@
                     include "./App/db/db_connect.php";
 
                     $sql = "SELECT * FROM transaction ";
+                    if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
+                        // Both start and end dates are provided
+                        $start_date = $_SESSION['start_date'];
+                        $end_date = $_SESSION['end_date'];
+                        $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                    } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
+                        // Only start date is provided
+                        $start_date = $_SESSION['start_date'];
+                        $sql .= " AND created_at >= '$start_date 00:00:00'";
+                    } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
+                        // Only end date is provided
+                        $end_date = $_SESSION['end_date'];
+                        $sql .= " AND created_at <= '$end_date 23:59:59'";
+                    } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
+                        // Only start date is provided and end date is empty
+                        $start_date = $_SESSION['start_date'];
+                        $sql .= " AND created_at >= '$start_date 00:00:00'";
+                    }
+
 
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
