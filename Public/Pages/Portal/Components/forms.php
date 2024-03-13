@@ -55,11 +55,11 @@ if (isset($action)) {
     
             echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($row['fb_link']) ? $row['fb_link'] : '');
     
-            if (isset($_POST['role'])) {
-                if ($_POST['role'] == 'Supervisor' || $_POST['role'] == 'Agent') {
+            if (isset($row['role'])) {
+                if ($row['role'] == 'Supervisor' || $row['role'] == 'Agent') {
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-                } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
+                } elseif ($row['role'] == 'Manager' || $row['role'] == 'User') {
                     echo '<label for="Branchname">Branch Name</label>';
                     echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
                     echo '<label for="pagename">Page Name</label>';
