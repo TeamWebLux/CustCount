@@ -92,7 +92,6 @@
                                 echo "<tr>";
                                 echo '<tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Update</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Password</th>
@@ -105,12 +104,6 @@
                                     echo "<tr>
                                     <td>{$row['id']}</td>
 
-                                    <td>
-                                    <form action=\"./update_agent\" method=\"post\">
-                                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
-                                        <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
-                                    </form>
-                                </td>
                                 <td>{$row['username']}</td>
                                     <td>{$row['name']}</td>
                                     <td>{$row['password']}</td>
