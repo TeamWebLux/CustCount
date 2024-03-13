@@ -31,6 +31,23 @@
     ?>
 
     <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        foreach ($_POST as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+    }
+
+    // Store GET parameters in session
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        foreach ($_GET as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+    }
+    foreach ($_SESSION as $key => $value) {
+        echo "$key => $value<br>";
+    }
+    
+
     $role = $_SESSION['role'];
     if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         // The user is a manager, let them stay on the page
