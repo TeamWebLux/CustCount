@@ -115,19 +115,17 @@
                                                 ?>
                                                 <thead>
                                                 <tbody>
-                                                    <?php
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        echo "<tr> 
-                                                    <td>{$row['prid' || 'crid']}</td>
-                                                    <td>{$row['type']}</td>
-                                                    <td>{$row['amount']}</td>
-
-                                                    <td>{$row['by_name']}</td>
-                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                                   
-                                                  </tr>";
-                                                    }
-                                                    ?>
+                                                <?php
+while ($row = $result->fetch_assoc()) {
+    echo "<tr> 
+            <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
+            <td>{$row['type']}</td>
+            <td>{$row['amount']}</td>
+            <td>{$row['by_name']}</td>
+            <td>{$row['created_at']}</td>
+          </tr>";
+}
+?>
                                                 </tbody>
                                             <?php
                                             // End table
