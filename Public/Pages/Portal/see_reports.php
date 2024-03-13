@@ -77,7 +77,7 @@
                         include './App/db/db_connect.php';
 
                         if (isset($_POST)) {
-                            print_r($_POST);
+                            // print_r($_POST);
                             $condition = $_POST['field'];
                             $query = $_POST['condtion'];
                             $sql = "select * from transaction where $condition='$query'";
