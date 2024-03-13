@@ -133,11 +133,11 @@
                             }
                         }
 
-                        if ($action = "PLATFORMREC" && isset($_GET['r'])) {
-                            $u = $_GET['r'] || $_SESSION['r'];
+                        if ($action = "PLATFORMREC") {
+                            $u =  $_SESSION['r'];
                             $sql = "select * from platformRecord where platform='$u'";
                             // $result = $conn->query($sql);
-                        } elseif ($action = "PLATFORMREC" && isset($_GET['u']) || $_SESSION['u']) {
+                        } elseif ($action = "PLATFORMREC"  || $_SESSION['u']) {
                             $u =  $_SESSION['u'];
                             $sql = "select * from cashappRecord where name='$u'";
                             // echo $sql;
