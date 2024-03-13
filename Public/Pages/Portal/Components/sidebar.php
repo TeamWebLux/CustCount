@@ -43,7 +43,7 @@
                 </a>
                 <div class="collapse" id="sidebarPages">
                     <ul class="side-nav-second-level">
-                        
+
                         <li><a href="#" data-content="deposit">Add Deposit</a></li>
                         <li><a href="#" data-content="withdrawal">Add Withdrawal</a></li>
                         <li><a href="#" data-content="refund">Add Refund</a></li>
@@ -58,7 +58,7 @@
                 </a>
                 <div class="collapse" id="sidebarGetData">
                     <ul class="side-nav-second-level">
-                        
+
                         <li><a href="#" data-content="getDeposit">Get Deposit</a></li>
                         <!-- <li><a href="#" data-content="withdrawal">Add Withdrawal</a></li>
                         <li><a href="#" data-content="refund">Add Refund</a></li> -->
@@ -66,20 +66,7 @@
                 </div>
             </li>
 
-
-
-
-
             <li class="side-nav-title">Components</li>
-
-
-
-
-
-
-
-
-
 
         </ul>
         <!--- End Sidemenu -->

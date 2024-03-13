@@ -1,7 +1,8 @@
 <?php
 session_start(); // Start the session
 
-function setToast($type, $message) {
+function setToast($type, $message)
+{
     $_SESSION['toast'] = ['type' => $type, 'message' => $message];
 }
 
@@ -75,4 +76,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
-?>

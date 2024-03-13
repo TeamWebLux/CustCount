@@ -6,20 +6,8 @@
    <!-- <script src="../assets/js/core/libs.min.js"></script> -->
    <!-- Plugin Scripts -->
 
-
-
-
-
-
-
-
-
    <!-- Slider-tab Script -->
    <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
-
 
    <!-- Lodash Utility -->
    <script src="../assets/vendor/lodash/lodash.min.js"></script>
@@ -41,21 +29,11 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-
-
-
    <script src="../../assets/js/core/libs.min.js"></script>
    <!-- Plugin Scripts -->
 
-
-
-
-
    <!-- Select2 Script -->
    <script src="../../assets/js/plugins/select2.js" defer></script>
-
-
-
 
    <!-- Slider-tab Script -->
    <script src="../../assets/js/plugins/slider-tabs.js"></script>

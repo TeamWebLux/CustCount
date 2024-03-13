@@ -133,6 +133,7 @@
                                 <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'start','cid')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">Start Date</button>
                                 </a>
+
                                 <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'end','cid')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">End Date</button>
                                 </a>
@@ -152,7 +153,7 @@
 
 
         <script>
-                        function modify(product_id, table, field, id) {
+            function modify(product_id, table, field, id) {
                 if (confirm("Are you sure you want to Activate or Deactivate?")) {
                     const xhr = new XMLHttpRequest();
                     xhr.open("POST", "../App/Logic/commonf.php?action=modify", true);

@@ -1,4 +1,3 @@
-
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -31,19 +30,19 @@
     }
 
     ?>
-                   
 
-<?php
-$role = $_SESSION['role'];
-if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
-    // The user is a manager, let them stay on the page
-     // You can continue to load the rest of the page here
-} else {
-    // The user is not a manager, redirect them to the login page
-    header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
-    exit(); // Prevent further execution of the script
-}
-?>
+
+    <?php
+    $role = $_SESSION['role'];
+    if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
+        // The user is a manager, let them stay on the page
+        // You can continue to load the rest of the page here
+    } else {
+        // The user is not a manager, redirect them to the login page
+        header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
+        exit(); // Prevent further execution of the script
+    }
+    ?>
 </head>
 
 <body class="  ">
@@ -83,13 +82,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                         // Check if there are results
 
                         if ($result->num_rows > 0) {
-                            ?>
-                        <div class="card-body">
-                            <div class="custom-table-effect table-responsive  border rounded">
-                                <table class="table mb-0" id="datatable" data-toggle="data-table">
-                                    <thead>
-                                        <tr class="bg-white">
-                                            <?php 
+                        ?>
+                            <div class="card-body">
+                                <div class="custom-table-effect table-responsive  border rounded">
+                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                        <thead>
+                                            <tr class="bg-white">
+                                            <?php
                                             echo '<tr>
                                             
                                             <th scope="col">ID</th>
@@ -102,7 +101,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             <th scope="col">By Role</th>
                                             <th scope="col">Added Time</th>
                                             </tr>';
-                        
+
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<thead><tr><tbody>
                                                     
@@ -117,38 +116,27 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                                     <td>{$row['created_at']}</td>
                                                   </tr></tbody>";
                                             }
-                                            
-                
+
                                             // End table
                                             echo '</table>';
                                         } else {
                                             echo "0 results";
                                         }
-                
+
                                         // Close connection
                                         $conn->close();
-                                        ?>
-                                      
-                                        
-                                    
+                                            ?>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
-       
-
-
-
-
-
-
-            <?
-            include("./Public/Pages/Common/footer.php");
-            // print_r($_SESSION);
-            ?>
+        <?
+        include("./Public/Pages/Common/footer.php");
+        // print_r($_SESSION);
+        ?>
 
     </main>
     <!-- Wrapper End-->

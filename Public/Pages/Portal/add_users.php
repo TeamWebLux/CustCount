@@ -27,7 +27,6 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
-
     ?>
 
 </head>
@@ -36,21 +35,18 @@
     <!-- loader Start -->
     <?php
     include("./Public/Pages/Common/loader.php");
-
     ?>
     <!-- loader END -->
 
     <!-- sidebar  -->
     <?php
     include("./Public/Pages/Common/sidebar.php");
-
     ?>
 
     <main class="main-content">
         <?php
         include("./Public/Pages/Common/main_content.php");
         ?>
-
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
 
@@ -59,14 +55,7 @@
             <?php
             include "./Public/Pages/Portal/Components/forms.php"; ?>
 
-
         </div>
-
-
-
-
-
-
         <?
         include("./Public/Pages/Common/footer.php");
         // print_r($_SESSION);
@@ -78,21 +67,18 @@
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
 
     <!-- Library Bundle Script -->
     <?php
     include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

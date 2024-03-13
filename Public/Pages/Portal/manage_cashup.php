@@ -28,9 +28,7 @@ if (isset($_SESSION['login_error'])) {
     echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
     unset($_SESSION['login_error']); // Clear the error message
 }
-
 ?>
-
 
 <?php
 $role = $_SESSION['role'];
