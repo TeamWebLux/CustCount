@@ -108,7 +108,7 @@ class Creation
             // Calculate new opening balance if the type is "Recharge"
             $openingBalance = 0;
             if ($type == "Recharge") {
-                $openingBalance = $previousClosingBalance + $amount;
+                $openingBalance = $previousClosingBalance;
             }
 
             $addedBy = $_SESSION['username'];
