@@ -43,6 +43,8 @@ if (isset($action)) {
             $username=$_GET['u'];
             $sql="Select * from user where username='$username'";
             $result=$conn->query($sql);
+            $row = $resultPage->fetch_assoc();
+            print_r($row);
         print_r($result);
             echo $email = field("Email", "email", "email", "Enter Your Email", isset($_POST['email']) ? $_POST['email'] : '');
             echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
