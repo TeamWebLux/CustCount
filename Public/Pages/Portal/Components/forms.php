@@ -9,7 +9,7 @@ $lastSegment = end($segments);
 $action = strtoupper($lastSegment);
 
 if (isset($action)) {
-    print_r($_POST);
+    // print_r($_POST);
     global $title;
     $heading = "Fill the User details";
     $role = $_SESSION['role'];
@@ -39,6 +39,38 @@ if (isset($action)) {
                 $pageopt .= "<option value='" . htmlspecialchars($row['name']) . "'>" . htmlspecialchars($row['name']) . "</option>";
             }
         }
+        if ($action == 'EDIT_USER') {
+            $username=$_GET['u'];
+            $sql="Select * from user where username=$username";
+            $result=$conn->query($sql);
+        print_r($result);
+            echo $email = field("Email", "email", "email", "Enter Your Email", isset($_POST['email']) ? $_POST['email'] : '');
+            echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
+            echo $username = field("Username", "text", "username", "Enter Your Username", isset($_POST['username']) ? $_POST['username'] : '');
+            echo $password = field("Password", "password", "password", "Enter Your Password", isset($_POST['password']) ? $_POST['password'] : '');
+            echo '<input type="hidden" name="role" value="' . (isset($_POST['role']) ? $_POST['role'] : '') . '" >';
+    
+            // Additional fields for 'EDIT_USER'
+    
+            echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
+    
+            if (isset($_POST['role'])) {
+                if ($_POST['role'] == 'Supervisor' || $_POST['role'] == 'Agent') {
+                    echo '<label for="pagename">Page Name</label>';
+                    echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+                } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
+                    echo '<label for="Branchname">Branch Name</label>';
+                    echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
+                    echo '<label for="pagename">Page Name</label>';
+                    echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+                } else {
+                    echo "Invalid attempt";
+                }
+            }
+    
+    
+        }else{
+
 
         echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
         echo $username = field("Username", "text", "username", "Enter Your Username", isset($_POST['username']) ? $_POST['username'] : '');
@@ -46,9 +78,6 @@ if (isset($action)) {
         echo '<input type="hidden" name="role" value="' . (isset($_POST['role']) ? $_POST['role'] : '') . '" >';
 
         // Additional fields for 'EDIT_USER'
-        if ($action == 'EDIT_USER') {
-            echo $email = field("Email", "email", "email", "Enter Your Email", isset($_POST['email']) ? $_POST['email'] : '');
-        }
 
         echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
 
@@ -84,7 +113,7 @@ if (isset($action)) {
 
         // Assuming 'agentid' is a predefined array containing agent options
         // echo $selectAgent = select("Select Agent", "agentid", "agentid", $agentid, isset($_POST['agentid']) ? $_POST['agentid'] : '');
-        echo '</div>';
+        echo '</div>';}
 
         echo $Submit;
         echo $Cancel;
