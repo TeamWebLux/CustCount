@@ -206,7 +206,7 @@ class Creation
                 $stmt->bind_param("sssdsi", $name, $cashtag, $email, $currentBalance, $remark, $status);
 
                 if ($stmt->execute()) {
-                    $this->createRecord("cashappRecord","platform",$name,$currentBalance,"Recharge",$addedBy,0,$currentBalance,$remark);
+                    $this->createRecord("cashappRecord","name",$name,$currentBalance,"Recharge",$addedBy,0,$currentBalance,$remark);
 
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp details added successfully.'];
                     header("location: ../../index.php/Portal_Cashup_Management");
