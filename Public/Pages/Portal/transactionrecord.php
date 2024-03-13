@@ -98,7 +98,7 @@
                         if (isset($_GET['u'])) {
                             $u = $_GET['u'];
                             $sql = "SELECT * FROM transaction WHERE username = ?";
-
+                        
                             $stmt = $conn->prepare($sql);
                             $stmt->bind_param('s', $u);
                             $stmt->execute();

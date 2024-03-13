@@ -116,9 +116,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             <div class="card-header">
                                 <h4 class="mb-0">Supervisor List</h4>
                                 <form action="./add_user" method="POST">
-                                        <input type="text" name="role" value="Supervisor" hidden>
-                                        <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Supervisor </button>
-                                    </form>
+                                    <input type="text" name="role" value="Supervisor" hidden>
+                                    <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Add Supervisor </button>
+                                </form>
 
                             </div>
                             <?php
@@ -133,7 +133,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             ?>
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="example" >
+                                        <table class="table mb-0" id="example">
                                             <thead>
                                                 <tr class="bg-white">
                                                     <?php

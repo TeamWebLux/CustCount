@@ -112,6 +112,8 @@
                                     <td>{$row['last_login']}</td>
                     echo </tr>";
                                             $id = $row["id"];
+                                            $username=$row["username"];
+
                                         }
                                         echo "</table>";
                                     } else {
@@ -125,7 +127,7 @@
                                 <!-- <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
                                 <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button> -->
 
-                                <a href="./record?a=<?php echo $username; ?>" style="text-decoration: none;">
+                                <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
                                 </a>
                                 <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
