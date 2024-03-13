@@ -248,7 +248,7 @@ class Creation
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
-                    header("Location: ../../index.php/Portal_Platform_Management");
+                    header("Location: ../../index.php/Portal_Cashapp_Management");
                     exit();
                 } else {
                     $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging Platform: ' . $stmt->error];
