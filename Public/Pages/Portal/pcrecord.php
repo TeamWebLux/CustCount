@@ -78,7 +78,7 @@
 
                         if ($action = "PLATFORMREC" && isset($_GET['r'])) {
                             $u = $_GET['r'];
-                            $sql = "select * from transaction where platform='$u'";
+                            $sql = "select * from platformRecord where platform='$u'";
                             $result = $conn->query($sql);
                         } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
                         }
