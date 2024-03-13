@@ -102,11 +102,10 @@
                                                 <?php
                                                 echo '<tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Recharge</th>
-                                            <th scope="col">Redeem</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Amount</th>
 
-                                            <th scope="col">Role</th>
+                                            <th scope="col">By Name</th>
                                             <th scope="col">Created At</th>
                                             </tr>';
                                                 ?>
