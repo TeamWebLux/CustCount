@@ -110,7 +110,6 @@ if (isset($action)) {
         // echo $selectAgent = select("Select Agent", "agentid", "agentid", $agentid, isset($_POST['agentid']) ? $_POST['agentid'] : '');
         echo '</div>';}
 echo '<br>';
-echo '<br>';
 
         echo $Submit;
         echo $Cancel;
