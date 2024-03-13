@@ -44,6 +44,15 @@ if (isset($action)) {
             $sql="Select * from user where username='$username'";
             $result=$conn->query($sql);
             $row = $result->fetch_assoc();
+            $branchOptions = []; // Initialize an empty string for options
+            $branchQuery = "SELECT name FROM page where status=1";
+            $branchResult = $conn->query($branchQuery);
+            while ($branchRow = $branchResult->fetch_assoc()) {
+                $branchOptions[$branchRow['name']] = $branchRow['name'];
+                // $branchOptions .= "<option value='{$branchRow['name']}'>{$branchRow['name']}</option>";
+            }
+            echo select("Sub Section", "condtion", "condtion", $branchOptions, isset($_POST['condtion']) ? $_POST['condtion'] : '');
+
             echo $name = field("Name", "text", "name", "Enter Your Name", isset($row['name']) ? $row['name'] : '');
             echo $username = field("Username", "text", "username", "Enter Your Username", isset($row['username']) ? $row['username'] : '');
             echo $password = field("Password", "password", "password", "Enter Your Password", isset($row['password']) ? $row['password'] : '');
@@ -58,8 +67,8 @@ if (isset($action)) {
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
                 } elseif ($row['role'] == 'Manager' || $row['role'] == 'User') {
-                    echo '<label for="pagename">Page Name</label>';
-                    echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+                    echo select("Page name", "page", "page", $branchOptions, isset($row['page']) ? $row['page'] : '');
+
                 } else {
                     echo "Invalid attempt";
                 }
