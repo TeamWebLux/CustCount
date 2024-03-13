@@ -136,15 +136,15 @@
                         }
 
                         if ($action = "PLATFORMREC" && isset($_GET['r'])) {
-                            $u = $_GET['r'];
+                            $u = $_GET['r'] || $_SESSION['r'];
                             $sql = "select * from platformRecord where platform='$u'";
                             // $result = $conn->query($sql);
                         } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
-                            $u = $_GET['u'];
+                            $u = $_GET['u'] || $_SESSION['u'];
                             $sql = "select * from cashappRecord where name='$u'";
                             // $result = $conn->query($sql);
                         }
-                        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                        // if ($_SERVER["REQUEST_METHOD"] == "GET") {
                             if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
                                 // Both start and end dates are provided
                                 $start_date = $_SESSION['start_date'];
@@ -163,7 +163,7 @@
                                 $start_date = $_SESSION['start_date'];
                                 $sql .= " AND created_at >= '$start_date 00:00:00'";
                             }
-                        }
+                        // }
                         $result = $conn->query($sql);
 
                         // if (isset($_POST)) {
