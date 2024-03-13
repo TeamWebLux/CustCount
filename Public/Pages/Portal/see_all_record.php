@@ -250,8 +250,6 @@
                     <h6 class="box-subtitle">All The Records</h6>
                 </div>
 
-
-
                 <?php
                 include "./App/db/db_connect.php";
 
@@ -262,10 +260,6 @@
                 $stmt->execute();
 
                 $result = $stmt->get_result();
-                $results = $result->fetch_all(MYSQLI_ASSOC);
-
-                $stmt->close();
-                $conn->close();
 
                 if ($result->num_rows > 0) {
                 ?>
@@ -276,56 +270,49 @@
                                     <tr class="bg-white">
                                         <?php
                                         echo '<tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Amount</th>
-
-                                        <th scope="col">By Name</th>
-                                        <th scope="col">Created At</th>
-                                        </tr>';
+                                <th scope="col">ID</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">By Name</th>
+                                <th scope="col">Created At</th>
+                                </tr>';
                                         ?>
-                                        <thead>
-                                        <tbody>
-                                            <?php
-                                            while ($row = $result->fetch_assoc()) {
-                                                // Convert timestamp to selected timezone
-                                                $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
-                                                $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
-                                                $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
-
-                                                // Output the table row with the converted timestamp
-                                                echo "<tr>
-    <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
-    <td>{$row['type']}</td>
-    <td>{$row['amount']}</td>
-    <td>{$row['by_name']}</td>
-    <td>{$createdAtFormatted}</td>
-</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                    // End table
-                                    echo '</table>';
-                                } else {
-                                    echo "0 results";
-                                }
-                                // Close connection
-                                $conn->close();
-                                    ?>
+                                    while ($row = $result->fetch_assoc()) {
+                                        // Convert timestamp to selected timezone
+                                        $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
+                                        $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
+                                        $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
 
+                                        // Output the table row with the converted timestamp
+                                        echo "<tr>
+                                <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
+                                <td>{$row['type']}</td>
+                                <td>{$row['amount']}</td>
+                                <td>{$row['by_name']}</td>
+                                <td>{$createdAtFormatted}</td>
+                            </tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    ?>
-
-                    <!-- echo -->
-
-                    <?
-                    include("./Public/Pages/Common/footer.php");
-                    // print_r($_SESSION);
-                    ?>
+                <?php
+                } else {
+                    echo "0 results";
+                }
+                // Close connection
+                $stmt->close();
+                $conn->close();
+                ?>
             </div>
+            <?php
+            include("./Public/Pages/Common/footer.php");
+            ?>
         </div>
         </div>
         <div class="box">
