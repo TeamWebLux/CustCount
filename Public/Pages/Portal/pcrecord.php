@@ -110,23 +110,23 @@
                             $sql = "select * from cashappRecord where name='$u'";
                             // $result = $conn->query($sql);
                         }
-                        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($_GET['end_date'])) {
-                            $start_date = $_GET['start_date'];
-                            $end_date = $_GET['end_date'];
-                            
-                            // Append date filter to the SQL query
-                            $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                            if (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] !== '' && $_GET['end_date'] !== '') {
+                                // Both start and end dates are provided
+                                $start_date = $_GET['start_date'];
+                                $end_date = $_GET['end_date'];
+                                $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                            } elseif (isset($_GET['start_date']) && !isset($_GET['end_date']) && $_GET['start_date'] !== '') {
+                                // Only start date is provided
+                                $start_date = $_GET['start_date'];
+                                $sql .= " AND created_at >= '$start_date 00:00:00'";
+                            } elseif (!isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['end_date'] !== '') {
+                                // Only end date is provided
+                                $end_date = $_GET['end_date'];
+                                $sql .= " AND created_at <= '$end_date 23:59:59'";
+                            }
                         }
-                        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) || isset($_GET['end_date'])=="" ) {
-                            $start_date = $_GET['start_date'];
-                            $sql .= " AND created_at >= '$start_date 00:00:00'";
-                        }
-                        
-                        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['end_date']) || isset($_GET['start_date'])=="") {
-                            $end_date = $_GET['end_date'];
-                            $sql .= " AND created_at <= '$end_date 23:59:59'";
-                        }
-                        
+                                                
 
                         $result = $conn->query($sql);
 
