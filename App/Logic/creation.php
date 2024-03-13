@@ -113,7 +113,7 @@ class Creation
 
             } elseif ($type == "Redeem") {
                 $openingBalance = $previousClosingBalance;
-                if ($openingBalance <= $amount) {
+                if ($openingBalance >= $amount) {
                     $closingBalance = $openingBalance - $amount; // Closing balance will be the opening balance plus the recharge amount
                 } else {
                     $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
