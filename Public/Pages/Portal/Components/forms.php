@@ -44,6 +44,7 @@ if (isset($action)) {
             $sql="Select * from user where username='$username'";
             $result=$conn->query($sql);
             $row = $result->fetch_assoc();
+            print_r($row);
             $branchOptions = []; // Initialize an empty string for options
             $branchQuery = "SELECT name FROM page where status=1";
             $branchResult = $conn->query($branchQuery);
