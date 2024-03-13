@@ -415,7 +415,7 @@ echo '<br>';
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    } elseif ($action == "RECHARGE_PLATFORM" || $action == "RECHARGE_CASHAPP") {
+    } elseif ($action == "RECHARGE_PLATFORM" || $action == "RECHARGE_CASHAPP" || $action=="REDEEM_CASHAPP" || $action=="REDEEM_PLATFORM") {
         // Set dynamic title based on the action
         $title = ($action == "RECHARGE_PLATFORM") ? "Recharge Platform" : "Recharge CashApp";
         $heading = "Select the details carefully";
@@ -426,17 +426,30 @@ echo '<br>';
         // Adding Cashtag field
 
         // Additional fields for RECHARGE_PLATFORM
-        if ($action == "RECHARGE_PLATFORM") {
+        if ($action == "RECHARGE_PLATFORM" || $action=="REDEEM_PLATFORM") {
             echo field("Platform Name", "text", "platform", "Enter Platform Name", isset($_GET['name']) ? $_GET['name'] : '', "required", "readonly");
             echo field("Amount", "text", "amount", "Enter Amount ");
             echo field("Remark", "text", "remark", "Enter Remark ");
+            if($action=="REDEEM_PLATFORM"){
+                echo '<input name="type" value="Recharge">';
+            }elseif($action == "RECHARGE_PLATFORM"){
+                echo '<input name="type" value="Redeem">';
+
+            }
         }
 
         // Additional fields for RECHARGE_CASHAPP
-        if ($action == "RECHARGE_CASHAPP") {
+        if ($action == "RECHARGE_CASHAPP" || $action=="REDEEM_CASHAPP") {
             echo field("CashApp Name", "text", "cashapp", "Enter CashApp Name", isset($_GET['name']) ? $_GET['name'] : '', "required", "readonly");
             echo field("Amount", "text", "amount", "Enter Amount ");
             echo field("Remark", "text", "remark", "Enter Remark ");
+            if($action=="REDEEM_CASHAPP"){
+                echo '<input name="type" value="Recharge">';
+            }elseif($action == "RECHARGE_CASHAPP"){
+                echo '<input name="type" value="Redeem">';
+
+            }
+
         }
 
         echo $Submit;
