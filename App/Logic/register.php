@@ -108,5 +108,5 @@ else {
 }
 
 // Redirect based on the outcome
-header('Location: ' . $redirectTo);
-exit();
+// header('Location: ' . $redirectTo);
+// exit();
