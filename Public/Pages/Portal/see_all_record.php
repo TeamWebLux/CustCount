@@ -234,87 +234,10 @@
                     }
 
                         ?>
-
-                        <!-- echo -->
-
-                        <?
-                        include("./Public/Pages/Common/footer.php");
-                        // print_r($_SESSION);
-                        ?>
                         </div>
+
                 </div>
             </div>
-            <div class="box-body">
-
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">See All CashApp Reports</h3>
-                        <h6 class="box-subtitle">All The Records</h6>
-                    </div>
-
-                    <?php
-                    include "./App/db/db_connect.php";
-
-                    $sql = "SELECT * FROM cashappRecord ";
-
-                    $stmt = $conn->prepare($sql);
-                    // $stmt->bind_param('s', $u);
-                    $stmt->execute();
-
-                    $result = $stmt->get_result();
-
-                    if ($result->num_rows > 0) {
-                    ?>
-                        <div class="table-responsive">
-
-                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                <thead>
-                                    <tr class="bg-white">
-                                        <?php
-                                        echo '<tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">By Name</th>
-                                <th scope="col">Created At</th>
-                                </tr>';
-                                        ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    while ($row = $result->fetch_assoc()) {
-                                        // Convert timestamp to selected timezone
-                                        $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
-                                        $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
-                                        $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
-
-                                        // Output the table row with the converted timestamp
-                                        echo "<tr>
-                                <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
-                                <td>{$row['type']}</td>
-                                <td>{$row['amount']}</td>
-                                <td>{$row['by_name']}</td>
-                                <td>{$createdAtFormatted}</td>
-                            </tr>";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                </div>
-            <?php
-                    } else {
-                        echo "0 results";
-                    }
-                    // Close connection
-                    $stmt->close();
-                    $conn->close();
-            ?>
-            </div>
-            <?php
-            include("./Public/Pages/Common/footer.php");
-            ?>
         </div>
         <div class="box">
             <div class="box-header with-border">
