@@ -72,6 +72,7 @@ class Creation
                 $stmt->bind_param("sids", $platformName, $status, $currentBalance, $addedBy);
 
                 if ($stmt->execute()) {
+                    $this->createRecord("platformRecord","platform",$platformName,$currentBalance,"Recharge",$addedBy,0,$currentBalance,"");
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform added successfully.'];
                     header("location: ../../index.php/Portal_Platform_Management");
                     exit();
@@ -83,6 +84,26 @@ class Creation
                 $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
             }
         }
+    }
+    public function createRecord($rtname,$name,$namef,$amount, $type, $addedBy, $openingBalance, $closingBalance, $remark){
+        $sql = "INSERT INTO $rtname ($name, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+        VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
+                    if ($stmt = $this->conn->prepare($sql)) {
+                        $stmt->bind_param("sdssdss", $namef, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
+        
+                        if ($stmt->execute()) {
+                            $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
+                            header("Location: ../../index.php/Portal_Platform_Management");
+                            exit();
+                        } else {
+                            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging Platform: ' . $stmt->error];
+                        }
+                        $stmt->close();
+                    } else {
+                        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+                    }
+        
+
     }
     public function RechargePlatform()
     {
@@ -133,9 +154,10 @@ class Creation
                     VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdsddss", $platformName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
+                $stmt->bind_param("sdssdss", $platformName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
+                    
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
                     header("Location: ../../index.php/Portal_Platform_Management");
                     exit();
@@ -173,6 +195,7 @@ class Creation
             $currentBalance = $this->conn->real_escape_string($_POST['currentbalance']);
             $email = $this->conn->real_escape_string($_POST['email']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
+            $addedBy=$this->susername;
 
 
             $status = isset($_POST['active']) ? 1 : 0;
@@ -183,6 +206,8 @@ class Creation
                 $stmt->bind_param("sssdsi", $name, $cashtag, $email, $currentBalance, $remark, $status);
 
                 if ($stmt->execute()) {
+                    $this->createRecord("cashappRecord","platform",$name,$currentBalance,"Recharge",$addedBy,0,$currentBalance,$remark);
+
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp details added successfully.'];
                     header("location: ../../index.php/Portal_Cashup_Management");
                     exit();
@@ -239,13 +264,12 @@ class Creation
             $addedBy = $this->susername;
 
 echo $addedBy;
-exit();
 
             $sql = "INSERT INTO cashappRecord (name, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
                     VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdsddss", $cashAppName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
+                $stmt->bind_param("sdssdss", $cashAppName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
