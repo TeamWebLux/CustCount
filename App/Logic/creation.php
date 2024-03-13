@@ -238,7 +238,8 @@ class Creation
 
             $addedBy = $this->susername;
 
-
+echo $addedBy;
+exit();
 
             $sql = "INSERT INTO cashappRecord (name, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
                     VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
