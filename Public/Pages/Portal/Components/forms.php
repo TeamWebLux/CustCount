@@ -60,7 +60,7 @@ if (isset($action)) {
     
             // Additional fields for 'EDIT_USER'
     
-            echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($row['Fb_link']) ? $row['Fb_link'] : '');
+            echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($row['Fb-link']) ? $row['Fb-link'] : '');
     
             if (isset($row['role'])) {
                 if ($row['role'] == 'Supervisor' || $row['role'] == 'Agent') {
