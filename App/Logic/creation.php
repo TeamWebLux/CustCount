@@ -151,7 +151,7 @@ class Creation
             $type = $this->conn->real_escape_string($_POST['type']);
             $addedBy = $_SESSION['username'];
 
-            $sql = "INSERT INTO cashappRecord ( name,amount, by_name,type created_at, updated_at, remark) 
+            $sql = "INSERT INTO cashappRecord ( name,amount, by_name,type, created_at, updated_at, remark) 
                     VALUES (?, ?, ?,?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
