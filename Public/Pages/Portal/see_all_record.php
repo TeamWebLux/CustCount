@@ -95,8 +95,8 @@
                         <?php
                         include "./App/db/db_connect.php";
 
-                        if (isset($_GET['u'])) {
-                            $u = $_GET['u'];
+                        // if (isset($_GET['u'])) {
+                        //     $u = $_GET['u'];
                             $sql = "SELECT * FROM transaction ";
 
                             $stmt = $conn->prepare($sql);
@@ -162,9 +162,7 @@
 
                             <?php
                             }
-                        } else {
-                            echo "User parameter ('u') not provided.";
-                        }
+                        
                             ?>
 
                             <!-- echo -->
