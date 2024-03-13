@@ -11,9 +11,9 @@ include '../db/db_connect.php';
 
 // Default redirect location set to the registration page for reattempt
 $redirectTo = '../../index.php/add_user';
-$action=$_GET['action'];
+$action = $_GET['action'];
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $action=="register") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     print_r($_POST);
     // Retrieve and sanitize form data
     $fullname = trim($_POST['name']);
@@ -95,15 +95,84 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action=="register") {
         setToast('error', 'Error preparing statement: ' . $conn->error);
     }
     $conn->close();
-} elseif($_SERVER["REQUEST_METHOD"] == "POST" && $action=="editregister"){
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "editregister") {
     print_r($_POST);
+    $fullname = trim($_POST['name']);
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
+    $role = trim($_POST['role']);
+    $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
 
+    // Additional fields
+    $fbLink = trim($_POST['fb_link']);
+    $pageId = trim($_POST['pagename']);
+    // $branchname = trim($_POST['branchname']);
+    $by_u = $_SESSION['username'];
 
-}
+    if (isset($_POST['branchname']) && $_POST['branchname'] !== '') {
+        // If branchname is provided, sanitize and set the branchId
+        $branchId = $_POST['branchname'];
+    } else {
+        // If branchname is not provided, fetch the branchId based on pageId
+        $creationInstance = new Creation($conn);
+        $branchId = $creationInstance->getBranchNameByPageName($pageId, $conn);
+    }
 
+    // Get the user's IP address
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
 
-else {
+    // Validate inputs are not empty
+    if (empty($fullname) || empty($username) || empty($role)) {
+        // Set error message and retain form values
+        setToast('error', 'Please fill in all required fields and accept the terms.');
+        $_SESSION['form_values'] = $_POST;
+        print_r($_POST);
+        header('Location: ' . $redirectTo);
+        exit();
+    }
+
+    // Check if username already exists
+    $checkUsernameSql = "SELECT username FROM user WHERE username = ?";
+    if ($stmt = $conn->prepare($checkUsernameSql)) {
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            setToast('error', 'Username already taken. Please choose another.');
+            $_SESSION['form_values'] = $_POST;
+            print_r($_POST);
+
+            $stmt->close();
+            header('Location: ' . $redirectTo);
+            exit();
+        }
+        $stmt->close();
+    } else {
+        setToast('error', 'Error preparing statement: ' . $conn->error);
+        header('Location: ' . $redirectTo);
+        exit();
+    }
+
+    $status = '1'; // Replace with actual value
+    $update_sql = "UPDATE user SET name = ?, username = ?, `Fb-link` = ?, pagename = ?, branchname = ?, ip_address = ?, password = ?, status = ?, role = ?, `by` = ?, updated_at = NOW() WHERE condition = ?";
+
+    if ($update_stmt = $conn->prepare($update_sql)) {
+        // Assuming $condition_value holds the value for the condition
+        $update_stmt->bind_param("sssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password, $status, $role, $by_u, $condition_value);
+
+        if ($update_stmt->execute()) {
+            setToast('success', 'Record updated successfully.');
+            $redirectTo = '../../index.php/Portal'; // Success: Redirect to the home page or dashboard
+        } else {
+            setToast('error', 'Error: ' . $update_stmt->error);
+        }
+        $update_stmt->close();
+    } else {
+        setToast('error', 'Error: ' . $conn->error);
+    }
+    $conn->close();
+} else {
     setToast('error', 'Invalid request method.');
 }
 
