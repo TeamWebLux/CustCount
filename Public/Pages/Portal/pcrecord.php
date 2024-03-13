@@ -46,7 +46,7 @@
     foreach ($_SESSION as $key => $value) {
         echo "$key => $value<br>";
     }
-    
+
 
     $role = $_SESSION['role'];
     if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
@@ -58,7 +58,7 @@
         exit(); // Prevent further execution of the script
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timezone'])) {
-        $selectedTimezone = $_POST['timezone'];
+        $selectedTimezone = $_SESSION['timezone'];
         // Set the default timezone to the selected timezone
         date_default_timezone_set($selectedTimezone);
     }
@@ -145,27 +145,25 @@
                             // $result = $conn->query($sql);
                         }
                         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                            if (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] !== '' && $_GET['end_date'] !== '') {
+                            if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
                                 // Both start and end dates are provided
-                                $start_date = $_GET['start_date'];
-                                $end_date = $_GET['end_date'];
+                                $start_date = $_SESSION['start_date'];
+                                $end_date = $_SESSION['end_date'];
                                 $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-                            } elseif (isset($_GET['start_date']) && !isset($_GET['end_date']) && $_GET['start_date'] !== '') {
+                            } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
                                 // Only start date is provided
-                                $start_date = $_GET['start_date'];
+                                $start_date = $_SESSION['start_date'];
                                 $sql .= " AND created_at >= '$start_date 00:00:00'";
-                            } elseif (!isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['end_date'] !== '') {
+                            } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
                                 // Only end date is provided
-                                $end_date = $_GET['end_date'];
+                                $end_date = $_SESSION['end_date'];
                                 $sql .= " AND created_at <= '$end_date 23:59:59'";
-                            } elseif (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] !== '' && $_GET['end_date'] === '') {
+                            } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
                                 // Only start date is provided and end date is empty
-                                $start_date = $_GET['start_date'];
+                                $start_date = $_SESSION['start_date'];
                                 $sql .= " AND created_at >= '$start_date 00:00:00'";
                             }
                         }
-
-
                         $result = $conn->query($sql);
 
                         // if (isset($_POST)) {
