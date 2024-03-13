@@ -19,6 +19,7 @@
         echoToastScript($toast['type'], $toast['message']);
         unset($_SESSION['toast']); // Clear the toast message from session
     }
+    unset($_SESSION['start_date'],$_SESSION['end_date']);
 
     if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
@@ -131,7 +132,7 @@
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Redeem Platform</button>
                                 </a>
 
-                                <a href="./PlatformRec?r=<?php echo $username; ?>">
+                                <a href="./PlatformRec<?php $_SESSION['u']=$username ?>">
                                     <button type="submit" class="btn btn-warning rounded-pill mt-2">Transaction Record</button>
                                 </a>
                                 <button type="button" class="btn btn-warning rounded-pill mt-2">Edit Page</button>

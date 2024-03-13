@@ -133,7 +133,7 @@
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Redeem CashApp</button>
                                 </a>
 
-                                <a href="./PlatformRec?<?php $_SESSION['u']=$username ?>">
+                                <a href="./PlatformRec<?php $_SESSION['u']=$username ?>">
                                     <button type="submit" class="btn btn-warning rounded-pill mt-2">Transaction Record</button>
                                 </a>
 

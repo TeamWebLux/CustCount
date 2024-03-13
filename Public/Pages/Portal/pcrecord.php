@@ -88,7 +88,7 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div class="row">
                 <div class="col-lg-12">
-                    <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <form method="GET" action="<?php echo htmlspecialchars($_SESSION["PHP_SELF"]); ?>">
                         <!-- Include $u in a hidden input field -->
                         <input type="hidden" name="u" value="<?php echo isset($_GET['u']) ? htmlspecialchars($_GET['u']) : ''; ?>">
                         <div class="form-row align-items-center">
