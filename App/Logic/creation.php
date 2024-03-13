@@ -148,13 +148,14 @@ class Creation
             $cashAppName = $this->conn->real_escape_string($_POST['cashapp']);
             $amount = $this->conn->real_escape_string($_POST['amount']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
+            $type = $this->conn->real_escape_string($_POST['type']);
             $addedBy = $_SESSION['username'];
 
-            $sql = "INSERT INTO cashappRecord ( name,amount, by_name, created_at, updated_at, remark) 
-                    VALUES (?, ?, ?, NOW(), NOW(), ?)";
+            $sql = "INSERT INTO cashappRecord ( name,amount, by_name,type created_at, updated_at, remark) 
+                    VALUES (?, ?, ?,?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdss", $cashAppName, $amount, $addedBy, $remark);
+                $stmt->bind_param("sdsss", $cashAppName, $amount, $addedBy,$type, $remark);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp recharged successfully.'];
