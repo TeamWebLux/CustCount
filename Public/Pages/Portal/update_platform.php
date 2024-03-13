@@ -125,8 +125,12 @@
                                 <br>
 
                                 <a href="./Recharge_Platform?name=<?php echo $username; ?>" style="text-decoration: none;">
-                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge Platform</button>
                                 </a>
+                                <a href="./Redeem_platform?name=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Redeem Platform</button>
+                                </a>
+
                                 <a href="./PlatformRec?r=<?php echo $username; ?>">
                                     <button type="submit" class="btn btn-warning rounded-pill mt-2">Transaction Record</button>
                                 </a>

@@ -92,13 +92,34 @@ class Creation
             $remark = $this->conn->real_escape_string($_POST['remark']);
             $type = $this->conn->real_escape_string($_POST['type']);
 
+            // Fetch previous closing balance
+            $previousClosingBalance = 0;
+            if ($type == "Recharge") {
+                $query = "SELECT closing_balance FROM platformRecord WHERE platform = ? ORDER BY created_at DESC LIMIT 1";
+                if ($stmt = $this->conn->prepare($query)) {
+                    $stmt->bind_param("s", $platformName);
+                    $stmt->execute();
+                    $stmt->bind_result($previousClosingBalance);
+                    $stmt->fetch();
+                    $stmt->close();
+                }
+            }
+
+            // Calculate new opening balance if the type is "Recharge"
+            $openingBalance = 0;
+            if ($type == "Recharge") {
+                $openingBalance = $previousClosingBalance + $amount;
+            }
+
             $addedBy = $_SESSION['username'];
 
-            $sql = "INSERT INTO platformRecord (platform, amount,type, by_name, created_at, updated_at, remark) 
-                    VALUES (?, ?, ?,?, NOW(), NOW(), ?)";
+            // Insert new record with updated balances
+            $sql = "INSERT INTO platformRecord (platform, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdss", $platformName, $amount,$type, $addedBy, $remark);
+                $closingBalance = $openingBalance + $amount; // Closing balance will be the opening balance plus the recharge amount
+                $stmt->bind_param("sdsddss", $platformName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
@@ -113,7 +134,6 @@ class Creation
             }
         }
     }
-
     public function CashApp()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -157,7 +177,7 @@ class Creation
                     VALUES (?, ?, ?,?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdsss", $cashAppName, $amount, $addedBy,$type, $remark);
+                $stmt->bind_param("sdsss", $cashAppName, $amount, $addedBy, $type, $remark);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp recharged successfully.'];
