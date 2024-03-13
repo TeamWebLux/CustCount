@@ -80,9 +80,9 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <!-- /.box-header -->
             <div class="box-body">
-                <!-- <div class="table-responsive">
+                 <div class="table-responsive">
 					  <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                      </table> -->
+                      </table> 
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">See All the data</h3>
@@ -118,7 +118,7 @@
 
                             <div class="table-responsive">
 
-                                <table id="example" class="table table-bordered table-hover display nowrap margin-top-1 w-p100">
+                                <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                     <thead>
                                         <tr>
                                             <th>Transaction Type</th>
