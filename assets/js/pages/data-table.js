@@ -30,6 +30,13 @@ $(function () {
         'autoWidth'   : true,
   
 	} );
+    $('#data-table').DataTable( {
+		dom: 'Bfrtip',
+		buttons: [
+			'copy', 'excel', 'pdf', 'print'
+		 ]
+	} );
+
 	
 	$('#tickets').DataTable({
 	  'paging'      : true,
