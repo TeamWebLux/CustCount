@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 
     // Additional fields
     $fbLink = trim($_POST['fb_link']);
-    $pageId = trim($_POST['pagename']);
+    $pageId = trim($_POST['page']);
     // $branchname = trim($_POST['branchname']);
     $by_u = $_SESSION['username'];
 
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 
     // Additional fields
     $fbLink = trim($_POST['fb_link']);
-    $pageId = trim($_POST['pagename']);
+    $pageId = trim($_POST['page']);
     // $branchname = trim($_POST['branchname']);
     $by_u = $_SESSION['username'];
 

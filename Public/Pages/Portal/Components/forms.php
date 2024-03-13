@@ -90,10 +90,10 @@ if (isset($action)) {
         if (isset($_POST['role'])) {
             if ($_POST['role'] == 'Supervisor' || $_POST['role'] == 'Agent') {
                 echo '<label for="pagename">Page Name</label>';
-                echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+                echo '<select class="form-select" id="pagename" name="page" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
             } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
                 echo '<label for="pagename">Page Name</label>';
-                echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+                echo '<select class="form-select" id="pagename" name="page" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
             } else {
                 echo "Invalid attempt";
             }
