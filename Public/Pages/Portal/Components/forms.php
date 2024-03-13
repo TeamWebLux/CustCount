@@ -41,7 +41,7 @@ if (isset($action)) {
         }
         if ($action == 'EDIT_USER') {
             $username=$_GET['u'];
-            $sql="Select * from user where username=$username";
+            $sql="Select * from user where username='$username'";
             $result=$conn->query($sql);
         print_r($result);
             echo $email = field("Email", "email", "email", "Enter Your Email", isset($_POST['email']) ? $_POST['email'] : '');
