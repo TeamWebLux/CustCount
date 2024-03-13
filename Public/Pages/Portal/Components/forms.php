@@ -417,9 +417,9 @@ echo '<br>';
         echo $formend;
     } elseif ($action == "RECHARGE_PLATFORM" || $action == "RECHARGE_CASHAPP" || $action=="REDEEM_CASHAPP" || $action=="REDEEM_PLATFORM") {
         // Set dynamic title based on the action
-        $title = ($action == "RECHARGE_PLATFORM") ? "Recharge Platform" : "Recharge CashApp";
+        $title = ($action == "RECHARGE_PLATFORM" || $action=="REDEEM_PLATFORM") ? " Platform" : " CashApp";
         $heading = "Select the details carefully";
-        $postUrl = ($action == "RECHARGE_PLATFORM") ? "../App/Logic/creation.php?action=Recharge_platform" : "../App/Logic/creation.php?action=Recharge_Cashup";
+        $postUrl = ($action == "RECHARGE_PLATFORM" || $action=="REDEEM_PLATFORM") ? "../App/Logic/creation.php?action=Recharge_platform" : "../App/Logic/creation.php?action=Recharge_Cashup";
         echo fhead($title, $heading, $postUrl);
         echo '<br>';
 
