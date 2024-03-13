@@ -82,7 +82,7 @@
                             $result = $conn->query($sql);
                         } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
                             $u = $_GET['u'];
-                            $sql = "select * from cashappRecord where platform='$u'";
+                            $sql = "select * from cashappRecord where name='$u'";
                             $result = $conn->query($sql);
 
                         }
