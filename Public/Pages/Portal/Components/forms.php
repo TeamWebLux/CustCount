@@ -109,6 +109,8 @@ if (isset($action)) {
         // Assuming 'agentid' is a predefined array containing agent options
         // echo $selectAgent = select("Select Agent", "agentid", "agentid", $agentid, isset($_POST['agentid']) ? $_POST['agentid'] : '');
         echo '</div>';}
+echo '<br>';
+echo '<br>';
 
         echo $Submit;
         echo $Cancel;
