@@ -95,14 +95,14 @@ class Creation
             // Fetch previous closing balance
             $previousClosingBalance = 0;
             // if ($type == "Recharge") {
-                $query = "SELECT closing_balance FROM platformRecord WHERE platform = ? ORDER BY created_at DESC LIMIT 1";
-                if ($stmt = $this->conn->prepare($query)) {
-                    $stmt->bind_param("s", $platformName);
-                    $stmt->execute();
-                    $stmt->bind_result($previousClosingBalance);
-                    $stmt->fetch();
-                    $stmt->close();
-                }
+            $query = "SELECT closing_balance FROM platformRecord WHERE platform = ? ORDER BY created_at DESC LIMIT 1";
+            if ($stmt = $this->conn->prepare($query)) {
+                $stmt->bind_param("s", $platformName);
+                $stmt->execute();
+                $stmt->bind_result($previousClosingBalance);
+                $stmt->fetch();
+                $stmt->close();
+            }
             // }
 
             // Calculate new opening balance if the type is "Recharge"
@@ -111,18 +111,15 @@ class Creation
                 $openingBalance = $previousClosingBalance;
                 $closingBalance = $openingBalance + $amount; // Closing balance will be the opening balance plus the recharge amount
 
-            }elseif($type=="Redeem"){
+            } elseif ($type == "Redeem") {
                 $openingBalance = $previousClosingBalance;
-                if($openingBalance<$amount){
-                $closingBalance = $openingBalance - $amount; // Closing balance will be the opening balance plus the recharge amount
-                }else{
-                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Not Enough Money to do Transaction.'];
+                if ($openingBalance < $amount) {
+                    $closingBalance = $openingBalance - $amount; // Closing balance will be the opening balance plus the recharge amount
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
                     header("Location: ../../index.php/Portal_Platform_Management");
                     exit();
-
-
                 }
-
             }
 
             $addedBy = $this->susername;
