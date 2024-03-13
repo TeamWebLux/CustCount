@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 
 
     $status = '1'; // Replace with actual value
-    $update_sql = "UPDATE user SET name = ?, `Fb-link` = ?, pagename = ?, branchname = ?, ip_address = ?, password = ?, status = ?, role = ?, `by` = ?, updated_at = NOW() WHERE condition = ?";
+    $update_sql = "UPDATE user SET name = ?, `Fb-link` = ?, pagename = ?, branchname = ?, ip_address = ?, password = ?, status = ?, role = ?, `by` = ?, updated_at = NOW() WHERE username = ?";
 
     if ($update_stmt = $conn->prepare($update_sql)) {
         // Assuming $condition_value holds the value for the condition
