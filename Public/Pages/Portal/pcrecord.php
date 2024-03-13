@@ -103,17 +103,15 @@
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">Filter</button>
                             </div>
+                            <label for="timezone">Select Timezone:</label>
+                            <select name="timezone" id="timezone">
+                                <option value="America/New_York">EST (America/New York)</option>
+                                <option value="America/Chicago">CST (America/Chicago)</option>
+                                <option value="Asia/Kolkata">IST (Asia/Kolkata)</option>
+                                <!-- Add more timezone options as needed -->
+                            </select>
+
                         </div>
-                    </form>
-                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                        <label for="timezone">Select Timezone:</label>
-                        <select name="timezone" id="timezone">
-                            <option value="America/New_York">EST (America/New York)</option>
-                            <option value="America/Chicago">CST (America/Chicago)</option>
-                            <option value="Asia/Kolkata">IST (Asia/Kolkata)</option>
-                            <!-- Add more timezone options as needed -->
-                        </select>
-                        <button type="submit">Set Timezone</button>
                     </form>
 
 
@@ -146,24 +144,24 @@
                             // $result = $conn->query($sql);
                         }
                         // if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                            if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
-                                // Both start and end dates are provided
-                                $start_date = $_SESSION['start_date'];
-                                $end_date = $_SESSION['end_date'];
-                                $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-                            } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
-                                // Only start date is provided
-                                $start_date = $_SESSION['start_date'];
-                                $sql .= " AND created_at >= '$start_date 00:00:00'";
-                            } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
-                                // Only end date is provided
-                                $end_date = $_SESSION['end_date'];
-                                $sql .= " AND created_at <= '$end_date 23:59:59'";
-                            } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
-                                // Only start date is provided and end date is empty
-                                $start_date = $_SESSION['start_date'];
-                                $sql .= " AND created_at >= '$start_date 00:00:00'";
-                            }
+                        if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
+                            // Both start and end dates are provided
+                            $start_date = $_SESSION['start_date'];
+                            $end_date = $_SESSION['end_date'];
+                            $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                        } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
+                            // Only start date is provided
+                            $start_date = $_SESSION['start_date'];
+                            $sql .= " AND created_at >= '$start_date 00:00:00'";
+                        } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
+                            // Only end date is provided
+                            $end_date = $_SESSION['end_date'];
+                            $sql .= " AND created_at <= '$end_date 23:59:59'";
+                        } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
+                            // Only start date is provided and end date is empty
+                            $start_date = $_SESSION['start_date'];
+                            $sql .= " AND created_at >= '$start_date 00:00:00'";
+                        }
                         // }
                         $result = $conn->query($sql);
 
