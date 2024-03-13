@@ -107,7 +107,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($results as $row) : ?>
+                                                <?php foreach ($result as $row) : ?>
                                                     <tr>
                                                         <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
                                                             <?= $row['type'] ?>
