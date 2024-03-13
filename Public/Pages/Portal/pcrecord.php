@@ -57,7 +57,7 @@
         header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
         exit(); // Prevent further execution of the script
     }
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timezone'])) {
+    if ( isset($_SESSION['timezone'])) {
         $selectedTimezone = $_SESSION['timezone'];
         // Set the default timezone to the selected timezone
         date_default_timezone_set($selectedTimezone);
