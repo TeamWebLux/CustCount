@@ -81,6 +81,10 @@
                             $sql = "select * from platformRecord where platform='$u'";
                             $result = $conn->query($sql);
                         } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
+                            $u = $_GET['u'];
+                            $sql = "select * from cashappRecord where platform='$u'";
+                            $result = $conn->query($sql);
+
                         }
 
 
@@ -114,7 +118,7 @@
                                                     <?php
                                                     while ($row = $result->fetch_assoc()) {
                                                         echo "<tr> 
-                                                    <td>{$row['pid']}</td>
+                                                    <td>{$row['prid']}</td>
                                                     <td>{$row['type']}</td>
                                                     <td>{$row['amount']}</td>
 
