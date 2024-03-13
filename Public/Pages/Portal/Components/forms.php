@@ -60,12 +60,11 @@ if (isset($action)) {
     
             // Additional fields for 'EDIT_USER'
     
-            echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($row['fb_link']) ? $row['fb_link'] : '');
+            echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($row['Fb_link']) ? $row['Fb_link'] : '');
     
             if (isset($row['role'])) {
                 if ($row['role'] == 'Supervisor' || $row['role'] == 'Agent') {
-                    echo '<label for="pagename">Page Name</label>';
-                    echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+                    echo select("Page name", "page", "page", $branchOptions, isset($row['pagename']) ? $row['pagename'] : '');
                 } elseif ($row['role'] == 'Manager' || $row['role'] == 'User') {
                     echo select("Page name", "page", "page", $branchOptions, isset($row['pagename']) ? $row['pagename'] : '');
 
