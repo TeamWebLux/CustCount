@@ -205,7 +205,7 @@ class Creation
             $addedBy = $_SESSION['username'];
             $previousClosingBalance = 0;
             // if ($type == "Recharge") {
-            $query = "SELECT closing_balance FROM cashappRecord WHERE cashapp = ? ORDER BY created_at DESC LIMIT 1";
+            $query = "SELECT closing_balance FROM cashappRecord WHERE name = ? ORDER BY created_at DESC LIMIT 1";
             if ($stmt = $this->conn->prepare($query)) {
                 $stmt->bind_param("s", $cashAppName);
                 $stmt->execute();
@@ -220,14 +220,14 @@ class Creation
             if ($type == "Recharge") {
                 $openingBalance = $previousClosingBalance;
                 $closingBalance = $openingBalance + $amount;
-                $this->updateCurrentBalance("platform",$cashAppName, $closingBalance);
+                $this->updateCurrentBalance("cashapp",$cashAppName, $closingBalance);
                 // Closing balance will be the opening balance plus the recharge amount
 
             } elseif ($type == "Redeem") {
                 $openingBalance = $previousClosingBalance;
                 if ($openingBalance >= $amount) {
                     $closingBalance = $openingBalance - $amount;
-                    $this->updateCurrentBalance("platform",$cashAppName, $closingBalance);
+                    $this->updateCurrentBalance("cashapp",$cashAppName, $closingBalance);
                     // Closing balance will be the opening balance plus the recharge amount
                 } else {
                     $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
