@@ -45,7 +45,7 @@ if (isset($action)) {
             $result=$conn->query($sql);
             $row = $resultPage->fetch_assoc();
             print_r($row);
-        print_r($result);
+        // print_r($result);
             echo $email = field("Email", "email", "email", "Enter Your Email", isset($_POST['email']) ? $_POST['email'] : '');
             echo $name = field("Name", "text", "name", "Enter Your Name", isset($_POST['name']) ? $_POST['name'] : '');
             echo $username = field("Username", "text", "username", "Enter Your Username", isset($_POST['username']) ? $_POST['username'] : '');
