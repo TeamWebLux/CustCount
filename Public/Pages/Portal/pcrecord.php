@@ -40,6 +40,12 @@
         header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
         exit(); // Prevent further execution of the script
     }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timezone'])) {
+        $selectedTimezone = $_POST['timezone'];
+        // Set the default timezone to the selected timezone
+        date_default_timezone_set($selectedTimezone);
+    }
+
     ?>
 </head>
 
@@ -82,6 +88,17 @@
                             </div>
                         </div>
                     </form>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <label for="timezone">Select Timezone:</label>
+                        <select name="timezone" id="timezone">
+                            <option value="America/New_York">EST (America/New York)</option>
+                            <option value="America/Chicago">CST (America/Chicago)</option>
+                            <option value="Asia/Kolkata">IST (Asia/Kolkata)</option>
+                            <!-- Add more timezone options as needed -->
+                        </select>
+                        <button type="submit">Set Timezone</button>
+                    </form>
+
 
                     <div class="card">
                         <div class="card-header">
@@ -163,16 +180,21 @@
                                                 <tbody>
                                                     <?php
                                                     while ($row = $result->fetch_assoc()) {
+                                                        // Convert timestamp to selected timezone
+                                                        $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
+                                                        $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
+                                                        $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
+
+                                                        // Output the table row with the converted timestamp
                                                         echo "<tr> 
-            <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
-            <td>{$row['type']}</td>
-            <td>{$row['amount']}</td>
-            <td>{$row['by_name']}</td>
-            <td>{$row['created_at']}</td>
-          </tr>";
+        <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
+        <td>{$row['type']}</td>
+        <td>{$row['amount']}</td>
+        <td>{$row['by_name']}</td>
+        <td>{$createdAtFormatted}</td>
+    </tr>";
                                                     }
-                                                    ?>
-                                                </tbody>
+                                                    ?> </tbody>
                                             <?php
                                             // End table
                                             echo '</table>';
