@@ -67,7 +67,7 @@ if (isset($action)) {
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
                 } elseif ($row['role'] == 'Manager' || $row['role'] == 'User') {
-                    echo select("Page name", "page", "page", $branchOptions, isset($row['page']) ? $row['page'] : '');
+                    echo select("Page name", "page", "page", $branchOptions, isset($row['pagename']) ? $row['pagename'] : '');
 
                 } else {
                     echo "Invalid attempt";
