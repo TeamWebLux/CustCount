@@ -157,5 +157,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 }
 
 // Redirect based on the outcome
-// header('Location: ' . $redirectTo);
-// exit();
+header('Location: ' . $redirectTo);
+exit();
