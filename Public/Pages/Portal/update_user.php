@@ -135,7 +135,7 @@
                                 <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-light rounded-pill mt-2">Transaction Record</button>
                                 </a>
-                                <a href="./deposit?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                <a href="./Edit_User?u=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Button</button>
                                 </a>
 

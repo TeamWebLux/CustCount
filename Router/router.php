@@ -39,21 +39,24 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Portal_Branch_Management'                          => './Public/Pages/Portal/manage_branch.php',
 
         //forms 
-         $prefix . $root . '/cash_up_add'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/cash_out'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/deposit'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/cashup_detail'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/cash_up_add'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/cash_out'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/deposit'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/cashup_detail'                         => './Public/Pages/Portal/temp.php',
 
-         $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
-         $prefix . $root . '/Add_Branch'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Recharge_cashapp'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Recharge_Platform'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Add_User'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
+        $prefix . $root . '/Add_Branch'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Recharge_cashapp'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Recharge_Platform'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_User'                         => './Public/Pages/Portal/temp.php',
 
-         $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
+
+        //Edit Fields
+        $prefix . $root . '/Edit_User'                         => './Public/Pages/Portal/temp.php',
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
