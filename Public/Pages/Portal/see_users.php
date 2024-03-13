@@ -97,7 +97,7 @@
                         $result = $conn->query($sql);
 
 
-                        if ($result->num_rows > 0) {
+                        // if ($result->num_rows > 0) {
                         ?>
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
@@ -120,7 +120,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($results as $row) : ?>
+                                          <?php  while ($row = $result->fetch_assoc()) {?>
                                                     <tr>
                                                         <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
                                                             <?= $row['type'] ?>
@@ -139,13 +139,13 @@
                                                         <td><?= $row['username'] ?></td>
                                                         <td><?= $row['by_u'] ?></td>
                                                     </tr>
-                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     <?php
-                                } else {
-                                    echo "0 results";
                                 }
+                                // else {
+                                //     echo "0 results";
+                                // }
 
                                 // Close connection
                                 $conn->close();
