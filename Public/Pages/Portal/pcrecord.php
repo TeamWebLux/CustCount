@@ -115,12 +115,11 @@
                                                     <?php
                                                     while ($row = $result->fetch_assoc()) {
                                                         echo "<tr> 
-                                                    <td>{$row['tid']}</td>
-                                                    <td>{$row['username']}</td>
-                                                    <td>{$row['recharge']}</td>
-                                                    <td>{$row['redeem']}</td>
+                                                    <td>{$row['pid']}</td>
+                                                    <td>{$row['type']}</td>
+                                                    <td>{$row['amount']}</td>
 
-                                                    <td>{$row['by_role']}</td>
+                                                    <td>{$row['by_name']}</td>
                                                     <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
                                                    
                                                   </tr>";
