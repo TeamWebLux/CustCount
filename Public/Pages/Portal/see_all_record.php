@@ -173,184 +173,179 @@
                 </div>
             </div>
             <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">See All the data</h3>
-                        <h6 class="box-subtitle">All The Records</h6>
-                    </div>
+                <div class="box-header with-border">
+                    <h3 class="box-title">See All CashApp Reports</h3>
+                    <h6 class="box-subtitle">All The Records</h6>
+                </div>
 
 
+
+                <?php
+                include "./App/db/db_connect.php";
+
+                $sql = "SELECT * FROM cashappRecord ";
+
+                $stmt = $conn->prepare($sql);
+                // $stmt->bind_param('s', $u);
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+                $results = $result->fetch_all(MYSQLI_ASSOC);
+
+                $stmt->close();
+                $conn->close();
+
+                if (empty($results)) {
+                    echo "No records found";
+                } else {
+                    usort($results, function ($a, $b) {
+                        return strtotime($b['created_at']) - strtotime($a['created_at']);
+                    });
+                ?>
+
+                    <div class="table-responsive">
+
+                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                            <thead>
+                                <tr>
+                                    <th>Transaction Type</th>
+                                    <th>Recharge</th>
+                                    <th>Redeem</th>
+                                    <th>Excess Amount</th>
+                                    <th>Bonus Amount</th>
+                                    <th>Free Play</th>
+                                    <th>Platform Name</th>
+                                    <th>Page Name</th>
+                                    <th>CashApp Name</th>
+                                    <th>Timestamp</th>
+                                    <th>Username</th>
+                                    <th>By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($results as $row) : ?>
+                                    <tr>
+                                        <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
+                                            <?= $row['type'] ?>
+                                        </td>
+                                        <td><?= $row['recharge'] ?></td>
+                                        <td><?= $row['redeem'] ?></td>
+                                        <td><?= $row['excess'] ?></td>
+                                        <td><?= $row['bonus'] ?></td>
+                                        <td><?= $row['freepik'] ?></td>
+
+                                        <td><?= $row['platform'] ?></td>
+                                        <td><?= $row['page'] ?></td>
+                                        <td><?= $row['cashapp'] ?></td>
+
+                                        <td><?= $row['created_at'] ?></td>
+                                        <td><?= $row['username'] ?></td>
+                                        <td><?= $row['by_u'] ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
 
                     <?php
-                    include "./App/db/db_connect.php";
+                }
 
-                    $sql = "SELECT * FROM transaction ";
-
-                    $stmt = $conn->prepare($sql);
-                    // $stmt->bind_param('s', $u);
-                    $stmt->execute();
-
-                    $result = $stmt->get_result();
-                    $results = $result->fetch_all(MYSQLI_ASSOC);
-
-                    $stmt->close();
-                    $conn->close();
-
-                    if (empty($results)) {
-                        echo "No records found";
-                    } else {
-                        usort($results, function ($a, $b) {
-                            return strtotime($b['created_at']) - strtotime($a['created_at']);
-                        });
                     ?>
 
-                        <div class="table-responsive">
+                    <!-- echo -->
 
-                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                <thead>
-                                    <tr>
-                                        <th>Transaction Type</th>
-                                        <th>Recharge</th>
-                                        <th>Redeem</th>
-                                        <th>Excess Amount</th>
-                                        <th>Bonus Amount</th>
-                                        <th>Free Play</th>
-                                        <th>Platform Name</th>
-                                        <th>Page Name</th>
-                                        <th>CashApp Name</th>
-                                        <th>Timestamp</th>
-                                        <th>Username</th>
-                                        <th>By</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($results as $row) : ?>
-                                        <tr>
-                                            <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
-                                                <?= $row['type'] ?>
-                                            </td>
-                                            <td><?= $row['recharge'] ?></td>
-                                            <td><?= $row['redeem'] ?></td>
-                                            <td><?= $row['excess'] ?></td>
-                                            <td><?= $row['bonus'] ?></td>
-                                            <td><?= $row['freepik'] ?></td>
-
-                                            <td><?= $row['platform'] ?></td>
-                                            <td><?= $row['page'] ?></td>
-                                            <td><?= $row['cashapp'] ?></td>
-
-                                            <td><?= $row['created_at'] ?></td>
-                                            <td><?= $row['username'] ?></td>
-                                            <td><?= $row['by_u'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-
-                        <?php
-                    }
-
-                        ?>
-
-                        <!-- echo -->
-
-                        <?
-                        include("./Public/Pages/Common/footer.php");
-                        // print_r($_SESSION);
-                        ?>
-                        </div>
-                </div>
-            </div>
-            <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">See All the data</h3>
-                        <h6 class="box-subtitle">All The Records</h6>
+                    <?
+                    include("./Public/Pages/Common/footer.php");
+                    // print_r($_SESSION);
+                    ?>
                     </div>
-
-
-
-                    <?php
-                    include "./App/db/db_connect.php";
-
-                    $sql = "SELECT * FROM transaction ";
-
-                    $stmt = $conn->prepare($sql);
-                    // $stmt->bind_param('s', $u);
-                    $stmt->execute();
-
-                    $result = $stmt->get_result();
-                    $results = $result->fetch_all(MYSQLI_ASSOC);
-
-                    $stmt->close();
-                    $conn->close();
-
-                    if (empty($results)) {
-                        echo "No records found";
-                    } else {
-                        usort($results, function ($a, $b) {
-                            return strtotime($b['created_at']) - strtotime($a['created_at']);
-                        });
-                    ?>
-
-                        <div class="table-responsive">
-
-                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                <thead>
-                                    <tr>
-                                        <th>Transaction Type</th>
-                                        <th>Recharge</th>
-                                        <th>Redeem</th>
-                                        <th>Excess Amount</th>
-                                        <th>Bonus Amount</th>
-                                        <th>Free Play</th>
-                                        <th>Platform Name</th>
-                                        <th>Page Name</th>
-                                        <th>CashApp Name</th>
-                                        <th>Timestamp</th>
-                                        <th>Username</th>
-                                        <th>By</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($results as $row) : ?>
-                                        <tr>
-                                            <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
-                                                <?= $row['type'] ?>
-                                            </td>
-                                            <td><?= $row['recharge'] ?></td>
-                                            <td><?= $row['redeem'] ?></td>
-                                            <td><?= $row['excess'] ?></td>
-                                            <td><?= $row['bonus'] ?></td>
-                                            <td><?= $row['freepik'] ?></td>
-
-                                            <td><?= $row['platform'] ?></td>
-                                            <td><?= $row['page'] ?></td>
-                                            <td><?= $row['cashapp'] ?></td>
-
-                                            <td><?= $row['created_at'] ?></td>
-                                            <td><?= $row['username'] ?></td>
-                                            <td><?= $row['by_u'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-
-                        <?php
-                    }
-
-                        ?>
-
-                        <!-- echo -->
-
-                        <?
-                        include("./Public/Pages/Common/footer.php");
-                        // print_r($_SESSION);
-                        ?>
-                        </div>
-                </div>
             </div>
-
-
         </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">See All the data</h3>
+                <h6 class="box-subtitle">All The Records</h6>
+            </div>
+
+
+
+            <?php
+            include "./App/db/db_connect.php";
+
+            $sql = "SELECT * FROM transaction ";
+
+            $stmt = $conn->prepare($sql);
+            // $stmt->bind_param('s', $u);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $results = $result->fetch_all(MYSQLI_ASSOC);
+
+            $stmt->close();
+            $conn->close();
+
+            if (empty($results)) {
+                echo "No records found";
+            } else {
+                usort($results, function ($a, $b) {
+                    return strtotime($b['created_at']) - strtotime($a['created_at']);
+                });
+            ?>
+
+                <div class="table-responsive">
+
+                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                        <thead>
+                            <tr>
+                                <th>Transaction Type</th>
+                                <th>Recharge</th>
+                                <th>Redeem</th>
+                                <th>Excess Amount</th>
+                                <th>Bonus Amount</th>
+                                <th>Free Play</th>
+                                <th>Platform Name</th>
+                                <th>Page Name</th>
+                                <th>CashApp Name</th>
+                                <th>Timestamp</th>
+                                <th>Username</th>
+                                <th>By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($results as $row) : ?>
+                                <tr>
+                                    <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
+                                        <?= $row['type'] ?>
+                                    </td>
+                                    <td><?= $row['recharge'] ?></td>
+                                    <td><?= $row['redeem'] ?></td>
+                                    <td><?= $row['excess'] ?></td>
+                                    <td><?= $row['bonus'] ?></td>
+                                    <td><?= $row['freepik'] ?></td>
+
+                                    <td><?= $row['platform'] ?></td>
+                                    <td><?= $row['page'] ?></td>
+                                    <td><?= $row['cashapp'] ?></td>
+
+                                    <td><?= $row['created_at'] ?></td>
+                                    <td><?= $row['username'] ?></td>
+                                    <td><?= $row['by_u'] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                <?php
+            }
+
+                ?>
+
+                <!-- echo -->
+
+                <?
+                include("./Public/Pages/Common/footer.php");
+                // print_r($_SESSION);
+                ?>
+                </div>
         </div>
 
     </main>

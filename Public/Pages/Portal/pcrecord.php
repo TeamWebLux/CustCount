@@ -65,11 +65,38 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div class="row">
                 <div class="col-lg-12">
+                    <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto">
+                                <label for="start_date" class="col-form-label">Start Date:</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date">
+                            </div>
+                            <div class="col-auto">
+                                <label for="end_date" class="col-form-label">End Date:</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+
                     <div class="card">
                         <div class="card-header">
                             <h4 class="mb-0">User List</h4>
                         </div>
                         <?php
+                        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                            if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
+                                $start_date = $_GET['start_date'];
+                                $end_date = $_GET['end_date'];
+                                
+                                // Modify your SQL query to include a WHERE clause for date range filtering
+                                $sql = "SELECT * FROM platformRecord WHERE platform = '$u' AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                                $result = $conn->query($sql);
+                            }
+                        }
+                        
                         include './App/db/db_connect.php';
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
