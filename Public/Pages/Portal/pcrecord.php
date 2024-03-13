@@ -86,7 +86,6 @@
                             <h4 class="mb-0">User List</h4>
                         </div>
                         <?php
-
                         include './App/db/db_connect.php';
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
@@ -108,15 +107,19 @@
                             $sql = "select * from cashappRecord where name='$u'";
                             $result = $conn->query($sql);
                         }
-                        if ($_SESSION['start_date'] && $_SESSION['end_date']) {
-                            $start_date = $_SESSION['start_date'];
-                            $end_date = $_SESSION['end_date'];
+                        use Carbon\Carbon;
+
+                        // Retrieve start and end times from the form submission
+                        $start_time = $_SESSION['start_time'];
+                        $end_time = $_SESSION['end_time'];
                         
-                            // Modify your SQL query to include a WHERE clause for date range filtering
-                            $sql = "SELECT * FROM platformRecord WHERE platform = '$u' AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-                            $result = $conn->query($sql);
-                        }
+                        // Parse start and end times into Carbon instances
+                        $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $start_time);
+                        $endDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $end_time);
                         
+                        // Modify your SQL query to include a WHERE clause for time range filtering
+                        $sql = "SELECT * FROM platformRecord WHERE platform = '$u' AND created_at BETWEEN '$startDateTime' AND '$endDateTime'";
+                                                
 
 
                         // if (isset($_POST)) {
