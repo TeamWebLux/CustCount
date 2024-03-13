@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 
         if ($update_stmt->execute()) {
             setToast('success', 'Record updated successfully.');
-            $redirectTo = '../../index.php/Portal'; // Success: Redirect to the home page or dashboard
+            $redirectTo = '../../index.php/Portal_User_Management'; // Success: Redirect to the home page or dashboard
         } else {
             setToast('error', 'Error: ' . $update_stmt->error);
         }

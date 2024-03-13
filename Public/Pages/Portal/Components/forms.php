@@ -52,7 +52,7 @@ if (isset($action)) {
                 $branchOptions[$branchRow['name']] = $branchRow['name'];
                 // $branchOptions .= "<option value='{$branchRow['name']}'>{$branchRow['name']}</option>";
             }
-            echo select("Sub Section", "condtion", "condtion", $branchOptions, isset($_POST['condtion']) ? $_POST['condtion'] : '');
+            // echo select("Sub Section", "condtion", "condtion", $branchOptions, isset($_POST['condtion']) ? $_POST['condtion'] : '');
 
             echo $name = field("Name", "text", "name", "Enter Your Name", isset($row['name']) ? $row['name'] : '');
             echo $username = field("Username", "text", "username", "Enter Your Username", isset($row['username']) ? $row['username'] : '');
