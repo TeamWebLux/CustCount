@@ -100,9 +100,6 @@
                                 <label for="end_date" class="col-form-label">End Date:</label>
                                 <input type="date" class="form-control" id="end_date" name="end_date">
                             </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                            </div>
                             <label for="timezone">Select Timezone:</label>
                             <select name="timezone" id="timezone">
                                 <option value="America/New_York">EST (America/New York)</option>
@@ -110,6 +107,10 @@
                                 <option value="Asia/Kolkata">IST (Asia/Kolkata)</option>
                                 <!-- Add more timezone options as needed -->
                             </select>
+
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
 
                         </div>
                     </form>
