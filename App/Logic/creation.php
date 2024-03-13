@@ -240,7 +240,7 @@ class Creation
 
 
 
-            $sql = "INSERT INTO platformRecord (cashapp, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+            $sql = "INSERT INTO platformRecord (name, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
                     VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
