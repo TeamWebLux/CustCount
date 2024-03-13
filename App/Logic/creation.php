@@ -109,12 +109,16 @@ class Creation
             $openingBalance = 0;
             if ($type == "Recharge") {
                 $openingBalance = $previousClosingBalance;
-                $closingBalance = $openingBalance + $amount; // Closing balance will be the opening balance plus the recharge amount
+                $closingBalance = $openingBalance + $amount;
+                $this->updateCurrentBalance($platformName, $closingBalance);
+                // Closing balance will be the opening balance plus the recharge amount
 
             } elseif ($type == "Redeem") {
                 $openingBalance = $previousClosingBalance;
                 if ($openingBalance >= $amount) {
-                    $closingBalance = $openingBalance - $amount; // Closing balance will be the opening balance plus the recharge amount
+                    $closingBalance = $openingBalance - $amount;
+                    $this->updateCurrentBalance($platformName, $closingBalance);
+                    // Closing balance will be the opening balance plus the recharge amount
                 } else {
                     $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
                     header("Location: ../../index.php/Portal_Platform_Management");
@@ -144,6 +148,32 @@ class Creation
             }
         }
     }
+    public function updateCurrentBalance($platformName, $newBalance) {
+        // Prepare the SQL query
+        $sql = "UPDATE platform SET current_balance = ? WHERE name = ?";
+    
+        // Prepare and execute the statement
+        if ($stmt = $this->conn->prepare($sql)) {
+            // Bind parameters
+            $stmt->bind_param("ds", $newBalance, $platformName);
+    
+            // Execute the query
+            if ($stmt->execute()) {
+                // Query executed successfully
+                $stmt->close();
+                return true; // Return true indicating success
+            } else {
+                // Error executing query
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error updating current balance: ' . $stmt->error];
+            }
+        } else {
+            // Error preparing statement
+            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+        }
+        
+        return false; // Return false indicating failure
+    }
+    
     public function CashApp()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
