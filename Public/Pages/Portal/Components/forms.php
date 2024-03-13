@@ -430,9 +430,9 @@ echo '<br>';
             echo field("Platform Name", "text", "platform", "Enter Platform Name", isset($_GET['name']) ? $_GET['name'] : '', "required", "readonly");
             echo field("Amount", "text", "amount", "Enter Amount ");
             echo field("Remark", "text", "remark", "Enter Remark ");
-            if($action=="REDEEM_PLATFORM"){
+            if($action=="RECHARGE_PLATFORM"){
                 echo '<input name="type" value="Recharge" hidden>';
-            }elseif($action == "RECHARGE_PLATFORM"){
+            }elseif($action == "REDEEM_PLATFORM"){
                 echo '<input name="type" value="Redeem" hidden>';
 
             }
@@ -443,9 +443,9 @@ echo '<br>';
             echo field("CashApp Name", "text", "cashapp", "Enter CashApp Name", isset($_GET['name']) ? $_GET['name'] : '', "required", "readonly");
             echo field("Amount", "text", "amount", "Enter Amount ");
             echo field("Remark", "text", "remark", "Enter Remark ");
-            if($action=="REDEEM_CASHAPP"){
+            if($action=="RECHARGE_CASHAPP"){
                 echo '<input name="type" value="Recharge" hidden>';
-            }elseif($action == "RECHARGE_CASHAPP"){
+            }elseif($action == "REDEEM_CASHAPP"){
                 echo '<input name="type" value="Redeem" hidden>';
 
             }
