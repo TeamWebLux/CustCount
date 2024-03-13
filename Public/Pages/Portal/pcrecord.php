@@ -74,7 +74,7 @@
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
                         $action = strtoupper($lastSegment);
-                        echo $action;
+                        // echo $action;
 
                         if ($action = "PLATFORMREC" && isset($_GET['r'])) {
                             $u = $_GET['r'];
