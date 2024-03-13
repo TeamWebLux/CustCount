@@ -65,7 +65,7 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div class="row">
                 <div class="col-lg-12">
-                    <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <div class="form-row align-items-center">
                             <div class="col-auto">
                                 <label for="start_date" class="col-form-label">Start Date:</label>
@@ -86,23 +86,19 @@
                             <h4 class="mb-0">User List</h4>
                         </div>
                         <?php
-                        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                            if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
-                                $start_date = $_GET['start_date'];
-                                $end_date = $_GET['end_date'];
-                                
-                                // Modify your SQL query to include a WHERE clause for date range filtering
-                                $sql = "SELECT * FROM platformRecord WHERE platform = '$u' AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-                                $result = $conn->query($sql);
-                            }
-                        }
-                        
+
                         include './App/db/db_connect.php';
                         $segments = explode('/', rtrim($uri, '/'));
                         $lastSegment = end($segments);
                         $action = strtoupper($lastSegment);
                         // echo $action;
-
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
+                                $_SESSION['start_date'] = $_POST['start_date'];
+                                $_SESSION['end_date'] = $_POST['end_date'];
+                            }
+                        }
+                        
                         if ($action = "PLATFORMREC" && isset($_GET['r'])) {
                             $u = $_GET['r'];
                             $sql = "select * from platformRecord where platform='$u'";
@@ -112,6 +108,15 @@
                             $sql = "select * from cashappRecord where name='$u'";
                             $result = $conn->query($sql);
                         }
+                        if ($_SESSION['start_date'] && $_SESSION['end_date']) {
+                            $start_date = $_SESSION['start_date'];
+                            $end_date = $_SESSION['end_date'];
+                        
+                            // Modify your SQL query to include a WHERE clause for date range filtering
+                            $sql = "SELECT * FROM platformRecord WHERE platform = '$u' AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                            $result = $conn->query($sql);
+                        }
+                        
 
 
                         // if (isset($_POST)) {
