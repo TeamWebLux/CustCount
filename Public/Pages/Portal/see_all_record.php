@@ -161,7 +161,7 @@
                         $start_date = $_SESSION['start_date'];
                         $sql .= " AND created_at >= '$start_date 00:00:00'";
                     }
-                    
+
 
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
@@ -222,7 +222,7 @@
                                             <td><?= $row['page'] ?></td>
                                             <td><?= $row['cashapp'] ?></td>
 
-                                            <td><?= $createdAtFormatted?></td>
+                                            <td><?= $createdAtFormatted ?></td>
                                             <td><?= $row['username'] ?></td>
                                             <td><?= $row['by_u'] ?></td>
                                         </tr>
@@ -267,59 +267,55 @@
                 $stmt->close();
                 $conn->close();
 
-                if (empty($results)) {
-                    echo "No records found";
-                } else {
-                    usort($results, function ($a, $b) {
-                        return strtotime($b['created_at']) - strtotime($a['created_at']);
-                    });
+                if ($result->num_rows > 0) {
                 ?>
+                    <div class="card-body">
+                        <div class="custom-table-effect table-responsive  border rounded">
+                            <table class="table mb-0" id="example">
+                                <thead>
+                                    <tr class="bg-white">
+                                        <?php
+                                        echo '<tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Amount</th>
 
-                    <div class="table-responsive">
+                                        <th scope="col">By Name</th>
+                                        <th scope="col">Created At</th>
+                                        </tr>';
+                                        ?>
+                                        <thead>
+                                        <tbody>
+                                            <?php
+                                            while ($row = $result->fetch_assoc()) {
+                                                // Convert timestamp to selected timezone
+                                                $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
+                                                $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
+                                                $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
 
-                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Type</th>
-                                    <th>Recharge</th>
-                                    <th>Redeem</th>
-                                    <th>Excess Amount</th>
-                                    <th>Bonus Amount</th>
-                                    <th>Free Play</th>
-                                    <th>Platform Name</th>
-                                    <th>Page Name</th>
-                                    <th>CashApp Name</th>
-                                    <th>Timestamp</th>
-                                    <th>Username</th>
-                                    <th>By</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($results as $row) : ?>
-                                    <tr>
-                                        <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
-                                            <?= $row['type'] ?>
-                                        </td>
-                                        <td><?= $row['recharge'] ?></td>
-                                        <td><?= $row['redeem'] ?></td>
-                                        <td><?= $row['excess'] ?></td>
-                                        <td><?= $row['bonus'] ?></td>
-                                        <td><?= $row['freepik'] ?></td>
+                                                // Output the table row with the converted timestamp
+                                                echo "<tr>
+    <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
+    <td>{$row['type']}</td>
+    <td>{$row['amount']}</td>
+    <td>{$row['by_name']}</td>
+    <td>{$createdAtFormatted}</td>
+</tr>";
+                                            }
+                                            ?>
+                                        </tbody>
+                                    <?php
+                                    // End table
+                                    echo '</table>';
+                                } else {
+                                    echo "0 results";
+                                }
+                                // Close connection
+                                $conn->close();
+                                    ?>
 
-                                        <td><?= $row['platform'] ?></td>
-                                        <td><?= $row['page'] ?></td>
-                                        <td><?= $row['cashapp'] ?></td>
-
-                                        <td><?= $row['created_at'] ?></td>
-                                        <td><?= $row['username'] ?></td>
-                                        <td><?= $row['by_u'] ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-
-                    <?php
-                }
+                        </div>
+                    </div>
 
                     ?>
 
@@ -329,8 +325,8 @@
                     include("./Public/Pages/Common/footer.php");
                     // print_r($_SESSION);
                     ?>
-                    </div>
             </div>
+        </div>
         </div>
         <div class="box">
             <div class="box-header with-border">
