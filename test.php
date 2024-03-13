@@ -2,9 +2,6 @@
 // Start the session
 session_start();
 
-// Set default timezone
-date_default_timezone_set('UTC'); // Set default timezone to UTC
-
 // Function to echo the script for toastr
 function echoToastScript($type, $message)
 {
@@ -59,15 +56,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timezone'])) {
     
     <!-- Display timestamps converted to selected timezone -->
     <?php
-    // Example timestamp (replace with your actual timestamp)
-    $timestamp = '2024-03-15 12:30:00';
+    // Example timestamps (replace with your actual timestamps)
+    $timestamps = array('2024-03-15 12:30:00', '2024-03-16 08:45:00', '2024-03-17 15:20:00');
 
-    // Convert timestamp to selected timezone
-    $convertedTimestamp = date('Y-m-d H:i:s', strtotime($timestamp));
-
-    // Output converted timestamp
-    echo "<p>Original Timestamp: $timestamp</p>";
-    echo "<p>Converted Timestamp (Selected Timezone): $convertedTimestamp</p>";
+    // Iterate over each timestamp and convert it to selected timezone
+    foreach ($timestamps as $timestamp) {
+        // Convert timestamp to selected timezone
+        $convertedTimestamp = date('Y-m-d H:i:s', strtotime($timestamp));
+        
+        // Output converted timestamp
+        echo "<p>Original Timestamp: $timestamp</p>";
+        echo "<p>Converted Timestamp (Selected Timezone): $convertedTimestamp</p>";
+    }
     ?>
 </body>
 </html>
