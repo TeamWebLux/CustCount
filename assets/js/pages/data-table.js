@@ -17,7 +17,7 @@ $(function () {
     });
 	
 	
-	$('#example1').DataTable( {
+	$('#example').DataTable( {
 		dom: 'Bfrtip',
 		buttons: [
 			'copy', 'excel', 'pdf', 'print'
@@ -78,7 +78,7 @@ $(function () {
 	
 	
 	//---------------Form inputs
-	var table = $('#example').DataTable();
+	var table = $('#example1').DataTable();
  
     $('#data-update').click( function() {
         var data = table.$('input, select').serialize();
