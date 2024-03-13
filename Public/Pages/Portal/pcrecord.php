@@ -43,24 +43,22 @@
             $_SESSION[$key] = $value;
         }
     }
-    foreach ($_SESSION as $key => $value) {
-        echo "$key => $value<br>";
-    }
-
-
-    $role = $_SESSION['role'];
-    if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
-        // The user is a manager, let them stay on the page
-        // You can continue to load the rest of the page here
-    } else {
-        // The user is not a manager, redirect them to the login page
-        header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
-        exit(); // Prevent further execution of the script
-    }
     if ( isset($_SESSION['timezone'])) {
         $selectedTimezone = $_SESSION['timezone'];
         // Set the default timezone to the selected timezone
         date_default_timezone_set($selectedTimezone);
+    }
+
+    // foreach ($_SESSION as $key => $value) {
+    //     echo "$key => $value<br>";
+    // }
+
+
+    $role = $_SESSION['role'];
+    if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
+    } else {
+        header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
+        exit(); // Prevent further execution of the script
     }
 
     ?>
@@ -88,9 +86,10 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <div class="row">
                 <div class="col-lg-12">
-                    <form method="GET" action="<?php echo htmlspecialchars($_SESSION["PHP_SELF"]); ?>">
-                        <!-- Include $u in a hidden input field -->
-                        <input type="hidden" name="u" value="<?php echo isset($_GET['u']) ? htmlspecialchars($_GET['u']) : ''; ?>">
+                    <form method="GET" action="#">
+                        <input type="hidden" name="u" value="<?php echo isset($_SESSION['u']) ? htmlspecialchars($_SESSION['u']) : ''; ?>">
+                        <input type="hidden" name="r" value="<?php echo isset($_SESSION['r']) ? htmlspecialchars($_SESSION['r']) : ''; ?>">
+
                         <div class="form-row align-items-center">
                             <div class="col-auto">
                                 <label for="start_date" class="col-form-label">Start Date:</label>
