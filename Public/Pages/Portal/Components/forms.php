@@ -44,8 +44,6 @@ if (isset($action)) {
             $sql="Select * from user where username='$username'";
             $result=$conn->query($sql);
             $row = $result->fetch_assoc();
-            print_r($row);
-        // print_r($result);
             echo $name = field("Name", "text", "name", "Enter Your Name", isset($row['name']) ? $row['name'] : '');
             echo $username = field("Username", "text", "username", "Enter Your Username", isset($row['username']) ? $row['username'] : '');
             echo $password = field("Password", "password", "password", "Enter Your Password", isset($row['password']) ? $row['password'] : '');
