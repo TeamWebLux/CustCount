@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -205,3 +206,5 @@
 </body>
 
 </html>
+=======
+>>>>>>> Stashed changes
