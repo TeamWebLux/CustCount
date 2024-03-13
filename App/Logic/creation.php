@@ -111,7 +111,7 @@ class Creation
                 $openingBalance = $previousClosingBalance;
             }
 
-            $addedBy = $_SESSION['username'];
+            $addedBy = $this->susername;
 
             // Insert new record with updated balances
             $sql = "INSERT INTO platformRecord (platform, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
