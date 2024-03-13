@@ -118,7 +118,7 @@
                                                     <?php
                                                     while ($row = $result->fetch_assoc()) {
                                                         echo "<tr> 
-                                                    <td>{$row['prid']}</td>
+                                                    <td>{$row['prid' || 'crid']}</td>
                                                     <td>{$row['type']}</td>
                                                     <td>{$row['amount']}</td>
 
