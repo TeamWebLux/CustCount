@@ -132,34 +132,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
         exit();
     }
 
-    // Check if username already exists
-    $checkUsernameSql = "SELECT username FROM user WHERE username = ?";
-    if ($stmt = $conn->prepare($checkUsernameSql)) {
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows > 0) {
-            setToast('error', 'Username already taken. Please choose another.');
-            $_SESSION['form_values'] = $_POST;
-            print_r($_POST);
-
-            $stmt->close();
-            header('Location: ' . $redirectTo);
-            exit();
-        }
-        $stmt->close();
-    } else {
-        setToast('error', 'Error preparing statement: ' . $conn->error);
-        header('Location: ' . $redirectTo);
-        exit();
-    }
 
     $status = '1'; // Replace with actual value
-    $update_sql = "UPDATE user SET name = ?, username = ?, `Fb-link` = ?, pagename = ?, branchname = ?, ip_address = ?, password = ?, status = ?, role = ?, `by` = ?, updated_at = NOW() WHERE condition = ?";
+    $update_sql = "UPDATE user SET name = ?, `Fb-link` = ?, pagename = ?, branchname = ?, ip_address = ?, password = ?, status = ?, role = ?, `by` = ?, updated_at = NOW() WHERE condition = ?";
 
     if ($update_stmt = $conn->prepare($update_sql)) {
         // Assuming $condition_value holds the value for the condition
-        $update_stmt->bind_param("sssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password, $status, $role, $by_u, $condition_value);
+        $update_stmt->bind_param("ssssssssss", $fullname, $fbLink, $pageId, $branchId, $ipAddress, $password, $status, $role, $by_u, $condition_value);
 
         if ($update_stmt->execute()) {
             setToast('success', 'Record updated successfully.');
