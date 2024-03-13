@@ -92,7 +92,6 @@
                                         echo "<tr>";
                                         echo '<tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Update</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Password</th>
