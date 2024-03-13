@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-
 <?php
 include("./Public/Pages/Common/header.php");
 include "./Public/Pages/Common/auth_user.php";
@@ -12,7 +11,6 @@ function echoToastScript($type, $message)
 {
     echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
 }
-
 // Check if there's a toast message set in session, display it, then unset
 print_r($_SESSION);
 if (isset($_SESSION['toast'])) {
@@ -28,7 +26,6 @@ if (isset($_SESSION['login_error'])) {
     echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
     unset($_SESSION['login_error']); // Clear the error message
 }
-
 ?>
 
 
@@ -42,9 +39,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     header('Location: ./Login_to_CustCount'); // Replace 'login.php' with the path to your login page
     exit(); // Prevent further execution of the script
 }
-
-
-
 ?>
 
 </head>
@@ -53,7 +47,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- loader Start -->
     <?php
     // include("./Public/Pages/Common/loader.php");
-
     ?>
     <!-- loader END -->
 
@@ -73,20 +66,14 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
         $sql = "SELECT * FROM platform ";
 
-
         $result = $conn->query($sql);
 
         // Check if there are results
 
         if ($result->num_rows > 0) {
-
         ?>
 
-
-
             <div class="content-inner container-fluid pb-0" id="page_layout">
-
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -96,11 +83,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                     <p>Platform by name</p>
                                 </div>
                                 <button type="button" class="btn btn-info rounded-pill mt-2 flex-wrap d-flex justify-content-between align-items-center">Add Platform</button>
-
                             </div>
 
                             <!-- Select Dropdown -->
-
 
                             <div class="card-body">
 
@@ -109,17 +94,13 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                         <option value="" disabled hidden>Select Platform</option>
                                         <?php
                                         while ($row = $result->fetch_assoc()) {
-
                                         ?>
-
                                             <option name="userdata" value="<?php echo $row['name'] ?>"> <?php echo $row['name'] ?></option>
                                     <?php
                                         }
                                     }
                                     ?>
-
                                     </select>
-
                                     <button class="btn btn-outline-success rounded-pill mt-2" type="submit">Update </button>
                                 </form>
                             </div>
@@ -134,7 +115,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                 <a href="./platform" style="text-decoration: none;">
                                     <button type="button" class="btn btn-outline-info rounded-pill mt-2">Add Platform</button>
                                 </a>
-
                             </div>
                             <?php
                             // include './App/db/db_connect.php';
@@ -145,9 +125,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             // Check if there are results
 
                             if ($result->num_rows > 0) {
-
                             ?>
-
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
                                         <table class="table mb-0" id="datatable" data-toggle="data-table">
@@ -196,13 +174,9 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             } else {
                                                 echo "0 results";
                                             }
-
                                             // Close connection
                                             $conn->close();
                                                 ?>
-
-
-
                                     </div>
                                 </div>
                         </div>
@@ -214,53 +188,33 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
             include("./Public/Pages/Common/footer.php");
             // print_r($_SESSION);
             ?>
-
     </main>
     <!-- Wrapper End-->
     <!-- Live Customizer start -->
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
 
-
-
-
-
-
     </script>
-
 
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
-
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
-
 
     <!-- Lodash Utility -->
     <script src="../assets/vendor/lodash/lodash.min.js"></script>
@@ -282,7 +236,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <?php
 
     // include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

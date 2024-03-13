@@ -43,8 +43,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     exit(); // Prevent further execution of the script
 }
 
-
-
 ?>
 
 </head>
@@ -80,8 +78,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         if ($result->num_rows > 0) {
 
         ?>
-
-
 
             <div class="content-inner container-fluid pb-0" id="page_layout">
 
@@ -148,7 +144,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                             // Check if there are results
 
                             if ($result->num_rows > 0) {
-
                             ?>
 
                                 <div class="card-body">
@@ -210,22 +205,12 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
                                             // Close connection
                                             $conn->close();
                                                 ?>
-
-
-
                                     </div>
                                 </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
-
-
-
-
 
             <?
             include("./Public/Pages/Common/footer.php");
@@ -238,45 +223,30 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
     <script>
 
 
-
-
-
-
     </script>
-
 
     <!-- Library Bundle Script -->
     <script src="../assets/js/core/libs.min.js"></script>
     <!-- Plugin Scripts -->
 
 
-
-
-
     <!-- Select2 Script -->
     <script src="../assets/js/plugins/select2.js" defer></script>
 
 
-
-
     <!-- Slider-tab Script -->
     <script src="../assets/js/plugins/slider-tabs.js"></script>
-
-
-
 
 
     <!-- Lodash Utility -->
@@ -299,7 +269,6 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     <?php
 
     // include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>

@@ -25,4 +25,3 @@ if (isset($_GET['id'])) {
 
 header("Location: ../../index.php/Portal_Notes"); // Redirect back to the notes page
 exit();
-?>
