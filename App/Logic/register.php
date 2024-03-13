@@ -121,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 
     // Get the user's IP address
     $ipAddress = $_SERVER['REMOTE_ADDR'];
+    $condition_value=$username;
 
     // Validate inputs are not empty
     if (empty($fullname) || empty($username) || empty($role)) {
