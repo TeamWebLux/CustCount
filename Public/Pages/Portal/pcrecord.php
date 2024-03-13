@@ -84,7 +84,6 @@
                             $u = $_GET['u'];
                             $sql = "select * from cashappRecord where name='$u'";
                             $result = $conn->query($sql);
-
                         }
 
 
@@ -100,7 +99,7 @@
                         ?>
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                    <table class="table mb-0" id="example">
                                         <thead>
                                             <tr class="bg-white">
                                                 <?php
@@ -115,17 +114,17 @@
                                                 ?>
                                                 <thead>
                                                 <tbody>
-                                                <?php
-while ($row = $result->fetch_assoc()) {
-    echo "<tr> 
+                                                    <?php
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo "<tr> 
             <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
             <td>{$row['type']}</td>
             <td>{$row['amount']}</td>
             <td>{$row['by_name']}</td>
             <td>{$row['created_at']}</td>
           </tr>";
-}
-?>
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             <?php
                                             // End table
