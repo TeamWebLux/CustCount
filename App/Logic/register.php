@@ -11,9 +11,9 @@ include '../db/db_connect.php';
 
 // Default redirect location set to the registration page for reattempt
 $redirectTo = '../../index.php/add_user';
-
+$action=$_GET['action'];
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $action=="register") {
     print_r($_POST);
     // Retrieve and sanitize form data
     $fullname = trim($_POST['name']);
@@ -95,7 +95,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         setToast('error', 'Error preparing statement: ' . $conn->error);
     }
     $conn->close();
-} else {
+} elseif($_SERVER["REQUEST_METHOD"] == "POST" && $action=="editregister"){
+    print_r($_POST);
+
+
+
+}
+
+
+else {
     setToast('error', 'Invalid request method.');
 }
 
