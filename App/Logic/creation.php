@@ -110,14 +110,14 @@ class Creation
             if ($type == "Recharge") {
                 $openingBalance = $previousClosingBalance;
                 $closingBalance = $openingBalance + $amount;
-                $this->updateCurrentBalance($platformName, $closingBalance);
+                $this->updateCurrentBalance("platform",$platformName, $closingBalance);
                 // Closing balance will be the opening balance plus the recharge amount
 
             } elseif ($type == "Redeem") {
                 $openingBalance = $previousClosingBalance;
                 if ($openingBalance >= $amount) {
                     $closingBalance = $openingBalance - $amount;
-                    $this->updateCurrentBalance($platformName, $closingBalance);
+                    $this->updateCurrentBalance("platform",$platformName, $closingBalance);
                     // Closing balance will be the opening balance plus the recharge amount
                 } else {
                     $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
@@ -148,26 +148,17 @@ class Creation
             }
         }
     }
-    public function updateCurrentBalance($platformName, $newBalance) {
-        // Prepare the SQL query
-        $sql = "UPDATE platform SET current_balance = ? WHERE name = ?";
-    
-        // Prepare and execute the statement
-        if ($stmt = $this->conn->prepare($sql)) {
-            // Bind parameters
+    public function updateCurrentBalance($table,$platformName, $newBalance) {
+        $sql = "UPDATE $table SET current_balance = ? WHERE name = ?";
+            if ($stmt = $this->conn->prepare($sql)) {
             $stmt->bind_param("ds", $newBalance, $platformName);
-    
-            // Execute the query
-            if ($stmt->execute()) {
-                // Query executed successfully
+                if ($stmt->execute()) {
                 $stmt->close();
                 return true; // Return true indicating success
             } else {
-                // Error executing query
                 $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error updating current balance: ' . $stmt->error];
             }
         } else {
-            // Error preparing statement
             $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
         }
         
@@ -212,19 +203,55 @@ class Creation
             $remark = $this->conn->real_escape_string($_POST['remark']);
             $type = $this->conn->real_escape_string($_POST['type']);
             $addedBy = $_SESSION['username'];
+            $previousClosingBalance = 0;
+            // if ($type == "Recharge") {
+            $query = "SELECT closing_balance FROM cashappRecord WHERE cashapp = ? ORDER BY created_at DESC LIMIT 1";
+            if ($stmt = $this->conn->prepare($query)) {
+                $stmt->bind_param("s", $cashAppName);
+                $stmt->execute();
+                $stmt->bind_result($previousClosingBalance);
+                $stmt->fetch();
+                $stmt->close();
+            }
+            // }
 
-            $sql = "INSERT INTO cashappRecord ( name,amount, by_name,type, created_at, updated_at, remark) 
-                    VALUES (?, ?, ?,?, NOW(), NOW(), ?)";
+            // Calculate new opening balance if the type is "Recharge"
+            $openingBalance = 0;
+            if ($type == "Recharge") {
+                $openingBalance = $previousClosingBalance;
+                $closingBalance = $openingBalance + $amount;
+                $this->updateCurrentBalance("platform",$cashAppName, $closingBalance);
+                // Closing balance will be the opening balance plus the recharge amount
+
+            } elseif ($type == "Redeem") {
+                $openingBalance = $previousClosingBalance;
+                if ($openingBalance >= $amount) {
+                    $closingBalance = $openingBalance - $amount;
+                    $this->updateCurrentBalance("platform",$cashAppName, $closingBalance);
+                    // Closing balance will be the opening balance plus the recharge amount
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
+                    header("Location: ../../index.php/Portal_Platform_Management");
+                    exit();
+                }
+            }
+
+            $addedBy = $this->susername;
+
+
+
+            $sql = "INSERT INTO platformRecord (cashapp, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdsss", $cashAppName, $amount, $addedBy, $type, $remark);
+                $stmt->bind_param("sdsddss", $cashAppName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
-                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp recharged successfully.'];
-                    header("Location: ../../index.php/Portal_Cashup_Management");
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
+                    header("Location: ../../index.php/Portal_Platform_Management");
                     exit();
                 } else {
-                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging CashApp: ' . $stmt->error];
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging Platform: ' . $stmt->error];
                 }
                 $stmt->close();
             } else {
