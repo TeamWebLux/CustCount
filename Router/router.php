@@ -27,7 +27,6 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Login_to_CustCount'                    => './Public/Pages/Signing/login/login.php',
         $prefix . $root . '/Register_to_CustCount'                 => './Public/Pages/Signing/register/register.php',
         $prefix . $root . '/Forgot_pass'                           => './Public/Pages/Signing/forgot/forgot.php',
-
         //? AGENT DASHBOARD
         $prefix . $root . '/Portal'                                       => './Public/Pages/Portal/main_dashboard.php',
         $prefix . $root . '/Portal_Add_Deposit'                           => './Public/Pages/Portal/add_deposit.php',
@@ -40,21 +39,24 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Portal_Branch_Management'                          => './Public/Pages/Portal/manage_branch.php',
 
         //forms 
-         $prefix . $root . '/cash_up_add'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/cash_out'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/deposit'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/cashup_detail'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/cash_up_add'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/cash_out'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/deposit'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/cashup_detail'                         => './Public/Pages/Portal/temp.php',
 
-         $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
-         $prefix . $root . '/Add_Branch'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Recharge_cashapp'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Recharge_Platform'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/Add_User'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
+        $prefix . $root . '/Add_Branch'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Recharge_cashapp'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Recharge_Platform'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_User'                         => './Public/Pages/Portal/temp.php',
 
-         $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
+
+        //Edit Fields
+        $prefix . $root . '/Edit_User'                         => './Public/Pages/Portal/temp.php',
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
@@ -81,6 +83,7 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Portal_Chats'                         => './Public/Pages/Portal/chat_page.php',
         $prefix . $root . '/Portal_Notes'                         => './Public/Pages/Portal/notes_page.php',
         $prefix . $root . '/Portal_Settings'                      => './Public/Pages/Portal/portal_settings.php',
+        $prefix . $root . '/See_All_Reports'                      => './Public/Pages/Portal/see_all_record.php',
 
     ];
 

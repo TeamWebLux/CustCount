@@ -71,10 +71,13 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mb-0">User List</h4>
+                            <div class="box-header with-border">
+                                <h3 class="box-title">See All the data</h3>
+                                <h6 class="box-subtitle"></h6>
+                            </div>
                         </div>
                         <?php
-                        
+
                         include './App/db/db_connect.php';
                         if ($role === 'Admin') {
                             $sql = "SELECT * FROM user";
@@ -98,7 +101,7 @@
                         ?>
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                    <table class="table mb-0" id="example" >
                                         <thead>
                                             <tr class="bg-white">
                                                 <?php
