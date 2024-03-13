@@ -61,10 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timezone'])) {
 
     // Iterate over each timestamp and convert it to selected timezone
     foreach ($timestamps as $timestamp) {
-        // Convert timestamp to selected timezone
-        $convertedTimestamp = date('Y-m-d H:i:s', strtotime($timestamp));
+        // Create a DateTime object with the original timestamp and set the timezone
+        $dateTime = new DateTime($timestamp, new DateTimeZone('UTC'));
+        $dateTime->setTimezone(new DateTimeZone($selectedTimezone));
         
-        // Output converted timestamp
+        // Get the converted timestamp
+        $convertedTimestamp = $dateTime->format('Y-m-d H:i:s');
+        
+        // Output original and converted timestamps
         echo "<p>Original Timestamp: $timestamp</p>";
         echo "<p>Converted Timestamp (Selected Timezone): $convertedTimestamp</p>";
     }
