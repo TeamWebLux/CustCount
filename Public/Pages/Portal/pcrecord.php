@@ -104,11 +104,11 @@
                         if ($action = "PLATFORMREC" && isset($_GET['r'])) {
                             $u = $_GET['r'];
                             $sql = "select * from platformRecord where platform='$u'";
-                            $result = $conn->query($sql);
+                            // $result = $conn->query($sql);
                         } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
                             $u = $_GET['u'];
                             $sql = "select * from cashappRecord where name='$u'";
-                            $result = $conn->query($sql);
+                            // $result = $conn->query($sql);
                         }
                         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($_GET['end_date'])) {
                             $start_date = $_GET['start_date'];
@@ -118,6 +118,7 @@
                             $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
                         }
 
+                        $result = $conn->query($sql);
 
                         // if (isset($_POST)) {
                         //     print_r($_POST);
