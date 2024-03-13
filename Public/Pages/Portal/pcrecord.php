@@ -124,13 +124,13 @@
                                 // Only end date is provided
                                 $end_date = $_GET['end_date'];
                                 $sql .= " AND created_at <= '$end_date 23:59:59'";
-                            } elseif (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] === '' && $_GET['end_date'] !== '') {
-                                // Only end date is provided and start date is empty
-                                $end_date = $_GET['end_date'];
-                                $sql .= " AND created_at <= '$end_date 23:59:59'";
+                            } elseif (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] !== '' && $_GET['end_date'] === '') {
+                                // Only start date is provided and end date is empty
+                                $start_date = $_GET['start_date'];
+                                $sql .= " AND created_at >= '$start_date 00:00:00'";
                             }
                         }
-                                                                                                
+
 
                         $result = $conn->query($sql);
 
