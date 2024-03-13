@@ -94,7 +94,7 @@ class Creation
 
             // Fetch previous closing balance
             $previousClosingBalance = 0;
-            if ($type == "Recharge") {
+            // if ($type == "Recharge") {
                 $query = "SELECT closing_balance FROM platformRecord WHERE platform = ? ORDER BY created_at DESC LIMIT 1";
                 if ($stmt = $this->conn->prepare($query)) {
                     $stmt->bind_param("s", $platformName);
@@ -103,12 +103,26 @@ class Creation
                     $stmt->fetch();
                     $stmt->close();
                 }
-            }
+            // }
 
             // Calculate new opening balance if the type is "Recharge"
             $openingBalance = 0;
             if ($type == "Recharge") {
                 $openingBalance = $previousClosingBalance;
+                $closingBalance = $openingBalance + $amount; // Closing balance will be the opening balance plus the recharge amount
+
+            }elseif($type=="Redeem"){
+                $openingBalance = $previousClosingBalance;
+                if($openingBalance!=0){
+                $closingBalance = $openingBalance + $amount; // Closing balance will be the opening balance plus the recharge amount
+                }else{
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Not Enough Money to do Transaction.'];
+                    header("Location: ../../index.php/Portal_Platform_Management");
+                    exit();
+
+
+                }
+
             }
 
             $addedBy = $this->susername;
@@ -118,7 +132,6 @@ class Creation
                     VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $closingBalance = $openingBalance + $amount; // Closing balance will be the opening balance plus the recharge amount
                 $stmt->bind_param("sdsddss", $platformName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
