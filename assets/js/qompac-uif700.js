@@ -253,8 +253,8 @@ Index Of Script
       });
     }
     // Column hidden datatable
-    if ($('[data-toggle="data-table-column-hidden"]').length) {
-        var hiddentable= $('[data-toggle="data-table-column-hidden"]').DataTable({});
+    if ($('[data-toggle="data-table"]').length) {
+        var hiddentable= $('[data-toggle="data-table"]').DataTable({});
         $('a.toggle-vis').on('click', function (e) {
           e.preventDefault();
           const column = hiddentable.column($(this).attr('data-column'));
