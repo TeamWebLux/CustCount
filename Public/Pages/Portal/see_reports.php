@@ -68,7 +68,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mb-0">User List</h4>
+                        <div class="box-header with-border">
+                        <h3 class="box-title">See All the data</h3>
+                        <h6 class="box-subtitle">All The Records</h6>
+                    </div>
                         </div>
                         <?php
                         include './App/db/db_connect.php';
@@ -85,60 +88,65 @@
                         ?>
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
-                                        <thead>
-                                            <tr class="bg-white">
-                                                <?php
-                                                echo '<tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Recharge</th>
-                                            <th scope="col">Redeem</th>
 
-                                            <th scope="col">Role</th>
-                                            <th scope="col">Created At</th>
-                                            </tr>';
-                                                ?>
-                                                <thead>
-                                                <tbody>
-                                                    <?php
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        echo "<tr>
-                                                    
-                                                    <td>{$row['tid']}</td>
-                                                    <td>{$row['username']}</td>
-                                                    <td>{$row['recharge']}</td>
-                                                    <td>{$row['redeem']}</td>
+                                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                            <thead>
+                                                <tr>
+                                                    <th>Transaction Type</th>
+                                                    <th>Recharge</th>
+                                                    <th>Redeem</th>
+                                                    <th>Excess Amount</th>
+                                                    <th>Bonus Amount</th>
+                                                    <th>Free Play</th>
+                                                    <th>Platform Name</th>
+                                                    <th>Page Name</th>
+                                                    <th>CashApp Name</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Username</th>
+                                                    <th>By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($results as $row) : ?>
+                                                    <tr>
+                                                        <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
+                                                            <?= $row['type'] ?>
+                                                        </td>
+                                                        <td><?= $row['recharge'] ?></td>
+                                                        <td><?= $row['redeem'] ?></td>
+                                                        <td><?= $row['excess'] ?></td>
+                                                        <td><?= $row['bonus'] ?></td>
+                                                        <td><?= $row['freepik'] ?></td>
 
-                                                    <td>{$row['by_role']}</td>
-                                                    <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
-                                                   
-                                                  </tr>";
-                                                    }
-                                                    ?>
+                                                        <td><?= $row['platform'] ?></td>
+                                                        <td><?= $row['page'] ?></td>
+                                                        <td><?= $row['cashapp'] ?></td>
 
-                                                </tbody>
-                                            <?php
+                                                        <td><?= $row['created_at'] ?></td>
+                                                        <td><?= $row['username'] ?></td>
+                                                        <td><?= $row['by_u'] ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    <?php
+                                } else {
+                                    echo "0 results";
+                                }
 
-                                            // End table
-                                            echo '</table>';
-                                        } else {
-                                            echo "0 results";
-                                        }
-
-                                        // Close connection
-                                        $conn->close();
-                                            ?>
+                                // Close connection
+                                $conn->close();
+                                    ?>
+                                    </div>
                                 </div>
                             </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <?
-        include("./Public/Pages/Common/footer.php");
-        // print_r($_SESSION);
-        ?>
+            <?
+            include("./Public/Pages/Common/footer.php");
+            // print_r($_SESSION);
+            ?>
 
     </main>
     <!-- Wrapper End-->
