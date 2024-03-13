@@ -60,8 +60,6 @@ if (isset($action)) {
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
                 } elseif ($row['role'] == 'Manager' || $row['role'] == 'User') {
-                    echo '<label for="Branchname">Branch Name</label>';
-                    echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
                 } else {
@@ -87,8 +85,6 @@ if (isset($action)) {
                 echo '<label for="pagename">Page Name</label>';
                 echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
             } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
-                echo '<label for="Branchname">Branch Name</label>';
-                echo '<select class="form-select" id="branchname" name="branchname" onchange="showOtherField(this, \'cashAppname-other\')">' . $branchopt . '</select>';
                 echo '<label for="pagename">Page Name</label>';
                 echo '<select class="form-select" id="pagename" name="pagename" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
             } else {
