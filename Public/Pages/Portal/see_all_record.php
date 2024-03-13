@@ -142,7 +142,7 @@
                     <?php
                     include "./App/db/db_connect.php";
 
-                    $sql = "SELECT * FROM transaction ";
+                    $sql = "SELECT * FROM transaction WHERE 1=1"; // Always true condition to start the WHERE clause
                     if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
                         // Both start and end dates are provided
                         $start_date = $_SESSION['start_date'];
@@ -161,7 +161,7 @@
                         $start_date = $_SESSION['start_date'];
                         $sql .= " AND created_at >= '$start_date 00:00:00'";
                     }
-
+                    
 
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
