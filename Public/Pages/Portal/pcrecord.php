@@ -139,7 +139,7 @@
                             $u = $_GET['r'] || $_SESSION['r'];
                             $sql = "select * from platformRecord where platform='$u'";
                             // $result = $conn->query($sql);
-                        } elseif ($action = "PLATFORMREC" && isset($_GET['u'])) {
+                        } elseif ($action = "PLATFORMREC" && isset($_GET['u']) || $_SESSION['u']) {
                             $u = $_GET['u'] || $_SESSION['u'];
                             $sql = "select * from cashappRecord where name='$u'";
                             // $result = $conn->query($sql);
