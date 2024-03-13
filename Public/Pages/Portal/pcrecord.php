@@ -140,7 +140,7 @@
                         } elseif ($action = "PLATFORMREC"  || $_SESSION['u']) {
                             $u =  $_SESSION['u'];
                             $sql = "select * from cashappRecord where name='$u'";
-                            // echo $sql;
+                             echo $sql;
                             // $result = $conn->query($sql);
                         }
                         // if ($_SERVER["REQUEST_METHOD"] == "GET") {
