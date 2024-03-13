@@ -127,8 +127,12 @@
                                 <br>
                                 <br>
                                 <a href="./Recharge_cashapp?name=<?php echo $username; ?>" style="text-decoration: none;">
-                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge CashApp</button>
                                 </a>
+                                <a href="./Redeem_cashapp?name=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Redeem CashApp</button>
+                                </a>
+
                                 <a href="./PlatformRec?u=<?php echo $username; ?>">
                                     <button type="submit" class="btn btn-warning rounded-pill mt-2">Transaction Record</button>
                                 </a>

@@ -90,13 +90,15 @@ class Creation
             $platformName = $this->conn->real_escape_string($_POST['platform']);
             $amount = $this->conn->real_escape_string($_POST['amount']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
+            $type = $this->conn->real_escape_string($_POST['type']);
+
             $addedBy = $_SESSION['username'];
 
-            $sql = "INSERT INTO platformRecord (platform, amount, by_name, created_at, updated_at, remark) 
-                    VALUES (?, ?, ?, NOW(), NOW(), ?)";
+            $sql = "INSERT INTO platformRecord (platform, amount,type, by_name, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?,?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdss", $platformName, $amount, $addedBy, $remark);
+                $stmt->bind_param("sdss", $platformName, $amount,$type, $addedBy, $remark);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
