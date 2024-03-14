@@ -270,7 +270,6 @@
                         netAmount -= amount; // Subtract from net amount for Redeem type
                     }
                 });
-                // Update the content of the element with id "netAmount" with the calculated net amount
                 $('#netAmount').text('Net Amount: ' + netAmount.toFixed(2)); // Displaying with two decimal places
             }
 
