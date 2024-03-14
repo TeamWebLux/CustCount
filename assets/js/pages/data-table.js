@@ -21,13 +21,13 @@ $(function () {
 		dom: 'Bfrtip',
 		buttons: [
 			'copy', 'excel',  'print'
-		 ],
-        'paging'      : true,
-        'lengthChange': true,
-        'searching'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : true,
+		 ]
+        // 'paging'      : true,
+        // 'lengthChange': true,
+        // 'searching'   : true,
+        // 'ordering'    : true,
+        // 'info'        : true,
+        // 'autoWidth'   : true,
   
 	} );
     $('#data-table').DataTable( {
