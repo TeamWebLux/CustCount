@@ -4,7 +4,7 @@
 
 <head>
     <?php
-    include("./Public/Pages/Common/header.php");
+    include "./Public/Pages/Common/header.php";
     include "./Public/Pages/Common/auth_user.php";
 
     // Function to echo the script for toastr
@@ -21,7 +21,9 @@
         unset($_SESSION['toast']); // Clear the toast message from session
     }
 
-    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
 
     // Display error message if available
     if (isset($_SESSION['login_error'])) {
@@ -53,7 +55,6 @@
     //     echo "$key => $value<br>";
     // }
 
-
     $role = $_SESSION['role'];
     if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
     } else {
@@ -74,13 +75,13 @@
 
     <!-- sidebar  -->
     <?php
-    include("./Public/Pages/Common/sidebar.php");
+    include "./Public/Pages/Common/sidebar.php";
 
     ?>
 
     <main class="main-content">
         <?php
-        include("./Public/Pages/Common/main_content.php");
+        include "./Public/Pages/Common/main_content.php";
         ?>
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
@@ -116,10 +117,10 @@
 
 
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="mb-0">User List</h4>
-
-                        </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">See All the data</h3>
+                        <h6 class="box-subtitle">All The Records</h6>
+                    </div>
                         <?php
                         include './App/db/db_connect.php';
                         $segments = explode('/', rtrim($uri, '/'));
@@ -133,14 +134,14 @@
                             }
                         }
 
-                        if ($action = "PLATFORMREC" && $_SESSION['r']!=="") {
-                            $u =  $_SESSION['r'];
+                        if ($action = "PLATFORMREC" && $_SESSION['r'] !== "") {
+                            $u = $_SESSION['r'];
                             $sql = "select * from platformRecord where platform='$u'";
                             // $result = $conn->query($sql);
-                        } elseif ($action = "PLATFORMREC"  || $_SESSION['u']!=="") {
-                            $u =  $_SESSION['u'];
+                        } elseif ($action = "PLATFORMREC" || $_SESSION['u'] !== "") {
+                            $u = $_SESSION['u'];
                             $sql = "select * from cashappRecord where name='$u'";
-                             echo $sql;
+                            echo $sql;
                             // $result = $conn->query($sql);
                         }
                         // if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -176,8 +177,9 @@
                         if ($result->num_rows > 0) {
                         ?>
                             <div class="card-body">
-                                <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="example">
+                                <div class="table-responsive">
+
+                                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                         <thead>
                                             <tr class="bg-white">
                                                 <?php
@@ -200,7 +202,7 @@
                                                         $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
 
                                                         // Output the table row with the converted timestamp
-                                                        echo "<tr> 
+                                                        echo "<tr>
         <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
         <td>{$row['type']}</td>
         <td>{$row['amount']}</td>
@@ -208,7 +210,8 @@
         <td>{$createdAtFormatted}</td>
     </tr>";
                                                     }
-                                                    ?> </tbody>
+                                                    ?>
+                                                </tbody>
                                             <?php
                                             // End table
                                             echo '</table>';
@@ -235,19 +238,19 @@
     <!-- Live Customizer start -->
     <!-- Setting offcanvas start here -->
     <?php
-    include("./Public/Pages/Common/theme_custom.php");
+    include "./Public/Pages/Common/theme_custom.php";
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
-    include("./Public/Pages/Common/settings_link.php");
+    include "./Public/Pages/Common/settings_link.php";
     ?>
     <!-- Live Customizer end -->
 
     <!-- Library Bundle Script -->
     <?php
-    include("./Public/Pages/Common/scripts.php");
+    include "./Public/Pages/Common/scripts.php";
     ?>
 
 </body>
