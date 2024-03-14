@@ -20,8 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $refercode=generateReferralCode($fullname,$conn);
-    echo $refercode;
-    exit();
 
     $role = trim($_POST['role']);
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
@@ -81,11 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     // Replace with actual value
 
     // Proceed with database insertion since validation passed
-    $sql = "INSERT INTO user (name, username, `Fb-link`, pagename, branchname, ip_address, password, status, role, `by`, last_login, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
+    $sql = "INSERT INTO user (name, username, `Fb-link`, pagename, branchname, ip_address, password,refer_code, status, role, `by`, last_login, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password, $status, $role, $by_u);
+        $stmt->bind_param("sssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password,$refercode, $status, $role, $by_u);
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
