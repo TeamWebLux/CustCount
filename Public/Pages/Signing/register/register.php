@@ -59,7 +59,7 @@
                             <div class="card auth-card  d-flex justify-content-center mb-0">
                                 <div class="card-body">
                                     <h2 class="mb-2 text-center">Sign Up</h2>
-                                    <p class="text-center">Create your Qompac UI account.</p>
+                                    <p class="text-center">.</p>
                                     <form action="../App/Logic/register.php" method="POST">
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -100,9 +100,16 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="page_id" class="form-label">Page ID</label>
-                                                    <input class="form-control" type="text" id="page_id" name="page_id" placeholder="Enter your Page ID" required="" value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
+                                                    <input class="form-control" type="hiddden" id="page_id" name="page_id" placeholder="Enter your Page ID" required hidden value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="fb_link" class="form-label">Refer Code</label>
+                                                    <input class="form-control" type="text" id="rfc" name="rfc" placeholder="Enter your Refer Code" required value="<?php echo isset($_SESSION['form_values']['rfc']) ? htmlspecialchars($_SESSION['rfc']['rfc']) : ''; ?>">
+                                                </div>
+                                            </div>
+
                                             <div class="col-lg-12 d-flex justify-content-center">
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkbox-signup" name="terms" <?php echo (isset($_SESSION['form_values']['terms']) && $_SESSION['form_values']['terms'] == 'on') ? 'checked' : ''; ?>>
