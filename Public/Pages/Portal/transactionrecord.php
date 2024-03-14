@@ -189,7 +189,7 @@
                     dom: 'Bfrtip', // Add the Bfrtip option to enable buttons
 
                     buttons: [
-            'csv', 'excel', 'pdf'
+            'copy', 'excel', 'pdf'
         ]
  // Assuming 'created_at' is the fifth column (index 4)
                 });
