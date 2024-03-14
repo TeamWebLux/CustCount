@@ -64,14 +64,8 @@
                 <div class="col-sm-12">
                     <h3 class="mt-4 mb-3">Your Settings</h3>
 
-
                 </div>
             </div>
-
-
-
-
-
 
             <?
             include("./Public/Pages/Common/footer.php");

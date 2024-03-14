@@ -31,9 +31,10 @@ echo json_encode($response);
 
 <!-- Ajax call in the from=ntend -->
 
-<a href="javascript:void(0);" class="delete-button" onclick="deleteCartItem(' . $product['id'] . ')">
+<a href="javascript:void(0);" class="delete-button" onclick="deleteCartItem('<?php echo $product['id']; ?>')">
     <i class="fa-solid fa-xmark"></i>
 </a>
+
 
 <script>
     function deleteCartItem(product_id) {

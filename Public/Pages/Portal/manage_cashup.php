@@ -28,9 +28,7 @@ if (isset($_SESSION['login_error'])) {
     echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
     unset($_SESSION['login_error']); // Clear the error message
 }
-
 ?>
-
 
 <?php
 $role = $_SESSION['role'];
@@ -153,7 +151,7 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
 
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
-                                        <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                    <table class="table mb-0" id="example" >
                                             <thead>
                                                 <tr class="bg-white">
                                                     <?php

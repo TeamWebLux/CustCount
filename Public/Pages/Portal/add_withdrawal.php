@@ -82,7 +82,7 @@
                                         <label for="Cashup Amount" class="form-label">Cashapp Amount</label>
                                         <input type="number" class="form-control" id="CashupAmount" name="Cashup Amount" placeholder="Cashup Amount" value="<?php echo isset($_SESSION['form_values']['Cashup Amount']) ? htmlspecialchars($_SESSION['form_values']['Cashup Amount']) : ''; ?>">
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="inputPlatform" class="form-label">Platform</label>
                                         <select id="inputPlatform" class="form-select" name="inputPlatform">
@@ -92,11 +92,10 @@
                                             <option value="Option 3" <?php echo (isset($_SESSION['form_values']['inputPlatform']) && $_SESSION['form_values']['inputPlatform'] == 'Option 3') ? 'selected' : ''; ?>>Option 3</option>
                                         </select>
                                     </div>
-                                   
+
                                     <div class="form-group">
                                         <label class="form-label">Remark</label>
                                         <input type="number" class="form-control" name="money" placeholder="Enter Remark" value="<?php echo isset($_SESSION['form_values']['money']) ? htmlspecialchars($_SESSION['form_values']['money']) : ''; ?>">
-                                        
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -109,12 +108,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
         <?
         include("./Public/Pages/Common/footer.php");
         // print_r($_SESSION);
@@ -126,21 +119,18 @@
     <!-- Setting offcanvas start here -->
     <?php
     include("./Public/Pages/Common/theme_custom.php");
-
     ?>
 
     <!-- Settings sidebar end here -->
 
     <?php
     include("./Public/Pages/Common/settings_link.php");
-
     ?>
     <!-- Live Customizer end -->
 
     <!-- Library Bundle Script -->
     <?php
     include("./Public/Pages/Common/scripts.php");
-
     ?>
 
 </body>
