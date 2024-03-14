@@ -185,7 +185,7 @@ exit();
 
 // Function to check if a referral code already exists in the database
 function referralCodeExists($referralCode, $conn) {
-    $sql = "SELECT COUNT(*) AS count FROM referral_codes WHERE code = '$referralCode'";
+    $sql = "SELECT COUNT(*) AS count FROM user WHERE refer_code = '$referralCode'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     return $row['count'] > 0; // If count > 0, referral code exists; otherwise, it doesn't
