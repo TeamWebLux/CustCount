@@ -181,13 +181,13 @@
 
     </main>
     <script>
-            $(document).ready(function() {
-                $('#example').DataTable({
-                    "order": [
-                        [10, "desc"]
-                    ] // Assuming 'created_at' is the fifth column (index 4)
-                });
-            });
+            // $(document).ready(function() {
+            //     $('#example').DataTable({
+            //         "order": [
+            //             [4, "desc"]
+            //         ] // Assuming 'created_at' is the fifth column (index 4)
+            //     });
+            // });
 
 
 
