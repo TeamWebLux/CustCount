@@ -114,76 +114,77 @@
 
                         </div>
                     </form>
+                    <div class="box-body">
 
 
-                    <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">See All the data</h3>
-                        <h6 class="box-subtitle">All The Records</h6>
-                    </div>
-                        <?php
-                        include './App/db/db_connect.php';
-                        $segments = explode('/', rtrim($uri, '/'));
-                        $lastSegment = end($segments);
-                        $action = strtoupper($lastSegment);
-                        // echo $action;
-                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
-                                $_SESSION['start_date'] = $_POST['start_date'];
-                                $_SESSION['end_date'] = $_POST['end_date'];
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">See All the data</h3>
+                                <h6 class="box-subtitle">All The Records</h6>
+                            </div>
+                            <?php
+                            include './App/db/db_connect.php';
+                            $segments = explode('/', rtrim($uri, '/'));
+                            $lastSegment = end($segments);
+                            $action = strtoupper($lastSegment);
+                            // echo $action;
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
+                                    $_SESSION['start_date'] = $_POST['start_date'];
+                                    $_SESSION['end_date'] = $_POST['end_date'];
+                                }
                             }
-                        }
 
-                        if ($action = "PLATFORMREC" && $_SESSION['r'] !== "") {
-                            $u = $_SESSION['r'];
-                            $sql = "select * from platformRecord where platform='$u'";
-                            // $result = $conn->query($sql);
-                        } elseif ($action = "PLATFORMREC" || $_SESSION['u'] !== "") {
-                            $u = $_SESSION['u'];
-                            $sql = "select * from cashappRecord where name='$u'";
-                            echo $sql;
-                            // $result = $conn->query($sql);
-                        }
-                        // if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                        if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
-                            // Both start and end dates are provided
-                            $start_date = $_SESSION['start_date'];
-                            $end_date = $_SESSION['end_date'];
-                            $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-                        } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
-                            // Only start date is provided
-                            $start_date = $_SESSION['start_date'];
-                            $sql .= " AND created_at >= '$start_date 00:00:00'";
-                        } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
-                            // Only end date is provided
-                            $end_date = $_SESSION['end_date'];
-                            $sql .= " AND created_at <= '$end_date 23:59:59'";
-                        } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
-                            // Only start date is provided and end date is empty
-                            $start_date = $_SESSION['start_date'];
-                            $sql .= " AND created_at >= '$start_date 00:00:00'";
-                        }
-                        // }
-                        $result = $conn->query($sql);
+                            if ($action = "PLATFORMREC" && $_SESSION['r'] !== "") {
+                                $u = $_SESSION['r'];
+                                $sql = "select * from platformRecord where platform='$u'";
+                                // $result = $conn->query($sql);
+                            } elseif ($action = "PLATFORMREC" || $_SESSION['u'] !== "") {
+                                $u = $_SESSION['u'];
+                                $sql = "select * from cashappRecord where name='$u'";
+                                echo $sql;
+                                // $result = $conn->query($sql);
+                            }
+                            // if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                            if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
+                                // Both start and end dates are provided
+                                $start_date = $_SESSION['start_date'];
+                                $end_date = $_SESSION['end_date'];
+                                $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                            } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
+                                // Only start date is provided
+                                $start_date = $_SESSION['start_date'];
+                                $sql .= " AND created_at >= '$start_date 00:00:00'";
+                            } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
+                                // Only end date is provided
+                                $end_date = $_SESSION['end_date'];
+                                $sql .= " AND created_at <= '$end_date 23:59:59'";
+                            } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
+                                // Only start date is provided and end date is empty
+                                $start_date = $_SESSION['start_date'];
+                                $sql .= " AND created_at >= '$start_date 00:00:00'";
+                            }
+                            // }
+                            $result = $conn->query($sql);
 
-                        // if (isset($_POST)) {
-                        //     print_r($_POST);
-                        //     $condition = $_POST['field'];
-                        //     $query = $_POST['condtion'];
-                        //     $sql = "select * from transaction where $condition='$query'";
-                        //     $result = $conn->query($sql);
-                        // }
+                            // if (isset($_POST)) {
+                            //     print_r($_POST);
+                            //     $condition = $_POST['field'];
+                            //     $query = $_POST['condtion'];
+                            //     $sql = "select * from transaction where $condition='$query'";
+                            //     $result = $conn->query($sql);
+                            // }
 
-                        if ($result->num_rows > 0) {
-                        ?>
-                            <div class="card-body">
-                                <div class="table-responsive">
+                            if ($result->num_rows > 0) {
+                            ?>
+                                <div class="card-body">
+                                    <div class="table-responsive">
 
-                                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                        <thead>
-                                            <tr class="bg-white">
-                                                <?php
-                                                echo '<tr>
+                                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                            <thead>
+                                                <tr class="bg-white">
+                                                    <?php
+                                                    echo '<tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Type</th>
                                             <th scope="col">Amount</th>
@@ -191,39 +192,40 @@
                                             <th scope="col">By Name</th>
                                             <th scope="col">Created At</th>
                                             </tr>';
-                                                ?>
-                                                <thead>
-                                                <tbody>
-                                                    <?php
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        // Convert timestamp to selected timezone
-                                                        $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
-                                                        $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
-                                                        $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
+                                                    ?>
+                                                    <thead>
+                                                    <tbody>
+                                                        <?php
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            // Convert timestamp to selected timezone
+                                                            $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
+                                                            $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
+                                                            $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
 
-                                                        // Output the table row with the converted timestamp
-                                                        echo "<tr>
+                                                            // Output the table row with the converted timestamp
+                                                            echo "<tr>
         <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
         <td>{$row['type']}</td>
         <td>{$row['amount']}</td>
         <td>{$row['by_name']}</td>
         <td>{$createdAtFormatted}</td>
     </tr>";
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            <?php
-                                            // End table
-                                            echo '</table>';
-                                        } else {
-                                            echo "0 results";
-                                        }
-                                        // Close connection
-                                        $conn->close();
-                                            ?>
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                <?php
+                                                // End table
+                                                echo '</table>';
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            // Close connection
+                                            $conn->close();
+                                                ?>
 
+                                    </div>
                                 </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
