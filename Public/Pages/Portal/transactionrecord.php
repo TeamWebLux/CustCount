@@ -184,7 +184,7 @@
             $(document).ready(function() {
                 $('#example').DataTable({
                     "order": [
-                        [4, "desc"]
+                        [10, "desc"]
                     ],
                     "buttons": [
             'csv', 'excel', 'pdf'
