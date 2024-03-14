@@ -191,6 +191,8 @@
 
                                             <th scope="col">By Name</th>
                                             <th scope="col">Created At</th>
+                                            <th scope="col"> Remark</th>
+
                                             </tr>';
                                                 ?>
                                                 <thead>
@@ -198,7 +200,6 @@
                                                     <?php
                                                     $netAmount = 0; // Initialize net amount variable
                                                     while ($row = $result->fetch_assoc()) {
-                                                        // Convert timestamp to selected timezone
                                                         $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
                                                         $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
                                                         $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
@@ -217,17 +218,18 @@
         <td>{$row['amount']}</td>
         <td>{$row['by_name']}</td>
         <td>{$createdAtFormatted}</td>
+        <td>{$row['remark']}</td>
+
+
     </tr>";
                                                     }
 
                                                     // Display the net amount row after looping through all transactions
-                                                    echo "<tr>
-        <td colspan='4'><strong>Net Amount</strong></td>
-        <td>{$netAmount}</td>
-    </tr>";
 
                                                     ?>
                                                 </tbody>
+                                                <div id="netAmount"></div>
+
                                             <?php
                                             // End table
                                             echo '</table>';
@@ -245,6 +247,30 @@
             </div>
         </div>
         </div>
+        <script>
+            // Function to calculate and update net amount
+            function calculateNetAmount() {
+                var netAmount = 0;
+                // Iterate through table rows
+                $('#example tbody tr').each(function() {
+                    var amount = parseFloat($(this).find('td:eq(2)').text()); // Get the amount from the third column
+                    var type = $(this).find('td:eq(1)').text(); // Get the transaction type from the second column
+                    if (type === 'Recharge') {
+                        netAmount += amount; // Add to net amount for Recharge type
+                    } else if (type === 'Redeem') {
+                        netAmount -= amount; // Subtract from net amount for Redeem type
+                    }
+                });
+                // Update the content of the element with id "netAmount" with the calculated net amount
+                $('#netAmount').text('Net Amount: ' + netAmount.toFixed(2)); // Displaying with two decimal places
+            }
+
+            // Call the calculateNetAmount function when the page is loaded
+            $(document).ready(function() {
+                calculateNetAmount();
+            });
+        </script>
+
 
         <?
         include("./Public/Pages/Common/footer.php");
