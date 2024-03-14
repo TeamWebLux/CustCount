@@ -38,11 +38,12 @@ if ($uri == $firstparam || $uri == $secondparam) {
 
         $prefix . $root . '/Portal_User_Management'                          => './Public/Pages/Portal/manage_user.php',
         //forms 
-         $prefix . $root . '/cash_up_add'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/cash_out'                         => './Public/Pages/Portal/temp.php',
-         $prefix . $root . '/deposit'                         => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/cash_up_add'                           => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/cash_out'                              => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/deposit'                               => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/cashup_detail'                         => './Public/Pages/Portal/temp.php',
 
+<<<<<<< Updated upstream
          $prefix . $root . '/withdrawl'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/platform'                         => './Public/Pages/Portal/temp.php',
          $prefix . $root . '/record'                         => './Public/Pages/Portal/transactionrecord.php',
@@ -50,6 +51,11 @@ if ($uri == $firstparam || $uri == $secondparam) {
          $prefix . $root . '/Add_Page'                         => './Public/Pages/Portal/temp.php',
 
          $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
+=======
+         $prefix . $root . '/withdrawl'                             => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/platform'                              => './Public/Pages/Portal/temp.php',
+         $prefix . $root . '/record'                                => './Public/Pages/Portal/transactionrecord.php',
+>>>>>>> Stashed changes
 
 
         $prefix . $root . '/Portal_See_Deposits'                          => './Public/Pages/Portal/see_deposits.php',
@@ -72,10 +78,11 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Portal_Manager_Management'            => './Public/Pages/Portal/manage_manager.php',
         $prefix . $root . '/Portal_Page_Management'               => './Public/Pages/Portal/manage_page.php',
         $prefix . $root . '/Portal_Cashup_Management'             => './Public/Pages/Portal/manage_cashup.php',
-        $prefix . $root . '/Portal_Platform_Management'             => './Public/Pages/Portal/manage_platform.php',
+        $prefix . $root . '/Portal_Platform_Management'           => './Public/Pages/Portal/manage_platform.php',
         $prefix . $root . '/Portal_Chats'                         => './Public/Pages/Portal/chat_page.php',
         $prefix . $root . '/Portal_Notes'                         => './Public/Pages/Portal/notes_page.php',
         $prefix . $root . '/Portal_Settings'                      => './Public/Pages/Portal/portal_settings.php',
+        $prefix . $root . '/Portal_exchat'                        => './Public/Pages/Portal/portal_exchat.php',
 
     ];
 
