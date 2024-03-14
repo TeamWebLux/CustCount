@@ -60,7 +60,7 @@
                                 <div class="card-body">
                                     <h2 class="mb-2 text-center">Sign Up</h2>
                                     <p class="text-center">.</p>
-                                    <form action="../App/Logic/register.php" method="POST">
+                                    <form action="../App/Logic/register.php?action=register" method="POST">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
