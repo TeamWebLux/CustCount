@@ -151,7 +151,6 @@
                                 $start_date = $_SESSION['start_date'];
                                 $end_date = $_SESSION['end_date'];
                                 $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-                                
                             } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
                                 // Only start date is provided
                                 $start_date = $_SESSION['start_date'];
@@ -167,7 +166,7 @@
                             }
                             // }
                             $sql .= " ORDER BY created_at DESC";
-echo $sql;
+                            echo $sql;
                             $result = $conn->query($sql);
 
                             // if (isset($_POST)) {
@@ -188,7 +187,7 @@ echo $sql;
                                             <tr class="bg-white">
                                                 <?php
                                                 echo '<tr>
-                                            <th scope="col">ID</th>
+                                     <th scope="col">ID</th>
                                             <th scope="col">Type</th>
                                             <th scope="col">Amount</th>
 
@@ -207,7 +206,6 @@ echo $sql;
                                                         $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
                                                         $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
 
-                                                        // Calculate net amount based on transaction type
                                                         if ($row['type'] === 'Recharge') {
                                                             $netAmount += $row['amount']; // Add to net amount for Recharge type
                                                         } elseif ($row['type'] === 'Redeem') {
@@ -251,6 +249,14 @@ echo $sql;
         </div>
         </div>
         <script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    "order": [
+                        [4, "desc"]
+                    ] // Assuming 'created_at' is the fifth column (index 4)
+                });
+            });
+
             // Function to calculate and update net amount
             function calculateNetAmount() {
                 var netAmount = 0;
