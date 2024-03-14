@@ -15,11 +15,11 @@ $action = $_GET['action'];
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     print_r($_POST);
-    exit();
     // Retrieve and sanitize form data
     $fullname = trim($_POST['name']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $ref=$_POST['rfc'];
     $refercode=generateReferralCode($fullname,$conn);
 
     $role = trim($_POST['role']);
@@ -189,4 +189,40 @@ function referralCodeExists($referralCode, $conn) {
     $row = $result->fetch_assoc();
     return $row['count'] > 0; // If count > 0, referral code exists; otherwise, it doesn't
 }
+function processReferralCode($conn,$name) {
+    // Check if referral code is set in $_POST
+        // Sanitize referral code
+        $referralCode = mysqli_real_escape_string($conn,$name);
+
+        // Query to check if referral code exists
+        $query = "SELECT username FROM user WHERE refer_code = '$referralCode'";
+        $result = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($result) > 0) {
+            // Referral code exists, fetch user's name and the name of the person who referred them
+            $row = mysqli_fetch_assoc($result);
+            $userName = $row['username'];
+            // $referredBy = $row['referred_by'];
+
+            // Insert new entry into referral code table
+            $insertQuery = "INSERT INTO refferal (name, refered_by, referred_by) VALUES ('$userName', '$referralCode', '$referredBy')";
+            if(mysqli_query($conn, $insertQuery)) {
+                // Set success toast message
+                setToast('success', 'Referral code added successfully!');
+            } else {
+                // Set error toast message
+                setToast('error', 'Error adding referral code: ' . mysqli_error($conn));
+            }
+        } else {
+            // Set error toast message
+            setToast('error', 'Referral code does not exist!');
+        }
+
+    // Preserve form values and redirect
+    // $_SESSION['form_values'] = $_POST;
+    // header('Location: ' . $redirectTo);
+    // exit();
+}
+
+
 
