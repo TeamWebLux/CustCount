@@ -81,23 +81,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="role" class="form-label">Role</label>
-                                                <select class="form-select" id="role" name="role" required="">
-                                                    <option value="">Select your role</option>
-                                                    <option value="User" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'User') ? 'selected' : ''; ?>>User</option>
-                                                    <option value="Agent" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Agent') ? 'selected' : ''; ?>>Agent</option>
-                                                    <option value="Supervisor" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Supervisor') ? 'selected' : ''; ?>>Supervisor</option>
-                                                    <option value="Manager" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Manager') ? 'selected' : ''; ?>>Manager</option>
-                                                    <option value="Admin" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="fb_link" class="form-label">Facebook Link</label>
                                                     <input class="form-control" type="text" id="fb_link" name="fb_link" placeholder="Enter your Facebook link" required="" value="<?php echo isset($_SESSION['form_values']['fb_link']) ? htmlspecialchars($_SESSION['form_values']['fb_link']) : ''; ?>">
                                                 </div>
                                             </div>
-\                                                    <input class="form-control" type="hiddden" id="page_id" name="page_id" placeholder="Enter your Page ID" required hidden value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
+                                                  <input class="form-control" type="hiddden" id="page_id" name="page_id" placeholder="Enter your Page ID" required hidden value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="fb_link" class="form-label">Refer Code</label>
