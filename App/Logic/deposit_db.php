@@ -4,7 +4,8 @@ session_start(); // Start the session
 include '../db/db_connect.php'; // Include your database connection
 
 // Function to set a toast message
-function setToast($type, $message) {
+function setToast($type, $message)
+{
     $_SESSION['toast'] = ['type' => $type, 'message' => $message];
 }
 
@@ -60,4 +61,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
-?>

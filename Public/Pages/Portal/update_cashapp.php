@@ -11,6 +11,7 @@
     {
         echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
     }
+    unset($_SESSION['start_date'],$_SESSION['end_date'],$_SESSION['u'],$_SESSION['r']);
 
     // Check if there's a toast message set in session, display it, then unset
     // print_r($_SESSION);
@@ -126,9 +127,21 @@
                                 </div>
                                 <br>
                                 <br>
+                                <a href="./Recharge_cashapp?name=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge CashApp</button>
+                                </a>
+                                <a href="./Redeem_cashapp?name=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Redeem CashApp</button>
+                                </a>
+
+                                <a href="./PlatformRec<?php $_SESSION['u']=$username ?>">
+                                    <button type="submit" class="btn btn-warning rounded-pill mt-2">Transaction Record</button>
+                                </a>
+
                                 <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'start','cid')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">Start Date</button>
                                 </a>
+
                                 <a href="javascript:void(0);" class="" onclick="modify(<?php echo $id; ?>, 'cashapp', 'end','cid')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">End Date</button>
                                 </a>
@@ -148,7 +161,7 @@
 
 
         <script>
-                        function modify(product_id, table, field, id) {
+            function modify(product_id, table, field, id) {
                 if (confirm("Are you sure you want to Activate or Deactivate?")) {
                     const xhr = new XMLHttpRequest();
                     xhr.open("POST", "../App/Logic/commonf.php?action=modify", true);

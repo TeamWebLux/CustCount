@@ -1,9 +1,9 @@
 <?php
-if(isset($_GET['type'])) {
+if (isset($_GET['type'])) {
     $type = $_GET['type'];
-    
+
     // Determine content based on type
-    switch($type) {
+    switch ($type) {
         case 'deposit':
             include './Components/Deposit_Form.php';
             break;
@@ -20,4 +20,3 @@ if(isset($_GET['type'])) {
             echo "<div>Invalid Request</div>";
     }
 }
-?>

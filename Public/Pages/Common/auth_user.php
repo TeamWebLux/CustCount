@@ -6,4 +6,3 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != 1) {
     header('Location: ../index.php/Login_to_CustCount'); // Redirect to the login page
     exit; // Prevent further script execution after redirect
 }
-?>

@@ -19,7 +19,7 @@
         echoToastScript($toast['type'], $toast['message']);
         unset($_SESSION['toast']); // Clear the toast message from session
     }
-    
+
     if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
     // Display error message if available
@@ -70,8 +70,8 @@
                                         <label for="inputname" class="form-label">Deposit Amount</label>
                                         <input type="number" class="form-control" id="depositamount" name="inputname" placeholder="Deposit Amount" value="<?php echo isset($_SESSION['form_values']['inputname']) ? htmlspecialchars($_SESSION['form_values']['inputname']) : ''; ?>">
                                     </div>
-                                 
-                                   
+
+
                                     <div class="form-group">
                                         <label for="inputBonus" class="form-label">Bonus</label>
                                         <input type="number" class="form-control" id="inputBonus" name="inputBonus" placeholder="Bonus Amount" value="<?php echo isset($_SESSION['form_values']['inputBonus']) ? htmlspecialchars($_SESSION['form_values']['inputBonus']) : ''; ?>">
@@ -106,12 +106,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
         <?
         include("./Public/Pages/Common/footer.php");
         // print_r($_SESSION);
