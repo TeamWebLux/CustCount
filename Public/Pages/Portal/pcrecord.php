@@ -135,17 +135,17 @@
                                 }
                             }
 
-                            if ($action = "PLATFORMREC" && $_SESSION['r'] !== "") {
+                            if (isset($action) && isset($_SESSION['r']) && $action === "PLATFORMREC" && $_SESSION['r'] !== "") {
                                 $u = $_SESSION['r'];
-                                $sql = "select * from platformRecord where platform='$u'";
+                                $sql = "SELECT * FROM platformRecord WHERE platform='$u'";
                                 // $result = $conn->query($sql);
-                            } elseif ($action = "PLATFORMREC" || $_SESSION['u'] !== "") {
+                            } elseif ($action === "PLATFORMREC" || $_SESSION['u'] !== "") {
                                 $u = $_SESSION['u'];
-                                $sql = "select * from cashappRecord where name='$u'";
+                                $sql = "SELECT * FROM cashappRecord WHERE name='$u'";
                                 // echo $sql;
                                 // $result = $conn->query($sql);
                             }
-                            // if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                                                        // if ($_SERVER["REQUEST_METHOD"] == "GET") {
                             if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
                                 // Both start and end dates are provided
                                 $start_date = $_SESSION['start_date'];
