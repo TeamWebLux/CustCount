@@ -116,7 +116,7 @@
                     </form>
 
 
-                    <div class="card">
+                    <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">See All the data</h3>
                         <h6 class="box-subtitle">All The Records</h6>
