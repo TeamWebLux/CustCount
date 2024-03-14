@@ -145,7 +145,7 @@
                                 // echo $sql;
                                 // $result = $conn->query($sql);
                             }
-                                                        // if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                            // if ($_SERVER["REQUEST_METHOD"] == "GET") {
                             if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
                                 // Both start and end dates are provided
                                 $start_date = $_SESSION['start_date'];
@@ -196,11 +196,19 @@
                                                 <thead>
                                                 <tbody>
                                                     <?php
+                                                    $netAmount = 0; // Initialize net amount variable
                                                     while ($row = $result->fetch_assoc()) {
                                                         // Convert timestamp to selected timezone
                                                         $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
                                                         $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
                                                         $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
+
+                                                        // Calculate net amount based on transaction type
+                                                        if ($row['type'] === 'Recharge') {
+                                                            $netAmount += $row['amount']; // Add to net amount for Recharge type
+                                                        } elseif ($row['type'] === 'Redeem') {
+                                                            $netAmount -= $row['amount']; // Subtract from net amount for Redeem type
+                                                        }
 
                                                         // Output the table row with the converted timestamp
                                                         echo "<tr>
@@ -211,6 +219,13 @@
         <td>{$createdAtFormatted}</td>
     </tr>";
                                                     }
+
+                                                    // Display the net amount row after looping through all transactions
+                                                    echo "<tr>
+        <td colspan='4'><strong>Net Amount</strong></td>
+        <td>{$netAmount}</td>
+    </tr>";
+
                                                     ?>
                                                 </tbody>
                                             <?php
