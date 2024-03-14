@@ -151,6 +151,7 @@
                                 $start_date = $_SESSION['start_date'];
                                 $end_date = $_SESSION['end_date'];
                                 $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                                
                             } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
                                 // Only start date is provided
                                 $start_date = $_SESSION['start_date'];
@@ -165,6 +166,8 @@
                                 $sql .= " AND created_at >= '$start_date 00:00:00'";
                             }
                             // }
+                            $sql .= " ORDER BY created_at DESC";
+
                             $result = $conn->query($sql);
 
                             // if (isset($_POST)) {
@@ -200,13 +203,6 @@
                                                     <?php
                                                     $netAmount = 0; // Initialize net amount variable
                                                     while ($row = $result->fetch_assoc()) {
-                                                        if (empty($row)) {
-                                                            echo "No records found";
-                                                        } else {
-                                                            usort($row, function ($a, $b) {
-                                                                return strtotime($b['created_at']) - strtotime($a['created_at']);
-                                                            });
-                                                        }
                                                         $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
                                                         $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
                                                         $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
