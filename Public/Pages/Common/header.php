@@ -28,12 +28,6 @@
 <link rel="stylesheet" href="../assets/css/rtl.minf700.css?v=1.0.1">
 
 
-<!-- For Chat -->
-
-<link rel="stylesheet" href="../assets/css/chat_style.css">
-<link rel="stylesheet" href="../assets/css/tailwind.css">
-
-
 
 
 <!-- Google Font -->
