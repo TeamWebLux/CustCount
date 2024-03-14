@@ -185,7 +185,11 @@
                 $('#example').DataTable({
                     "order": [
                         [4, "desc"]
-                    ] // Assuming 'created_at' is the fifth column (index 4)
+                    ],
+                    "buttons": [
+            'csv', 'excel', 'pdf'
+        ]
+ // Assuming 'created_at' is the fifth column (index 4)
                 });
             });
 
