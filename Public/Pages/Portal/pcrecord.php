@@ -200,6 +200,13 @@
                                                     <?php
                                                     $netAmount = 0; // Initialize net amount variable
                                                     while ($row = $result->fetch_assoc()) {
+                                                        if (empty($row)) {
+                                                            echo "No records found";
+                                                        } else {
+                                                            usort($row, function ($a, $b) {
+                                                                return strtotime($b['created_at']) - strtotime($a['created_at']);
+                                                            });
+                                                        }
                                                         $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
                                                         $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
                                                         $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
