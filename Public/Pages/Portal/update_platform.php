@@ -19,7 +19,7 @@
         echoToastScript($toast['type'], $toast['message']);
         unset($_SESSION['toast']); // Clear the toast message from session
     }
-    unset($_SESSION['start_date'],$_SESSION['end_date']);
+    unset($_SESSION['start_date'],$_SESSION['end_date'],$_SESSION['u'],$_SESSION['r']);
 
     if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 

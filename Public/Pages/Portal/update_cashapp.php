@@ -11,6 +11,7 @@
     {
         echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
     }
+    unset($_SESSION['start_date'],$_SESSION['end_date'],$_SESSION['u'],$_SESSION['r']);
 
     // Check if there's a toast message set in session, display it, then unset
     // print_r($_SESSION);
