@@ -191,7 +191,6 @@
                     buttons: [
             'copy', 'excel', 'pdf'
         ]
- // Assuming 'created_at' is the fifth column (index 4)
                 });
             });
 

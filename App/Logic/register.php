@@ -19,6 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     $fullname = trim($_POST['name']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $refercode=generateReferralCode($fullname,$conn);
+    echo $refercode;
+    exit();
 
     $role = trim($_POST['role']);
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
@@ -118,7 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
         $creationInstance = new Creation($conn);
         $branchId = $creationInstance->getBranchNameByPageName($pageId, $conn);
     }
-
     // Get the user's IP address
     $ipAddress = $_SERVER['REMOTE_ADDR'];
     $condition_value=$username;
@@ -159,3 +161,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
+ function generateReferralCode($name, $conn) {
+    // Get current date
+    $currentDate = date('ymd'); // Format: yymmdd
+    
+    // Get the first three letters of the name
+    $namePrefix = substr(strtoupper($name), 0, 3); // Convert name to uppercase and get first three letters
+    
+    // Initialize count
+    $count = 1; // Default count
+    $referralCode = "{$namePrefix}{$currentDate}"; // Initial referral code
+    
+    // Check if referral code already exists for the current date
+    while (referralCodeExists($referralCode, $conn)) {
+        // Increment count and append it to the referral code
+        $count++;
+        $referralCode = "{$namePrefix}{$currentDate}{$count}";
+    }
+    
+    
+    return $referralCode;
+}
+
+// Function to check if a referral code already exists in the database
+function referralCodeExists($referralCode, $conn) {
+    $sql = "SELECT COUNT(*) AS count FROM referral_codes WHERE code = '$referralCode'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    return $row['count'] > 0; // If count > 0, referral code exists; otherwise, it doesn't
+}
+
