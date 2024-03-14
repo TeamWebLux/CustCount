@@ -20,7 +20,7 @@ $(function () {
 	$('#example').DataTable( {
 		dom: 'Bfrtip',
 		buttons: [
-			'copy', 'excel', 'pdf', 'print'
+			'copy', 'excel',  'print'
 		 ],
         'paging'      : true,
         'lengthChange': true,
@@ -33,7 +33,7 @@ $(function () {
     $('#data-table').DataTable( {
 		dom: 'Bfrtip',
 		buttons: [
-			'copy', 'excel', 'pdf', 'print'
+			'copy', 'excel',  'print'
 		 ]
 	} );
 
