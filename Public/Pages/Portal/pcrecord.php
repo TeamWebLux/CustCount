@@ -142,7 +142,7 @@
                             } elseif ($action = "PLATFORMREC" || $_SESSION['u'] !== "") {
                                 $u = $_SESSION['u'];
                                 $sql = "select * from cashappRecord where name='$u'";
-                                echo $sql;
+                                // echo $sql;
                                 // $result = $conn->query($sql);
                             }
                             // if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -178,13 +178,13 @@
                             if ($result->num_rows > 0) {
                             ?>
                                 <!-- <div class="card-body"> -->
-                                    <div class="table-responsive">
+                                <div class="table-responsive">
 
-                                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                            <thead>
-                                                <tr class="bg-white">
-                                                    <?php
-                                                    echo '<tr>
+                                    <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                        <thead>
+                                            <tr class="bg-white">
+                                                <?php
+                                                echo '<tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Type</th>
                                             <th scope="col">Amount</th>
@@ -192,43 +192,43 @@
                                             <th scope="col">By Name</th>
                                             <th scope="col">Created At</th>
                                             </tr>';
-                                                    ?>
-                                                    <thead>
-                                                    <tbody>
-                                                        <?php
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            // Convert timestamp to selected timezone
-                                                            $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
-                                                            $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
-                                                            $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
+                                                ?>
+                                                <thead>
+                                                <tbody>
+                                                    <?php
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        // Convert timestamp to selected timezone
+                                                        $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
+                                                        $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
+                                                        $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
 
-                                                            // Output the table row with the converted timestamp
-                                                            echo "<tr>
+                                                        // Output the table row with the converted timestamp
+                                                        echo "<tr>
         <td>" . (isset($row['prid']) ? $row['prid'] : $row['crid']) . "</td>
         <td>{$row['type']}</td>
         <td>{$row['amount']}</td>
         <td>{$row['by_name']}</td>
         <td>{$createdAtFormatted}</td>
     </tr>";
-                                                        }
-                                                        ?>
-                                                    </tbody>
-                                                <?php
-                                                // End table
-                                                echo '</table>';
-                                            } else {
-                                                echo "0 results";
-                                            }
-                                            // Close connection
-                                            $conn->close();
-                                                ?>
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            <?php
+                                            // End table
+                                            echo '</table>';
+                                        } else {
+                                            echo "0 results";
+                                        }
+                                        // Close connection
+                                        $conn->close();
+                                            ?>
 
-                                    </div>
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         <?
