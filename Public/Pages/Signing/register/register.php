@@ -91,7 +91,7 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="fb_link" class="form-label">Refer Code</label>
-                                                    <input class="form-control" type="text" id="rfc" name="rfc" placeholder="Enter your Refer Code" required value="<?php echo isset($_SESSION['form_values']['rfc']) ? htmlspecialchars($_SESSION['rfc']['rfc']) : ''; ?>">
+                                                    <input class="form-control" type="text" id="rfc" name="rfc" placeholder="Enter your Refer Code" required value="<?php echo isset($_GET['r']);echo isset($_SESSION['form_values']['rfc']) ? htmlspecialchars($_SESSION['rfc']['rfc']) : '';  ?>">
                                                 </div>
                                             </div>
 
