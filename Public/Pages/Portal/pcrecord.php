@@ -177,7 +177,7 @@
 
                             if ($result->num_rows > 0) {
                             ?>
-                                <div class="card-body">
+                                <!-- <div class="card-body"> -->
                                     <div class="table-responsive">
 
                                         <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
