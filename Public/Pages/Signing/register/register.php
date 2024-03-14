@@ -97,12 +97,7 @@
                                                     <input class="form-control" type="text" id="fb_link" name="fb_link" placeholder="Enter your Facebook link" required="" value="<?php echo isset($_SESSION['form_values']['fb_link']) ? htmlspecialchars($_SESSION['form_values']['fb_link']) : ''; ?>">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="page_id" class="form-label">Page ID</label>
-                                                    <input class="form-control" type="hiddden" id="page_id" name="page_id" placeholder="Enter your Page ID" required hidden value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
-                                                </div>
-                                            </div>
+\                                                    <input class="form-control" type="hiddden" id="page_id" name="page_id" placeholder="Enter your Page ID" required hidden value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="fb_link" class="form-label">Refer Code</label>
