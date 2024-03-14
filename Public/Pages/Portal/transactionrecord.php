@@ -180,6 +180,18 @@
         </div>
 
     </main>
+    <script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    "order": [
+                        [10, "desc"]
+                    ] // Assuming 'created_at' is the fifth column (index 4)
+                });
+            });
+
+
+
+    </script>
     <!-- Wrapper End-->
     <!-- Live Customizer start -->
     <!-- Setting offcanvas start here -->
