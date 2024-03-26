@@ -127,7 +127,12 @@
                                 <!-- <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
                                 <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button> -->
 
-                                <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
+
+                                <a href="./Edit_User?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Details</button>
+                                </a>
+
+                                <a href="./record?a=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
                                 </a>
                                 <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
