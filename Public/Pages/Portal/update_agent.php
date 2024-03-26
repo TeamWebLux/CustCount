@@ -112,6 +112,8 @@
                                     <td>{$row['last_login']}</td>
                     echo </tr>";
                                             $id = $row["id"];
+                                            $username=$row["username"];
+
                                         }
                                         echo "</table>";
                                     } else {

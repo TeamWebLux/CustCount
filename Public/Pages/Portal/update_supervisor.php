@@ -74,25 +74,24 @@
 
             ?>
 
-<div class="content-inner container-fluid pb-0" id="page_layout">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="mb-0"><?php echo $user; ?> Details</h4>
-                        </div>
+            <div class="content-inner container-fluid pb-0" id="page_layout">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0"><?php echo $user; ?> Details</h4>
+                            </div>
 
-                        <div class="card-body">
-                        <div class="custom-table-effect table-responsive  border rounded">
-                            <?php
+                            <div class="card-body">
+                                <div class="custom-table-effect table-responsive  border rounded">
+                                    <?php
 
-                            if ($result) {
-                                // Fetch the results
-                                echo '<table class="table mb-0">';
-                                echo "<tr>";
-                                echo '<tr>
+                                    if ($result) {
+                                        // Fetch the results
+                                        echo '<table class="table mb-0">';
+                                        echo "<tr>";
+                                        echo '<tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Update</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Password</th>
@@ -100,17 +99,11 @@
                                 <th scope="col">Created At</th>
                                 <th scope="col">Last Login</th>
                     </tr>';
-                                while ($row = $result->fetch_assoc()) {
-                                    // Output column names as table headers
-                                    echo "<tr>
+                                        while ($row = $result->fetch_assoc()) {
+                                            // Output column names as table headers
+                                            echo "<tr>
                                     <td>{$row['id']}</td>
 
-                                    <td>
-                                    <form action=\"./update_agent\" method=\"post\">
-                                        <input type=\"hidden\" name=\"state\" value=\"{$row['username']}\">
-                                        <button type=\"submit\" class=\"btn btn-outline-success rounded-pill mt-2\">Update</button>
-                                    </form>
-                                </td>
                                 <td>{$row['username']}</td>
                                     <td>{$row['name']}</td>
                                     <td>{$row['password']}</td>
@@ -118,18 +111,19 @@
                                     <td>{$row['created_at']}</td> <!-- Consider if you really want to display passwords -->
                                     <td>{$row['last_login']}</td>
                     echo </tr>";
-                    $id = $row["id"];
-                                }
-                                echo "</table>";
-                            } else {
-                                echo "Error: " . $conn->error;
-                            }
-                            ?>
-                        </div>
-<br>
-<br>
+                                            $id = $row["id"];
+                                            $username=$row["username"];
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "Error: " . $conn->error;
+                                    }
+                                    ?>
+                                </div>
+                                <br>
+                                <br>
 
-                            <!-- <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
+                                <!-- <button type="button" class="btn btn-outline-info rounded-pill mt-2">Recharge</button>
                             <button type="button" class="btn btn-outline-info rounded-pill mt-2">Redeem</button> -->
                             <a href="./Edit_User?u=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Details</button>
@@ -137,13 +131,15 @@
                             <a href="javascript:void(0);" class="" onclick="passreset(<?php echo $id; ?>, 'user', 'password','id')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
                                 </a>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
-                            <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
+                                <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+                                </a>
+                                <button type="button" class="btn btn-outline-info rounded-pill mt-2">Activate</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             </div>
         </div>
 
@@ -166,70 +162,68 @@
 
     ?>
 
-<script>
+    <script>
+        function passreset(product_id, table, field, id) {
+            if (confirm("Are you sure you want to Reset the Password?")) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "../App/Logic/commonf.php?action=passreset", true);
 
-function passreset(product_id, table, field, id) {
-    if (confirm("Are you sure you want to Reset the Password?")) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "../App/Logic/commonf.php?action=passreset", true);
+                // Set the Content-Type header
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        // Set the Content-Type header
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                // Include additional parameters in the data sent to the server
+                const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id;
 
-        // Include additional parameters in the data sent to the server
-        const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id;
+                // Log the data being sent
+                console.log("Data sent to server:", data);
 
-        // Log the data being sent
-        console.log("Data sent to server:", data);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        console.log("XHR status:", xhr.status);
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
-                console.log("XHR status:", xhr.status);
+                        if (xhr.status === 200) {
+                            console.log("Response received:", xhr.responseText);
 
-                if (xhr.status === 200) {
-                    console.log("Response received:", xhr.responseText);
+                            try {
+                                const response = JSON.parse(xhr.responseText);
 
-                    try {
-                        const response = JSON.parse(xhr.responseText);
+                                if (response) {
+                                    console.log("Parsed JSON response:", response);
 
-                        if (response) {
-                            console.log("Parsed JSON response:", response);
-
-                            if (response.success) {
-                                alert("Reset Successfully!");
-                                location.reload();
-                            } else {
-                                alert("Error : " + response.message);
+                                    if (response.success) {
+                                        alert("Reset Successfully!");
+                                        location.reload();
+                                    } else {
+                                        alert("Error : " + response.message);
+                                    }
+                                } else {
+                                    console.error("Invalid JSON response:", xhr.responseText);
+                                    alert("Invalid JSON response from the server.");
+                                }
+                            } catch (error) {
+                                console.error("Error parsing JSON:", error);
+                                alert("Error parsing JSON response from the server.");
                             }
                         } else {
-                            console.error("Invalid JSON response:", xhr.responseText);
-                            alert("Invalid JSON response from the server.");
+                            console.error("HTTP request failed:", xhr.statusText);
+                            alert("Error: " + xhr.statusText);
                         }
-                    } catch (error) {
-                        console.error("Error parsing JSON:", error);
-                        alert("Error parsing JSON response from the server.");
                     }
-                } else {
-                    console.error("HTTP request failed:", xhr.statusText);
-                    alert("Error: " + xhr.statusText);
-                }
+                };
+
+                // Log any network errors
+                xhr.onerror = function() {
+                    console.error("Network error occurred.");
+                    alert("Network error occurred. Please try again.");
+                };
+
+                // Send the request
+                xhr.send(data);
             }
-        };
-
-        // Log any network errors
-        xhr.onerror = function() {
-            console.error("Network error occurred.");
-            alert("Network error occurred. Please try again.");
-        };
-
-        // Send the request
-        xhr.send(data);
-    }
 
 
-}
-
-</script>
+        }
+    </script>
 
     <!-- Settings sidebar end here -->
 

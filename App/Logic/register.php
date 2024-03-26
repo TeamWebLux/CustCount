@@ -19,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     $fullname = trim($_POST['name']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $ref=$_POST['rfc'];
+    $refercode=generateReferralCode($fullname,$conn);
 
     $role = trim($_POST['role']);
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
@@ -78,11 +80,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     // Replace with actual value
 
     // Proceed with database insertion since validation passed
-    $sql = "INSERT INTO user (name, username, `Fb-link`, pagename, branchname, ip_address, password, status, role, `by`, last_login, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
+    $sql = "INSERT INTO user (name, username, `Fb-link`, pagename, branchname, ip_address, password,refer_code, status, role, `by`, last_login, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, NOW(), NOW(), NOW())";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password, $status, $role, $by_u);
+        $stmt->bind_param("sssssssssss", $fullname, $username, $fbLink, $pageId, $branchId, $ipAddress, $password,$refercode, $status, $role, $by_u);
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
@@ -118,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
         $creationInstance = new Creation($conn);
         $branchId = $creationInstance->getBranchNameByPageName($pageId, $conn);
     }
-
     // Get the user's IP address
     $ipAddress = $_SERVER['REMOTE_ADDR'];
     $condition_value=$username;
@@ -159,3 +160,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 // Redirect based on the outcome
 header('Location: ' . $redirectTo);
 exit();
+ function generateReferralCode($name, $conn) {
+    // Get current date
+    $currentDate = date('ymd'); // Format: yymmdd
+    
+    // Get the first three letters of the name
+    $namePrefix = substr(strtoupper($name), 0, 3); // Convert name to uppercase and get first three letters
+    
+    // Initialize count
+    $count = 1; // Default count
+    $referralCode = "{$namePrefix}{$currentDate}"; // Initial referral code
+    
+    // Check if referral code already exists for the current date
+    while (referralCodeExists($referralCode, $conn)) {
+        // Increment count and append it to the referral code
+        $count++;
+        $referralCode = "{$namePrefix}{$currentDate}{$count}";
+    }
+    
+    
+    return $referralCode;
+}
+
+// Function to check if a referral code already exists in the database
+function referralCodeExists($referralCode, $conn) {
+    $sql = "SELECT COUNT(*) AS count FROM user WHERE refer_code = '$referralCode'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    return $row['count'] > 0; // If count > 0, referral code exists; otherwise, it doesn't
+}
+function processReferralCode($conn,$name) {
+    // Check if referral code is set in $_POST
+        // Sanitize referral code
+        $referralCode = mysqli_real_escape_string($conn,$name);
+
+        // Query to check if referral code exists
+        $query = "SELECT username FROM user WHERE refer_code = '$referralCode'";
+        $result = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($result) > 0) {
+            // Referral code exists, fetch user's name and the name of the person who referred them
+            $row = mysqli_fetch_assoc($result);
+            $userName = $row['username'];
+            // $referredBy = $row['referred_by'];
+
+            // Insert new entry into referral code table
+            $insertQuery = "INSERT INTO refferal (name, refered_by, referred_by) VALUES ('$userName', '$referralCode', '$referredBy')";
+            if(mysqli_query($conn, $insertQuery)) {
+                // Set success toast message
+                setToast('success', 'Referral code added successfully!');
+            } else {
+                // Set error toast message
+                setToast('error', 'Error adding referral code: ' . mysqli_error($conn));
+            }
+        } else {
+            // Set error toast message
+            setToast('error', 'Referral code does not exist!');
+        }
+
+    // Preserve form values and redirect
+    // $_SESSION['form_values'] = $_POST;
+    // header('Location: ' . $redirectTo);
+    // exit();
+}
+
+
+

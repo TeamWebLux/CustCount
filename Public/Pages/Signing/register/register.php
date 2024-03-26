@@ -59,8 +59,8 @@
                             <div class="card auth-card  d-flex justify-content-center mb-0">
                                 <div class="card-body">
                                     <h2 class="mb-2 text-center">Sign Up</h2>
-                                    <p class="text-center">Create your Qompac UI account.</p>
-                                    <form action="../App/Logic/register.php" method="POST">
+                                    <p class="text-center">.</p>
+                                    <form action="../App/Logic/register.php?action=register" method="POST">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
@@ -81,28 +81,20 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="role" class="form-label">Role</label>
-                                                <select class="form-select" id="role" name="role" required="">
-                                                    <option value="">Select your role</option>
-                                                    <option value="User" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'User') ? 'selected' : ''; ?>>User</option>
-                                                    <option value="Agent" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Agent') ? 'selected' : ''; ?>>Agent</option>
-                                                    <option value="Supervisor" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Supervisor') ? 'selected' : ''; ?>>Supervisor</option>
-                                                    <option value="Manager" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Manager') ? 'selected' : ''; ?>>Manager</option>
-                                                    <option value="Admin" <?php echo (isset($_SESSION['form_values']['role']) && $_SESSION['form_values']['role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="fb_link" class="form-label">Facebook Link</label>
                                                     <input class="form-control" type="text" id="fb_link" name="fb_link" placeholder="Enter your Facebook link" required="" value="<?php echo isset($_SESSION['form_values']['fb_link']) ? htmlspecialchars($_SESSION['form_values']['fb_link']) : ''; ?>">
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="page_id" name="page_id" value="<?php echo isset($_GET['p']) ? htmlspecialchars($_GET['p']) : ''; ?>">
+                                            <input class="form-control" type="hiddden" id="role" name="role" placeholder="Enter your Page ID" required hidden value="User">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="page_id" class="form-label">Page ID</label>
-                                                    <input class="form-control" type="text" id="page_id" name="page_id" placeholder="Enter your Page ID" required="" value="<?php echo isset($_SESSION['form_values']['page_id']) ? htmlspecialchars($_SESSION['form_values']['page_id']) : ''; ?>">
+                                                    <label for="fb_link" class="form-label">Refer Code</label>
+                                                    <input class="form-control" type="text" id="rfc" name="rfc" placeholder="Enter your Refer Code" required value="<?php echo isset($_GET['r']) ? htmlspecialchars($_GET['r']) : (isset($_SESSION['form_values']['rfc']) ? htmlspecialchars($_SESSION['form_values']['rfc']) : ''); ?>">
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-12 d-flex justify-content-center">
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="checkbox-signup" name="terms" <?php echo (isset($_SESSION['form_values']['terms']) && $_SESSION['form_values']['terms'] == 'on') ? 'checked' : ''; ?>>

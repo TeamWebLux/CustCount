@@ -72,6 +72,7 @@ class Creation
                 $stmt->bind_param("sids", $platformName, $status, $currentBalance, $addedBy);
 
                 if ($stmt->execute()) {
+                    $this->createRecord("platformRecord", "platform", $platformName, $currentBalance, "Recharge", $addedBy, 0, $currentBalance, "");
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform added successfully.'];
                     header("location: ../../index.php/Portal_Platform_Management");
                     exit();
@@ -84,21 +85,76 @@ class Creation
             }
         }
     }
+    public function createRecord($rtname, $name, $namef, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark)
+    {
+        $sql = "INSERT INTO $rtname ($name, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+        VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->bind_param("sdssdss", $namef, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
+
+            if ($stmt->execute()) {
+                $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
+            } else {
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging Platform: ' . $stmt->error];
+            }
+            $stmt->close();
+        } else {
+            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+        }
+    }
     public function RechargePlatform()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $platformName = $this->conn->real_escape_string($_POST['platform']);
             $amount = $this->conn->real_escape_string($_POST['amount']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
-            $addedBy = $_SESSION['username'];
+            $type = $this->conn->real_escape_string($_POST['type']);
 
-            $sql = "INSERT INTO platformRecord (platform, amount, by_name, created_at, updated_at, remark) 
-                    VALUES (?, ?, ?, NOW(), NOW(), ?)";
+            // Fetch previous closing balance
+            $previousClosingBalance = 0;
+            // if ($type == "Recharge") {
+            $query = "SELECT closing_balance FROM platformRecord WHERE platform = ? ORDER BY created_at DESC LIMIT 1";
+            if ($stmt = $this->conn->prepare($query)) {
+                $stmt->bind_param("s", $platformName);
+                $stmt->execute();
+                $stmt->bind_result($previousClosingBalance);
+                $stmt->fetch();
+                $stmt->close();
+            }
+            // }
+
+            // Calculate new opening balance if the type is "Recharge"
+            $openingBalance = 0;
+            if ($type == "Recharge") {
+                $openingBalance = $previousClosingBalance;
+                $closingBalance = $openingBalance + $amount;
+                $this->updateCurrentBalance("platform", $platformName, $closingBalance);
+                // Closing balance will be the opening balance plus the recharge amount
+
+            } elseif ($type == "Redeem") {
+                $openingBalance = $previousClosingBalance;
+                if ($openingBalance >= $amount) {
+                    $closingBalance = $openingBalance - $amount;
+                    $this->updateCurrentBalance("platform", $platformName, $closingBalance);
+                    // Closing balance will be the opening balance plus the recharge amount
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
+                    header("Location: ../../index.php/Portal_Platform_Management");
+                    exit();
+                }
+            }
+
+            $addedBy = $this->susername;
+
+            // Insert new record with updated balances
+            $sql = "INSERT INTO platformRecord (platform, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdss", $platformName, $amount, $addedBy, $remark);
+                $stmt->bind_param("sdssdss", $platformName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
+
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
                     header("Location: ../../index.php/Portal_Platform_Management");
                     exit();
@@ -111,6 +167,23 @@ class Creation
             }
         }
     }
+    public function updateCurrentBalance($table, $platformName, $newBalance)
+    {
+        $sql = "UPDATE $table SET current_balance = ? WHERE name = ?";
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->bind_param("ds", $newBalance, $platformName);
+            if ($stmt->execute()) {
+                $stmt->close();
+                return true; // Return true indicating success
+            } else {
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error updating current balance: ' . $stmt->error];
+            }
+        } else {
+            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+        }
+
+        return false; // Return false indicating failure
+    }
 
     public function CashApp()
     {
@@ -120,6 +193,7 @@ class Creation
             $currentBalance = $this->conn->real_escape_string($_POST['currentbalance']);
             $email = $this->conn->real_escape_string($_POST['email']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
+            $addedBy = $this->susername;
 
 
             $status = isset($_POST['active']) ? 1 : 0;
@@ -130,6 +204,8 @@ class Creation
                 $stmt->bind_param("sssdsi", $name, $cashtag, $email, $currentBalance, $remark, $status);
 
                 if ($stmt->execute()) {
+                    $this->createRecord("cashappRecord", "name", $name, $currentBalance, "Recharge", $addedBy, 0, $currentBalance, $remark);
+
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp details added successfully.'];
                     header("location: ../../index.php/Portal_Cashup_Management");
                     exit();
@@ -148,20 +224,57 @@ class Creation
             $cashAppName = $this->conn->real_escape_string($_POST['cashapp']);
             $amount = $this->conn->real_escape_string($_POST['amount']);
             $remark = $this->conn->real_escape_string($_POST['remark']);
+            $type = $this->conn->real_escape_string($_POST['type']);
             $addedBy = $_SESSION['username'];
+            $previousClosingBalance = 0;
+            // if ($type == "Recharge") {
+            $query = "SELECT closing_balance FROM cashappRecord WHERE name = ? ORDER BY created_at DESC LIMIT 1";
+            if ($stmt = $this->conn->prepare($query)) {
+                $stmt->bind_param("s", $cashAppName);
+                $stmt->execute();
+                $stmt->bind_result($previousClosingBalance);
+                $stmt->fetch();
+                $stmt->close();
+            }
+            // }
 
-            $sql = "INSERT INTO cashappRecord ( name,amount, by_name, created_at, updated_at, remark) 
-                    VALUES (?, ?, ?, NOW(), NOW(), ?)";
+            // Calculate new opening balance if the type is "Recharge"
+            $openingBalance = 0;
+            if ($type == "Recharge") {
+                $openingBalance = $previousClosingBalance;
+                $closingBalance = $openingBalance + $amount;
+                $this->updateCurrentBalance("cashapp", $cashAppName, $closingBalance);
+                // Closing balance will be the opening balance plus the recharge amount
+
+            } elseif ($type == "Redeem") {
+                $openingBalance = $previousClosingBalance;
+                if ($openingBalance >= $amount) {
+                    $closingBalance = $openingBalance - $amount;
+                    $this->updateCurrentBalance("cashapp", $cashAppName, $closingBalance);
+                    // Closing balance will be the opening balance plus the recharge amount
+                } else {
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Not Enough Money to do Transaction.'];
+                    header("Location: ../../index.php/Portal_Platform_Management");
+                    exit();
+                }
+            }
+
+            $addedBy = $this->susername;
+
+            echo $addedBy;
+
+            $sql = "INSERT INTO cashappRecord (name, amount, type, by_name, opening_balance, closing_balance, created_at, updated_at, remark) 
+                    VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sdss", $cashAppName, $amount, $addedBy, $remark);
+                $stmt->bind_param("sdssdss", $cashAppName, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark);
 
                 if ($stmt->execute()) {
-                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'CashApp recharged successfully.'];
+                    $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
                     header("Location: ../../index.php/Portal_Cashup_Management");
                     exit();
                 } else {
-                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging CashApp: ' . $stmt->error];
+                    $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error recharging Platform: ' . $stmt->error];
                 }
                 $stmt->close();
             } else {

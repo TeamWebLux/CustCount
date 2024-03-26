@@ -28,6 +28,25 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        foreach ($_POST as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+    }
+
+    // Store GET parameters in session
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        foreach ($_GET as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+    }
+    if (isset($_SESSION['timezone'])) {
+        $selectedTimezone = $_SESSION['timezone'];
+        // Set the default timezone to the selected timezone
+        date_default_timezone_set($selectedTimezone);
+    }
+
+
 
     // print($uri);
     ?>
@@ -78,12 +97,40 @@
 
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
+            <form method="GET" action="#">
+                <input type="hidden" name="u" value="<?php echo isset($_SESSION['u']) ? htmlspecialchars($_SESSION['u']) : ''; ?>">
+                <input type="hidden" name="r" value="<?php echo isset($_SESSION['r']) ? htmlspecialchars($_SESSION['r']) : ''; ?>">
+
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label for="start_date" class="col-form-label">Start Date:</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo isset($_SESSION['start_date']) ? htmlspecialchars($_SESSION['start_date']) : ''; ?>">
+                    </div>
+                    <div class="col-auto">
+                        <label for="end_date" class="col-form-label">End Date:</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo isset($_SESSION['end_date']) ? htmlspecialchars($_SESSION['end_date']) : ''; ?>">
+                    </div>
+                    <label for="timezone">Select Timezone:</label>
+                    <select name="timezone" id="timezone">
+                        <option value="America/New_York" <?php echo ($_SESSION['timezone'] ?? '') === 'America/New_York' ? 'selected' : ''; ?>>EST (America/New York)</option>
+                        <option value="America/Chicago" <?php echo ($_SESSION['timezone'] ?? '') === 'America/Chicago' ? 'selected' : ''; ?>>CST (America/Chicago)</option>
+                        <option value="Asia/Kolkata" <?php echo ($_SESSION['timezone'] ?? '') === 'Asia/Kolkata' ? 'selected' : ''; ?>>IST (Asia/Kolkata)</option>
+                    </select>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+
+                </div>
+            </form>
+
             <!-- /.box-header -->
             <div class="box-body">
                 <!-- <div class="table-responsive"> -->
                 <!-- <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
 
                     </table> -->
+
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">See All the data</h3>
@@ -95,7 +142,26 @@
                     <?php
                     include "./App/db/db_connect.php";
 
-                    $sql = "SELECT * FROM transaction ";
+                    $sql = "SELECT * FROM transaction WHERE 1=1"; // Always true condition to start the WHERE clause
+                    if (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] !== '') {
+                        // Both start and end dates are provided
+                        $start_date = $_SESSION['start_date'];
+                        $end_date = $_SESSION['end_date'];
+                        $sql .= " AND created_at BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+                    } elseif (isset($_SESSION['start_date']) && !isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '') {
+                        // Only start date is provided
+                        $start_date = $_SESSION['start_date'];
+                        $sql .= " AND created_at >= '$start_date 00:00:00'";
+                    } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
+                        // Only end date is provided
+                        $end_date = $_SESSION['end_date'];
+                        $sql .= " AND created_at <= '$end_date 23:59:59'";
+                    } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['start_date'] !== '' && $_SESSION['end_date'] === '') {
+                        // Only start date is provided and end date is empty
+                        $start_date = $_SESSION['start_date'];
+                        $sql .= " AND created_at >= '$start_date 00:00:00'";
+                    }
+
 
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
@@ -135,7 +201,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($results as $row) : ?>
+                                    <?php foreach ($results as $row) :
+                                        $createdAt = new DateTime($row['created_at'], new DateTimeZone('UTC'));
+                                        $createdAt->setTimezone(new DateTimeZone($selectedTimezone));
+                                        $createdAtFormatted = $createdAt->format('Y-m-d H:i:s');
+
+                                    ?>
+
                                         <tr>
                                             <td class="<?= ($row['type'] === 'Debit') ? 'Debit' : 'Credit' ?>">
                                                 <?= $row['type'] ?>
@@ -150,7 +222,7 @@
                                             <td><?= $row['page'] ?></td>
                                             <td><?= $row['cashapp'] ?></td>
 
-                                            <td><?= $row['created_at'] ?></td>
+                                            <td><?= $createdAtFormatted ?></td>
                                             <td><?= $row['username'] ?></td>
                                             <td><?= $row['by_u'] ?></td>
                                         </tr>
@@ -162,18 +234,18 @@
                     }
 
                         ?>
-
-                        <!-- echo -->
-
-                        <?
-                        include("./Public/Pages/Common/footer.php");
-                        // print_r($_SESSION);
-                        ?>
                         </div>
+
                 </div>
             </div>
         </div>
-        </div>
+
+        <!-- echo -->
+
+        <?
+        include("./Public/Pages/Common/footer.php");
+        // print_r($_SESSION);
+        ?>
 
     </main>
     <!-- Wrapper End-->

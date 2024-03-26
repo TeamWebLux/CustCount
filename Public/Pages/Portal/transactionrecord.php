@@ -98,7 +98,7 @@
                         if (isset($_GET['u'])) {
                             $u = $_GET['u'];
                             $sql = "SELECT * FROM transaction WHERE username = ?";
-
+                        
                             $stmt = $conn->prepare($sql);
                             $stmt->bind_param('s', $u);
                             $stmt->execute();
@@ -180,6 +180,23 @@
         </div>
 
     </main>
+    <script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    "order": [
+                        [9, "desc"]
+                    ],
+                    dom: 'Bfrtip', // Add the Bfrtip option to enable buttons
+
+                    buttons: [
+            'copy', 'excel', 'pdf'
+        ]
+                });
+            });
+
+
+
+    </script>
     <!-- Wrapper End-->
     <!-- Live Customizer start -->
     <!-- Setting offcanvas start here -->

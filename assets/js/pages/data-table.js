@@ -20,20 +20,20 @@ $(function () {
 	$('#example').DataTable( {
 		dom: 'Bfrtip',
 		buttons: [
-			'copy', 'excel', 'pdf', 'print'
-		 ],
-        'paging'      : true,
-        'lengthChange': true,
-        'searching'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : true,
+			'copy', 'excel',  'print'
+		 ]
+        // 'paging'      : true,
+        // 'lengthChange': true,
+        // 'searching'   : true,
+        // 'ordering'    : true,
+        // 'info'        : true,
+        // 'autoWidth'   : true,
   
 	} );
     $('#data-table').DataTable( {
 		dom: 'Bfrtip',
 		buttons: [
-			'copy', 'excel', 'pdf', 'print'
+			'copy', 'excel',  'print'
 		 ]
 	} );
 

@@ -92,7 +92,6 @@
                                         echo "<tr>";
                                         echo '<tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Update</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Password</th>
@@ -119,6 +118,8 @@
                     echo </tr>";
                                             $id = $row['id'];
                                             $status = $row['status'];
+                                            $username=$row["username"];
+
                                         }
                                         echo "</table>";
                                     } else {
@@ -137,7 +138,10 @@
                                 <a href="./Edit_User?u=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Details</button>
                                 </a>
-                                <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+                                <a href="./record?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-outline-info rounded-pill mt-2">Transaction Record</button>
+                                </a>
+
                                 <a href="javascript:void(0);" class="" onclick="passreset(<?php echo $id; ?>, 'user', 'password','id')">
                                     <button type="button" class="btn btn-warning rounded-pill mt-2">Password Reset</button>
                                 </a>

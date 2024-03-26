@@ -85,7 +85,7 @@
                         ?>
                             <div class="card-body">
                                 <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="datatable" data-toggle="data-table">
+                                    <table class="table mb-0" id="example" >
                                         <thead>
                                             <tr class="bg-white">
                                             <?php
