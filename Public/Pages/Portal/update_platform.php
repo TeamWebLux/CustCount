@@ -123,7 +123,9 @@
                                 </div>
                                 <br>
                                 <br>
-
+                                <a href="./Edit_User?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Details</button>
+                                </a>
                                 <a href="./Recharge_Platform?name=<?php echo $username; ?>" style="text-decoration: none;">
                                     <button type="button" class="btn btn-danger rounded-pill mt-2">Recharge</button>
                                 </a>

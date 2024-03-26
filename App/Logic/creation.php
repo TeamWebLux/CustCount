@@ -421,31 +421,60 @@ class Creation
     // exit();
 
     public function EditBranch()
+{
+    $name = $this->conn->real_escape_string($_POST['name']);
+    $status = isset($_POST['status']) ? 1 : 0; // Assuming 'status' is a checkbox
+    $bid = $_POST['bid']; 
+    echo $bid;
+    exit();
+    $sql = "UPDATE branch SET name=?, status=?, updated_at=NOW() WHERE bid=?";
+    
+    if ($stmt = $this->conn->prepare($sql)) {
+        $stmt->bind_param("sii", $name, $status, $bid);
+
+        if ($stmt->execute()) {
+            // Success: Redirect or display a success message
+            $_SESSION['toast'] = ['type' => 'success', 'message' => 'Branch Updated Successfully.'];
+            header("location: ../../index.php/Portal_Branch_Management");
+            exit();
+        } else {
+            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error updating branch: ' . $stmt->error];
+        }
+        $stmt->close();
+    } else {
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
+    }
+}
+
+
+    public function EditCashApp()
     {
         $name = $this->conn->real_escape_string($_POST['name']);
-        $status = isset($_POST['status']) ? 1 : 0; // Assuming 'status' is a checkbox
+        $cashtag = $this->conn->real_escape_string($_POST['cashtag']);
+        $email = $this->conn->real_escape_string($_POST['email']);
+        $status = isset($_POST['status']) ? 1 : 0;
+        $current_balance = $this->conn->real_escape_string($_POST['current_balance']);
+        $remark = $this->conn->real_escape_string($_POST['remark']);
 
-        // Update the database for editing a branch
-        $bid = $_POST['bid']; // Assuming you have the branch ID
+        $sql = "UPDATE cashapp SET cashtag=?, email=?, status=?, current_balance=?, remark=?, updated_at = NOW() WHERE name=?";
+        $update_stmt = $this->conn->prepare($sql);
+        $update_stmt->bind_param("ssidss", $cashtag, $email, $status, $current_balance, $remark, $name);
 
-        $sql = "UPDATE branch SET name=?, status=?, updated_at=NOW() WHERE bid=?";
+        // Execute the statement
+        $update_stmt->execute();
 
-        if ($stmt = $this->conn->prepare($sql)) {
-            $stmt->bind_param("sii", $name, $status, $bid);
-
-            if ($stmt->execute()) {
+            if ($update_stmt->execute()) {
                 // Success: Redirect or display a success message
-                $_SESSION['toast'] = ['type' => 'success', 'message' => 'Branch updated successfully.'];
-                header("location: ../../index.php/Portal_Branch_Management");
+                $_SESSION['toast'] = ['type' => 'success', 'message' => 'Details Updated Successfully.'];
+                header("location: ../../index.php/Portal_Cashup_Management");
                 exit();
             } else {
-                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error updating branch: ' . $stmt->error];
+                $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error updating Details: ' . $update_stmt->error];
             }
-            $stmt->close();
-        } else {
-            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Error preparing statement: ' . $this->conn->error];
-        }
+            $update_stmt->close();
     }
+
+
     public function AddPage()
     {
 
@@ -563,6 +592,10 @@ if (isset($_GET['action']) && $_GET['action'] == "UserAdd") {
     $creation->RechargeCashApp();
 } else if (isset($_GET['action']) && $_GET['action'] == "Recharge_platform") {
     $creation->RechargePlatform();
+}else if (isset($_GET['action']) && $_GET['action'] == "EditCashApp") {
+    $creation->EditCashApp();
+}else if (isset($_GET['action']) && $_GET['action'] == "EditBranch") {
+    $creation->EditBranch();
 }
 
 
